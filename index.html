@@ -118,6 +118,20 @@
         </div>
       </div>
 
+      <!-- ACTIVE USER PROFILE CHIP (Multi-User Switcher) -->
+      <div class="flex items-center">
+        <button onclick="userManager.openProfileListModal()" title="Profil & Ganti Petualang" class="flex items-center space-x-2.5 bg-white/95 hover:bg-slate-50 border border-slate-200/90 hover:border-indigo-300 px-3 py-1.5 rounded-2xl shadow-sm hover:shadow transition-all group active:scale-95">
+          <div id="user-chip-avatar" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-xl shadow-sm transform group-hover:scale-105 transition-transform">🦁</div>
+          <div class="text-left">
+            <div class="flex items-center space-x-1">
+              <span id="user-chip-name" class="font-extrabold text-xs text-slate-800 group-hover:text-indigo-600 transition-colors max-w-[100px] sm:max-w-[140px] truncate">Petualang Cilik</span>
+              <i class="fa-solid fa-chevron-down text-[9px] text-slate-400 group-hover:text-indigo-500"></i>
+            </div>
+            <span id="user-chip-sub" class="text-[10px] font-bold text-indigo-600 block leading-tight">Kelas 1 • Lv 1</span>
+          </div>
+        </button>
+      </div>
+
       <!-- GRADE SELECTOR (Kelas 1 - 6) -->
       <div class="flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200 shadow-inner">
         <span class="text-xs font-bold text-slate-500 px-2 hidden sm:inline">Kelas:</span>
@@ -373,7 +387,7 @@
                   Lv <span id="boss-hero-level">1</span>
                 </div>
               </div>
-              <span class="font-extrabold text-sm sm:text-base text-indigo-200">Ksatria Matematika</span>
+              <span id="boss-hero-name" class="font-extrabold text-sm sm:text-base text-indigo-200">Ksatria Matematika</span>
               
               <!-- Hero HP Bar -->
               <div class="w-full max-w-[180px]">
@@ -821,6 +835,122 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL: REGISTER / EDIT USER PROFILE ==================== -->
+  <div id="modal-register" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 my-8 animate-fade-in">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2.5">
+          <span class="text-3xl">🌟</span>
+          <div>
+            <h3 id="register-modal-title" class="font-display font-black text-slate-800 text-lg sm:text-xl">
+              Pendaftaran Petualang Juara!
+            </h3>
+            <p id="register-modal-subtitle" class="text-xs text-slate-500">
+              Pilih avatar lucu dan isi namamu untuk petualangan olimpiade matematika!
+            </p>
+          </div>
+        </div>
+        <button id="btn-close-register" onclick="app.closeModal('modal-register')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-sm">✕</button>
+      </div>
+
+      <!-- Live Member Card Preview -->
+      <div class="p-4 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg flex items-center space-x-4">
+        <div id="reg-preview-avatar" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-3xl shadow-md border-2 border-white/60 transform hover:rotate-6 transition-transform">
+          🦁
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center space-x-2 mb-0.5">
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-sm text-amber-200">KARTU PETUALANG</span>
+            <span id="reg-preview-grade" class="text-[10px] font-bold bg-black/20 px-2 py-0.5 rounded-full text-white">Kelas 1 SD</span>
+          </div>
+          <h4 id="reg-preview-name" class="font-display font-black text-lg sm:text-xl truncate text-white drop-shadow-sm">Nama Juara</h4>
+          <p id="reg-preview-trait" class="text-[11px] text-indigo-100 font-semibold truncate">Leo • Singa Pemberani</p>
+        </div>
+      </div>
+
+      <!-- Form Inputs -->
+      <div class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Name Input -->
+          <div class="sm:col-span-2 space-y-1">
+            <label class="block text-xs font-bold text-slate-700">Nama Lengkap / Panggilan Anak:</label>
+            <input type="text" id="input-reg-name" placeholder="Contoh: Kenzo Pratama" maxlength="30" oninput="userManager.updatePreviewCard()" class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-300 font-bold text-sm text-slate-800 outline-none focus:border-indigo-500 focus:bg-white transition-all">
+          </div>
+          <!-- Grade Select -->
+          <div class="space-y-1">
+            <label class="block text-xs font-bold text-slate-700">Tingkat Kelas:</label>
+            <select id="select-reg-grade" onchange="userManager.updatePreviewCard()" class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-300 font-bold text-sm text-slate-800 outline-none focus:border-indigo-500 focus:bg-white transition-all">
+              <option value="1">Kelas 1 SD</option>
+              <option value="2">Kelas 2 SD</option>
+              <option value="3">Kelas 3 SD</option>
+              <option value="4">Kelas 4 SD</option>
+              <option value="5">Kelas 5 SD</option>
+              <option value="6">Kelas 6 SD</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Avatar Selection Grid -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-bold text-slate-700">Pilih Avatar Lucu & Karakter Favoritmu:</label>
+            <span class="text-[10px] font-bold text-indigo-600">12 Karakter Unik</span>
+          </div>
+          <div id="reg-avatar-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 max-h-56 overflow-y-auto p-1.5 border border-slate-200/80 rounded-2xl bg-slate-50/50">
+            <!-- Dynamically rendered by userManager -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+        <button type="button" onclick="app.closeModal('modal-register')" class="px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+          Batal
+        </button>
+        <button type="button" onclick="userManager.submitRegister()" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-xs shadow-md hover:shadow-lg transition-all flex items-center space-x-2 active:scale-95">
+          <span>🚀 Simpan & Mulai Bertualang!</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: MULTI-USER PROFILES MANAGER ==================== -->
+  <div id="modal-profiles" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-4 my-8 animate-fade-in">
+      
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2.5">
+          <span class="text-3xl">👥</span>
+          <div>
+            <h3 class="font-display font-black text-slate-800 text-lg">Pilih Profil Petualang</h3>
+            <p class="text-xs text-slate-500">Ganti akun atau daftarkan anak/siswa lain untuk berlatih mandiri.</p>
+          </div>
+        </div>
+        <button onclick="app.closeModal('modal-profiles')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-sm">✕</button>
+      </div>
+
+      <!-- Grid of Profile Cards -->
+      <div id="profile-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-80 overflow-y-auto p-1">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Action Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-100">
+        <button onclick="userManager.openRegisterModal(false); app.closeModal('modal-profiles');" class="px-4 py-2.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-extrabold text-xs border border-indigo-200 flex items-center space-x-1.5 transition-all active:scale-95">
+          <i class="fa-solid fa-user-plus text-xs"></i>
+          <span>➕ Tambah Petualang Baru</span>
+        </button>
+        <button onclick="app.closeModal('modal-profiles')" class="px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all">
+          Tutup
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
@@ -1033,8 +1163,10 @@
         const ctx = this.canvas.getContext('2d');
         const w = this.canvas.width;
         const h = this.canvas.height;
-        const childName = (document.getElementById('cert-child-name').value || 'Ksatria Matematika').trim();
-        const gradeText = `Siswa Kelas ${app.currentGrade} SD`;
+        const activeUser = (typeof userManager !== 'undefined') ? userManager.getActiveUser() : null;
+        const childName = (document.getElementById('cert-child-name').value || (activeUser ? activeUser.name : 'Ksatria Matematika')).trim();
+        const userGrade = activeUser ? activeUser.grade : app.currentGrade;
+        const gradeText = `Siswa Kelas ${userGrade} SD`;
         const dateStr = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
 
         // Background
@@ -1063,43 +1195,63 @@
         ctx.textAlign = 'center';
         ctx.fillStyle = '#1e293b';
         ctx.font = 'bold 15px Outfit, sans-serif';
-        ctx.fillText('PIAGAM PENGHARGAAN OLIMPIADE MATEMATIKA', w / 2, 80);
+        ctx.fillText('PIAGAM PENGHARGAAN OLIMPIADE MATEMATIKA', w / 2, 75);
 
         ctx.fillStyle = '#0f766e';
-        ctx.font = '900 32px Fredoka, Outfit, sans-serif';
-        ctx.fillText('OliMath Adventure by antigravity', w / 2, 122);
+        ctx.font = '900 30px Fredoka, Outfit, sans-serif';
+        ctx.fillText('OliMath Adventure by antigravity', w / 2, 114);
 
         ctx.fillStyle = '#64748b';
         ctx.font = '500 13px Outfit, sans-serif';
-        ctx.fillText('Dengan bangga menganugerahkan sertifikat pencapaian istimewa kepada:', w / 2, 165);
+        ctx.fillText('Dengan bangga menganugerahkan sertifikat pencapaian istimewa kepada:', w / 2, 150);
+
+        // Child's Chosen Avatar Badge Medallion on Certificate
+        if (activeUser && activeUser.avatar) {
+          ctx.save();
+          const avX = w / 2;
+          const avY = 184;
+          ctx.beginPath();
+          ctx.arc(avX, avY, 22, 0, Math.PI * 2);
+          ctx.fillStyle = activeUser.avatarColor || '#f59e0b';
+          ctx.fill();
+          ctx.lineWidth = 2.5;
+          ctx.strokeStyle = '#facc15';
+          ctx.stroke();
+
+          ctx.font = '24px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(activeUser.avatar, avX, avY + 1);
+          ctx.restore();
+        }
 
         // Child's Name
         ctx.fillStyle = '#1e1b4b';
-        ctx.font = '900 34px Outfit, sans-serif';
-        ctx.fillText(childName, w / 2, 220);
+        ctx.font = '900 32px Outfit, sans-serif';
+        ctx.fillText(childName, w / 2, 238);
 
         // Underline for name
         ctx.strokeStyle = '#e2e8f0';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(w / 2 - 180, 235);
-        ctx.lineTo(w / 2 + 180, 235);
+        ctx.moveTo(w / 2 - 180, 252);
+        ctx.lineTo(w / 2 + 180, 252);
         ctx.stroke();
 
         // Grade & Achievement Description
         ctx.fillStyle = '#334155';
         ctx.font = '600 15px Outfit, sans-serif';
-        ctx.fillText(`${gradeText} • Predikat: ${medal} (Skor: ${score}/100)`, w / 2, 270);
+        ctx.fillText(`${gradeText} • Predikat: ${medal} (Skor: ${score}/100)`, w / 2, 282);
 
         ctx.fillStyle = '#64748b';
         ctx.font = '400 13px Outfit, sans-serif';
-        ctx.fillText('Telah berhasil menyelesaikan Ujian Simulasi Standar Kompetisi OSN / SASMO / Kangaroo Math', w / 2, 305);
-        ctx.fillText('dengan dedikasi, ketelitian, dan daya nalar pemecahan masalah yang luar biasa.', w / 2, 325);
+        ctx.fillText('Telah berhasil menyelesaikan Ujian Simulasi Standar Kompetisi OSN / SASMO / Kangaroo Math', w / 2, 314);
+        ctx.fillText('dengan dedikasi, ketelitian, dan daya nalar pemecahan masalah yang luar biasa.', w / 2, 334);
 
         // Gold Seal Stamp in Center Bottom
         ctx.fillStyle = '#fef08a';
         ctx.beginPath();
-        ctx.arc(w / 2, 400, 38, 0, Math.PI * 2);
+        ctx.arc(w / 2, 405, 36, 0, Math.PI * 2);
         ctx.fill();
         ctx.strokeStyle = '#ca8a04';
         ctx.lineWidth = 3;
@@ -1107,9 +1259,9 @@
 
         ctx.fillStyle = '#854d0e';
         ctx.font = 'bold 10px Outfit, sans-serif';
-        ctx.fillText('★ RESMI ★', w / 2, 395);
+        ctx.fillText('★ RESMI ★', w / 2, 400);
         ctx.font = '800 13px Outfit, sans-serif';
-        ctx.fillText('JUARA', w / 2, 412);
+        ctx.fillText('JUARA', w / 2, 417);
 
         // Signature & Date Footers
         ctx.textAlign = 'left';
@@ -1129,6 +1281,11 @@
 
       generateFromTryout() {
         app.switchTab('cert');
+        const activeUser = userManager.getActiveUser();
+        if (activeUser) {
+          const nameInput = document.getElementById('cert-child-name');
+          if (nameInput) nameInput.value = activeUser.name;
+        }
         this.renderPreview(tryoutEngine.lastScore, tryoutEngine.lastMedal);
         app.showToast('🎖️ Sertifikat Siap Dicetak!');
       }
@@ -1146,7 +1303,399 @@
     const certificateEngine = new CertificateEngine();
 
     /* -------------------------------------------------------------
-       4. MAIN APPLICATION LOGIC & STATE ENGINE
+       4. MULTI-USER & AVATAR MANAGER (Registrasi & Switch Profile)
+       ------------------------------------------------------------- */
+    class UserManager {
+      constructor() {
+        this.profiles = [];
+        this.activeUserId = null;
+        this.selectedAvatarId = 'lion';
+        this.editingUserId = null;
+        this.avatars = [
+          { id: 'lion', icon: '🦁', name: 'Leo', trait: 'Singa Pemberani', bg: 'from-amber-400 to-orange-500', color: '#f59e0b' },
+          { id: 'cat', icon: '🐱', name: 'Miko', trait: 'Kucing Kosmik', bg: 'from-sky-400 to-indigo-500', color: '#0ea5e9' },
+          { id: 'fox', icon: '🦊', name: 'Foxy', trait: 'Rubah Cerdik', bg: 'from-orange-400 to-rose-500', color: '#f97316' },
+          { id: 'panda', icon: '🐼', name: 'Bao Bao', trait: 'Panda Ksatria', bg: 'from-emerald-400 to-teal-600', color: '#10b981' },
+          { id: 'bunny', icon: '🐰', name: 'Bunny', trait: 'Kelinci Lincah', bg: 'from-pink-400 to-rose-500', color: '#ec4899' },
+          { id: 'owl', icon: '🦉', name: 'Hootie', trait: 'Profesor Bijak', bg: 'from-purple-400 to-indigo-600', color: '#8b5cf6' },
+          { id: 'unicorn', icon: '🦄', name: 'Sparkle', trait: 'Unicorn Ajaib', bg: 'from-fuchsia-400 to-pink-500', color: '#d946ef' },
+          { id: 'dino', icon: '🦖', name: 'Rexy', trait: 'Dino Kritis', bg: 'from-lime-400 to-emerald-600', color: '#84cc16' },
+          { id: 'dolphin', icon: '🐬', name: 'Finny', trait: 'Lumba Ceria', bg: 'from-cyan-400 to-blue-500', color: '#06b6d4' },
+          { id: 'wizard', icon: '🧙‍♀️', name: 'Luna', trait: 'Penyihir Rumus', bg: 'from-violet-400 to-purple-600', color: '#7c3aed' },
+          { id: 'ninja', icon: '🥷', name: 'Ren', trait: 'Ninja Kilat', bg: 'from-slate-700 to-slate-900', color: '#334155' },
+          { id: 'robot', icon: '🤖', name: 'Robo', trait: 'Logika Analitis', bg: 'from-teal-400 to-cyan-600', color: '#14b8a6' }
+        ];
+      }
+
+      init() {
+        this.loadProfiles();
+        this.renderAvatarGrid();
+        if (!this.activeUserId || !this.getActiveUser()) {
+          if (this.profiles.length > 0) {
+            this.activeUserId = this.profiles[0].id;
+            this.saveProfiles();
+            this.syncActiveUserToApp();
+          } else {
+            // First time user: open registration modal automatically!
+            setTimeout(() => this.openRegisterModal(true), 350);
+            return;
+          }
+        } else {
+          this.syncActiveUserToApp();
+        }
+      }
+
+      loadProfiles() {
+        const raw = localStorage.getItem('olimath_user_profiles');
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw);
+            this.profiles = parsed.profiles || [];
+            this.activeUserId = parsed.activeUserId || null;
+          } catch(e) {}
+        }
+        // Auto migration from legacy single-user progress
+        if (this.profiles.length === 0) {
+          const oldProgress = localStorage.getItem('olimath_progress');
+          if (oldProgress) {
+            try {
+              const oldData = JSON.parse(oldProgress);
+              const migratedProfile = {
+                id: 'user_' + Date.now(),
+                name: 'Ksatria Juara',
+                grade: 1,
+                avatarId: 'lion',
+                avatar: '🦁',
+                avatarBg: 'from-amber-400 to-orange-500',
+                avatarColor: '#f59e0b',
+                trait: 'Singa Pemberani',
+                coins: oldData.coins || 0,
+                streak: oldData.streak || 0,
+                xp: oldData.xp || 0,
+                level: oldData.level || 1,
+                solvedIds: oldData.solvedIds || [],
+                bossDefeats: oldData.bossDefeats || 0,
+                createdAt: Date.now()
+              };
+              this.profiles.push(migratedProfile);
+              this.activeUserId = migratedProfile.id;
+              this.saveProfiles();
+            } catch(e) {}
+          }
+        }
+      }
+
+      saveProfiles() {
+        const payload = {
+          activeUserId: this.activeUserId,
+          profiles: this.profiles
+        };
+        localStorage.setItem('olimath_user_profiles', JSON.stringify(payload));
+      }
+
+      getActiveUser() {
+        return this.profiles.find(p => p.id === this.activeUserId) || null;
+      }
+
+      syncActiveUserToApp() {
+        const user = this.getActiveUser();
+        if (!user) return;
+
+        // Sync to app.userData
+        app.userData = user;
+        app.currentGrade = user.grade || 1;
+
+        // Update Header Chip
+        const chipAvatar = document.getElementById('user-chip-avatar');
+        if (chipAvatar) {
+          chipAvatar.textContent = user.avatar;
+          chipAvatar.className = `w-9 h-9 rounded-xl bg-gradient-to-tr ${user.avatarBg} flex items-center justify-center text-xl shadow-sm transform group-hover:scale-105 transition-transform`;
+        }
+        const chipName = document.getElementById('user-chip-name');
+        if (chipName) chipName.textContent = user.name;
+        const chipSub = document.getElementById('user-chip-sub');
+        if (chipSub) chipSub.textContent = `Kelas ${user.grade} • Lv ${user.level}`;
+
+        // Update Certificate Name
+        const certInput = document.getElementById('cert-child-name');
+        if (certInput) certInput.value = user.name;
+
+        // Update Boss Battle Hero side
+        const bossHeroAvatar = document.getElementById('hero-avatar');
+        if (bossHeroAvatar) {
+          bossHeroAvatar.textContent = user.avatar;
+          bossHeroAvatar.className = `w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr ${user.avatarBg} border-2 border-white/80 flex items-center justify-center text-4xl sm:text-5xl shadow-lg transition-transform`;
+        }
+        const bossHeroName = document.getElementById('boss-hero-name');
+        if (bossHeroName) bossHeroName.textContent = `Ksatria ${user.name}`;
+
+        // Refresh UI
+        app.renderGradeButtons();
+        app.updateHUD();
+        app.loadQuestion();
+        bossBattle.initForGrade(app.currentGrade);
+      }
+
+      renderAvatarGrid() {
+        const grid = document.getElementById('reg-avatar-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        this.avatars.forEach(av => {
+          const isSelected = av.id === this.selectedAvatarId;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `avatar-choice-btn p-2 rounded-2xl border-2 transition-all flex flex-col items-center space-y-1 relative group ${
+            isSelected
+              ? 'border-indigo-600 bg-indigo-50/80 shadow-md ring-2 ring-indigo-400 scale-105'
+              : 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300'
+          }`;
+          btn.innerHTML = `
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-2xl shadow-sm group-hover:scale-110 transition-transform">
+              ${av.icon}
+            </div>
+            <span class="text-[11px] font-extrabold text-slate-800 block truncate max-w-[70px]">${av.name}</span>
+            <span class="text-[9px] font-semibold text-slate-500 block truncate max-w-[75px]">${av.trait}</span>
+            ${isSelected ? '<span class="absolute -top-1 -right-1 w-5 h-5 bg-indigo-600 text-white rounded-full text-[10px] flex items-center justify-center shadow font-bold">✓</span>' : ''}
+          `;
+          btn.onclick = () => this.selectAvatar(av.id);
+          grid.appendChild(btn);
+        });
+        this.updatePreviewCard();
+      }
+
+      selectAvatar(avatarId) {
+        this.selectedAvatarId = avatarId;
+        sound.playClick();
+        this.renderAvatarGrid();
+      }
+
+      updatePreviewCard() {
+        const av = this.avatars.find(a => a.id === this.selectedAvatarId) || this.avatars[0];
+        const nameInput = document.getElementById('input-reg-name');
+        const name = (nameInput && nameInput.value ? nameInput.value : 'Nama Kamu').trim();
+        const gradeSelect = document.getElementById('select-reg-grade');
+        const grade = (gradeSelect ? gradeSelect.value : '1') || '1';
+
+        const prevAvatar = document.getElementById('reg-preview-avatar');
+        if (prevAvatar) {
+          prevAvatar.textContent = av.icon;
+          prevAvatar.className = `w-14 h-14 rounded-2xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-3xl shadow-md border-2 border-white/60 transform hover:rotate-6 transition-transform`;
+        }
+        const prevName = document.getElementById('reg-preview-name');
+        if (prevName) prevName.textContent = name;
+        const prevGrade = document.getElementById('reg-preview-grade');
+        if (prevGrade) prevGrade.textContent = `Kelas ${grade} SD`;
+        const prevTrait = document.getElementById('reg-preview-trait');
+        if (prevTrait) prevTrait.textContent = `${av.name} • ${av.trait}`;
+      }
+
+      openRegisterModal(isFirstTime = false, editUserId = null) {
+        this.editingUserId = editUserId;
+        const modal = document.getElementById('modal-register');
+        const closeBtn = document.getElementById('btn-close-register');
+        const title = document.getElementById('register-modal-title');
+        const sub = document.getElementById('register-modal-subtitle');
+        const nameInput = document.getElementById('input-reg-name');
+        const gradeSelect = document.getElementById('select-reg-grade');
+
+        if (isFirstTime || this.profiles.length === 0) {
+          closeBtn.classList.add('hidden');
+          title.textContent = '🌟 Selamat Datang, Calon Juara!';
+          sub.textContent = 'Daftarkan namamu dan pilih avatar favoritmu untuk memulai petualangan matematika!';
+          nameInput.value = '';
+          gradeSelect.value = '1';
+          this.selectedAvatarId = 'lion';
+        } else if (editUserId) {
+          closeBtn.classList.remove('hidden');
+          const p = this.profiles.find(x => x.id === editUserId);
+          title.textContent = '✏️ Edit Profil Petualang';
+          sub.textContent = 'Ubah nama, kelas, atau avatar petualangmu.';
+          nameInput.value = p ? p.name : '';
+          gradeSelect.value = p ? String(p.grade) : '1';
+          this.selectedAvatarId = p ? p.avatarId : 'lion';
+        } else {
+          closeBtn.classList.remove('hidden');
+          title.textContent = '➕ Tambah Petualang Baru';
+          sub.textContent = 'Daftarkan adik, kakak, atau teman untuk bertualang bersama!';
+          nameInput.value = '';
+          gradeSelect.value = String(app.currentGrade);
+          this.selectedAvatarId = this.avatars[Math.floor(Math.random() * this.avatars.length)].id;
+        }
+
+        this.renderAvatarGrid();
+        modal.classList.remove('hidden');
+        setTimeout(() => nameInput.focus(), 150);
+      }
+
+      submitRegister() {
+        const nameInput = document.getElementById('input-reg-name');
+        const name = nameInput.value.trim();
+        const grade = parseInt(document.getElementById('select-reg-grade').value) || 1;
+
+        if (!name) {
+          alert('Silakan ketikkan nama terlebih dahulu ya!');
+          nameInput.focus();
+          return;
+        }
+
+        const av = this.avatars.find(a => a.id === this.selectedAvatarId) || this.avatars[0];
+
+        if (this.editingUserId) {
+          // Edit existing
+          const p = this.profiles.find(x => x.id === this.editingUserId);
+          if (p) {
+            p.name = name;
+            p.grade = grade;
+            p.avatarId = av.id;
+            p.avatar = av.icon;
+            p.avatarBg = av.bg;
+            p.avatarColor = av.color;
+            p.trait = av.trait;
+          }
+          app.showToast(`✅ Profil ${name} berhasil diperbarui!`);
+        } else {
+          // Create new
+          const newProfile = {
+            id: 'user_' + Date.now(),
+            name: name,
+            grade: grade,
+            avatarId: av.id,
+            avatar: av.icon,
+            avatarBg: av.bg,
+            avatarColor: av.color,
+            trait: av.trait,
+            coins: 50, // Welcome gift coins!
+            streak: 1,
+            xp: 0,
+            level: 1,
+            solvedIds: [],
+            bossDefeats: 0,
+            createdAt: Date.now()
+          };
+          this.profiles.push(newProfile);
+          this.activeUserId = newProfile.id;
+          app.triggerConfetti();
+          sound.playLevelUp();
+          app.showToast(`🎉 Selamat Datang, ${name}! Kamu dapat +50 Koin Sambutan 🪙`);
+        }
+
+        this.saveProfiles();
+        this.syncActiveUserToApp();
+        app.closeModal('modal-register');
+      }
+
+      openProfileListModal() {
+        this.renderProfileCards();
+        app.openModal('modal-profiles');
+      }
+
+      renderProfileCards() {
+        const container = document.getElementById('profile-cards-grid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        this.profiles.forEach(p => {
+          const isActive = p.id === this.activeUserId;
+          const card = document.createElement('div');
+          card.className = `p-4 rounded-3xl border-2 transition-all flex flex-col justify-between ${
+            isActive 
+              ? 'border-emerald-500 bg-emerald-50/70 shadow-md ring-2 ring-emerald-300' 
+              : 'border-slate-200 bg-white hover:border-indigo-300 hover:shadow-sm'
+          }`;
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${p.avatarBg} flex items-center justify-center text-3xl shadow-sm">
+                    ${p.avatar}
+                  </div>
+                  <div>
+                    <h4 class="font-display font-extrabold text-sm text-slate-800 leading-tight">${p.name}</h4>
+                    <span class="text-[10px] font-bold text-indigo-600 block">Kelas ${p.grade} • Level ${p.level}</span>
+                    <span class="text-[9px] font-medium text-slate-500">${p.trait || 'Petualang Cerdik'}</span>
+                  </div>
+                </div>
+                ${isActive ? '<span class="bg-emerald-500 text-white font-extrabold text-[10px] px-2.5 py-0.5 rounded-full shadow-sm">AKTIF</span>' : ''}
+              </div>
+
+              <div class="grid grid-cols-3 gap-1.5 py-2 px-3 bg-slate-50/90 rounded-2xl border border-slate-200/60 text-center mb-3 text-[11px]">
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-slate-400 block">Koin</span>
+                  <span class="font-extrabold text-amber-700">🪙 ${p.coins}</span>
+                </div>
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-slate-400 block">Streak</span>
+                  <span class="font-extrabold text-rose-600">🔥 ${p.streak}</span>
+                </div>
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-slate-400 block">XP</span>
+                  <span class="font-extrabold text-indigo-600">⭐ ${p.xp}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100 gap-2">
+              ${!isActive ? `
+                <button onclick="userManager.switchUser('${p.id}')" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-sm transition-all active:scale-95 flex items-center justify-center space-x-1">
+                  <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                  <span>Pilih Akun</span>
+                </button>
+              ` : `
+                <span class="text-xs font-bold text-emerald-700 flex items-center space-x-1">
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>Akun Sedang Digunakan</span>
+                </span>
+              `}
+              <div class="flex items-center space-x-1">
+                <button onclick="userManager.openRegisterModal(false, '${p.id}'); app.closeModal('modal-profiles');" title="Edit Profil" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                ${this.profiles.length > 1 ? `
+                  <button onclick="userManager.deleteProfile('${p.id}')" title="Hapus Profil" class="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      switchUser(id) {
+        this.activeUserId = id;
+        this.saveProfiles();
+        this.syncActiveUserToApp();
+        sound.playCoin();
+        app.closeModal('modal-profiles');
+        const u = this.getActiveUser();
+        app.showToast(`👋 Selamat bertualang kembali, ${u ? u.name : 'Juara'}!`);
+      }
+
+      deleteProfile(id) {
+        if (this.profiles.length <= 1) {
+          alert('Tidak dapat menghapus satu-satunya profil yang tersisa.');
+          return;
+        }
+        const target = this.profiles.find(p => p.id === id);
+        if (!confirm(`Apakah Anda yakin ingin menghapus profil "${target ? target.name : ''}"? Semua skor dan progres profil ini akan terhapus.`)) {
+          return;
+        }
+
+        this.profiles = this.profiles.filter(p => p.id !== id);
+        if (this.activeUserId === id) {
+          this.activeUserId = this.profiles[0].id;
+        }
+        this.saveProfiles();
+        this.syncActiveUserToApp();
+        this.renderProfileCards();
+        app.showToast('🗑️ Profil berhasil dihapus.');
+      }
+    }
+    const userManager = new UserManager();
+
+    /* -------------------------------------------------------------
+       5. MAIN APPLICATION LOGIC & STATE ENGINE
        ------------------------------------------------------------- */
     class OliMathApp {
       constructor() {
@@ -1164,7 +1713,7 @@
       }
 
       init() {
-        this.loadLocalUserData();
+        userManager.init();
         this.renderGradeButtons();
         scratchpad.init();
         this.fetchQuestions();
@@ -1172,16 +1721,14 @@
       }
 
       loadLocalUserData() {
-        const saved = localStorage.getItem('olimath_progress');
-        if (saved) {
-          try {
-            this.userData = Object.assign(this.userData, JSON.parse(saved));
-          } catch(e) {}
+        const u = userManager.getActiveUser();
+        if (u) {
+          this.userData = u;
         }
       }
 
       saveUserData() {
-        localStorage.setItem('olimath_progress', JSON.stringify(this.userData));
+        userManager.saveProfiles();
         this.updateHUD();
       }
 
@@ -1746,6 +2293,23 @@ Format JSON yang WAJIB dipatuhi:
         document.getElementById('hero-hp').textContent = this.heroHp;
         document.getElementById('hero-hp-bar').style.width = '100%';
 
+        const activeUser = (typeof userManager !== 'undefined') ? userManager.getActiveUser() : null;
+        if (activeUser) {
+          const heroAv = document.getElementById('hero-avatar');
+          if (heroAv) {
+            heroAv.textContent = activeUser.avatar;
+            heroAv.className = `w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr ${activeUser.avatarBg} border-2 border-white/80 flex items-center justify-center text-4xl sm:text-5xl shadow-lg transition-transform`;
+          }
+          const heroName = document.getElementById('boss-hero-name');
+          if (heroName) {
+            heroName.textContent = `Ksatria ${activeUser.name}`;
+          }
+          const heroLv = document.getElementById('boss-hero-level');
+          if (heroLv) {
+            heroLv.textContent = activeUser.level;
+          }
+        }
+
         document.getElementById('battle-log').textContent = `⚔️ ${this.currentBoss.name} muncul! Jawab soal untuk melancarkan serangan sihir matematika!`;
         this.loadBossQuestion();
       }
@@ -2009,6 +2573,12 @@ Format JSON yang WAJIB dipatuhi:
         const xpGain = score + 50;
         document.getElementById('report-xp-gain').textContent = `+${xpGain}`;
         app.addReward(xpGain, Math.floor(score / 5));
+        const activeUser = (typeof userManager !== 'undefined') ? userManager.getActiveUser() : null;
+        if (activeUser) {
+          activeUser.lastTryoutScore = score;
+          activeUser.lastMedal = medal;
+          userManager.saveProfiles();
+        }
 
         // Topic bars
         const barsContainer = document.getElementById('report-topics-bars');
@@ -2058,9 +2628,10 @@ Format JSON yang WAJIB dipatuhi:
     class CloudSyncEngine {
       exportCode() {
         const payload = {
-          v: 1,
+          v: 2,
           date: Date.now(),
-          user: app.userData
+          activeUserId: (typeof userManager !== 'undefined') ? userManager.activeUserId : null,
+          profiles: (typeof userManager !== 'undefined') ? userManager.profiles : [app.userData]
         };
         const str = JSON.stringify(payload);
         return btoa(unescape(encodeURIComponent(str)));
@@ -2070,7 +2641,7 @@ Format JSON yang WAJIB dipatuhi:
         const code = this.exportCode();
         navigator.clipboard.writeText(code).then(() => {
           sound.playCoin();
-          app.showToast('📋 Kode Progres Berhasil Disalin!');
+          app.showToast('📋 Kode Progres Seluruh Profil Disalin!');
         });
       }
 
@@ -2084,7 +2655,15 @@ Format JSON yang WAJIB dipatuhi:
         try {
           const jsonStr = decodeURIComponent(escape(atob(input)));
           const data = JSON.parse(jsonStr);
-          if (data && data.user) {
+          if (data && data.profiles && Array.isArray(data.profiles) && data.profiles.length > 0) {
+            userManager.profiles = data.profiles;
+            userManager.activeUserId = data.activeUserId || data.profiles[0].id;
+            userManager.saveProfiles();
+            userManager.syncActiveUserToApp();
+            sound.playLevelUp();
+            app.showToast('🎉 Semua Profil Petualang Berhasil Dipulihkan!');
+            app.closeModal('modal-sync');
+          } else if (data && data.user) {
             app.userData = Object.assign(app.userData, data.user);
             app.saveUserData();
             sound.playLevelUp();
