@@ -83,9 +83,109 @@
     .scratchpad-active {
       touch-action: none;
     }
+
+    /* ==============================================================
+       INTERACTIVE AVATAR ANIMATIONS & WIGGLE / POP EFFECTS
+       ============================================================== */
+    @keyframes avatarPop {
+      0% { transform: scale(0.8) rotate(-8deg); }
+      40% { transform: scale(1.22) rotate(8deg); }
+      70% { transform: scale(0.95) rotate(-3deg); }
+      100% { transform: scale(1.06) rotate(0deg); }
+    }
+    @keyframes avatarSelectedWobble {
+      0%, 100% { transform: translateY(0) scale(1.06) rotate(0deg); }
+      20% { transform: translateY(-4px) scale(1.08) rotate(-4deg); }
+      40% { transform: translateY(-1px) scale(1.06) rotate(3deg); }
+      60% { transform: translateY(-3px) scale(1.07) rotate(-2deg); }
+      80% { transform: translateY(-1px) scale(1.06) rotate(2deg); }
+    }
+    @keyframes avatarGlowPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.45), 0 8px 18px -2px rgba(99, 102, 241, 0.35); }
+      50% { box-shadow: 0 0 0 8px rgba(99, 102, 241, 0), 0 12px 24px -2px rgba(99, 102, 241, 0.5); }
+    }
+    @keyframes previewJump {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      25% { transform: translateY(-22px) scale(1.32) rotate(-14deg); }
+      50% { transform: translateY(-8px) scale(1.18) rotate(12deg); }
+      75% { transform: translateY(-3px) scale(1.06) rotate(-4deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    @keyframes previewSparkleGlow {
+      0% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+      50% { filter: drop-shadow(0 0 16px rgba(255, 235, 59, 0.95)) brightness(1.25); }
+      100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+    }
+
+    .avatar-selected-box {
+      border-color: #6366f1 !important;
+      background: #eef2ff !important;
+      animation: avatarSelectedWobble 2.4s infinite ease-in-out, avatarGlowPulse 2s infinite ease-in-out !important;
+      transform: scale(1.06);
+      z-index: 10;
+    }
+    .avatar-just-clicked {
+      animation: avatarPop 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    .animate-preview-jump {
+      animation: previewJump 0.68s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, previewSparkleGlow 0.72s ease-in-out forwards !important;
+    }
+
+    /* ==============================================================
+       KIDS LEARNING THEMES (MOOD BOOSTER PALETTES)
+       ============================================================== */
+    body.theme-candy {
+      background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #e0f2fe 100%) !important;
+    }
+    body.theme-space {
+      background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #170d2b 100%) !important;
+      color: #f8fafc !important;
+    }
+    body.theme-space .glass-card {
+      background: rgba(30, 27, 75, 0.88) !important;
+      border-color: rgba(99, 102, 241, 0.35) !important;
+      color: #f8fafc !important;
+    }
+    body.theme-space .text-slate-800,
+    body.theme-space .text-slate-700 {
+      color: #f1f5f9 !important;
+    }
+    body.theme-space .text-slate-600,
+    body.theme-space .text-slate-500 {
+      color: #94a3b8 !important;
+    }
+    body.theme-space .bg-white {
+      background: rgba(30, 27, 75, 0.95) !important;
+      border-color: rgba(99, 102, 241, 0.25) !important;
+      color: #f8fafc !important;
+    }
+    body.theme-space .bg-slate-50 {
+      background: rgba(15, 23, 42, 0.75) !important;
+      color: #f8fafc !important;
+    }
+    body.theme-space .bg-slate-100 {
+      background: rgba(30, 27, 75, 0.75) !important;
+      color: #f1f5f9 !important;
+    }
+    body.theme-space .border-slate-200,
+    body.theme-space .border-slate-300 {
+      border-color: rgba(99, 102, 241, 0.25) !important;
+    }
+    body.theme-safari {
+      background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 50%, #fef3c7 100%) !important;
+    }
+    body.theme-castle {
+      background: linear-gradient(135deg, #fef3c7 0%, #f3e8ff 50%, #ffe4e6 100%) !important;
+    }
+    body.theme-ocean {
+      background: linear-gradient(135deg, #ecfeff 0%, #e0f2fe 50%, #dbeafe 100%) !important;
+    }
+    body.theme-cyber {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ecfeff 50%, #f7fee7 100%) !important;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 min-h-screen text-slate-800 font-sans selection:bg-brand-500 selection:text-white">
+<body id="app-body" class="bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 min-h-screen text-slate-800 font-sans selection:bg-brand-500 selection:text-white transition-colors duration-500">
 
   <!-- TOP HEADER / STATUS HUD -->
   <header class="sticky top-0 z-30 glass-card border-b border-slate-200/80 shadow-sm transition-all duration-300">
@@ -94,7 +194,7 @@
       <!-- LOGO & MASCOT -->
       <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="app.switchTab('arena')">
         <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-emerald-500 to-indigo-600 p-0.5 shadow-md transform hover:rotate-6 transition-transform">
-          <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-2xl">
+          <div id="header-main-mascot" class="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-2xl">
             🦁
           </div>
         </div>
@@ -174,6 +274,12 @@
         <!-- Audio Toggle -->
         <button id="btn-audio" onclick="sound.toggle()" title="Suara Efek On/Off" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all">
           <i class="fa-solid fa-volume-high text-sm"></i>
+        </button>
+
+        <!-- Kids Theme Mood Picker Button -->
+        <button onclick="themeManager.openModal()" title="Pilih Tema Belajar Favorit Anak (Mood Booster)" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:opacity-95 active:scale-95 text-white transition-all flex items-center space-x-1.5 shadow-sm font-bold text-xs border border-white/30">
+          <span id="current-theme-icon" class="text-sm">🍭</span>
+          <span id="current-theme-name" class="hidden sm:inline">Tema</span>
         </button>
 
         <!-- Cloud Sync & Settings -->
@@ -951,6 +1057,48 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL: KIDS LEARNING THEMES SELECTOR ==================== -->
+  <div id="modal-themes" class="fixed inset-0 z-50 bg-slate-900/75 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-4 my-8 animate-fade-in">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center text-2xl shadow-md text-white">
+            🎨
+          </div>
+          <div>
+            <h3 class="font-display font-black text-slate-800 text-lg sm:text-xl flex items-center gap-2">
+              <span>Pilih Tema Belajar Favoritmu!</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r from-pink-100 to-purple-100 text-purple-700">Mood Booster</span>
+            </h3>
+            <p class="text-xs text-slate-500">
+              Ubah suasana dunia olimpiade sesuai tema kesukaanmu agar makin bersemangat dan ceria!
+            </p>
+          </div>
+        </div>
+        <button onclick="app.closeModal('modal-themes')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-sm">✕</button>
+      </div>
+
+      <!-- Themes Grid (Rendered dynamically by ThemeManager) -->
+      <div id="themes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto p-1.5">
+        <!-- Rendered by ThemeManager -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-100 text-xs">
+        <span class="text-slate-500 font-semibold flex items-center gap-1.5">
+          <span class="text-base">✨</span>
+          <span>Tema otomatis tersimpan dan aktif di profil petualangmu!</span>
+        </span>
+        <button onclick="app.closeModal('modal-themes')" class="px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold transition-all">
+          Selesai
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
@@ -1037,6 +1185,24 @@
 
       playAttack() {
         this.playTone(180, 0.15, 'square', 0.15);
+      }
+
+      playClick() {
+        this.playTone(550, 0.04, 'sine', 0.12);
+      }
+
+      playPop() {
+        // Bouncy bubble pop for kids avatar selection
+        this.playTone(520, 0.05, 'sine', 0.22);
+        setTimeout(() => this.playTone(880, 0.12, 'sine', 0.25), 45);
+      }
+
+      playThemeChime() {
+        // Sparkle celebratory chime for theme change
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => this.playTone(freq, 0.18, 'sine', 0.2), idx * 75);
+        });
       }
     }
     const sound = new SoundEngine();
@@ -1429,6 +1595,11 @@
         const bossHeroName = document.getElementById('boss-hero-name');
         if (bossHeroName) bossHeroName.textContent = `Ksatria ${user.name}`;
 
+        // Sync active user's chosen theme
+        if (window.themeManager) {
+          themeManager.applyTheme(user.themeId || 'candy', false);
+        }
+
         // Refresh UI
         app.renderGradeButtons();
         app.updateHUD();
@@ -1444,42 +1615,69 @@
           const isSelected = av.id === this.selectedAvatarId;
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = `avatar-choice-btn p-2 rounded-2xl border-2 transition-all flex flex-col items-center space-y-1 relative group ${
+          btn.id = `avatar-card-${av.id}`;
+          btn.setAttribute('data-avatar-id', av.id);
+          btn.className = `avatar-choice-btn p-2 rounded-2xl border-2 transition-all flex flex-col items-center space-y-1 relative group select-none ${
             isSelected
-              ? 'border-indigo-600 bg-indigo-50/80 shadow-md ring-2 ring-indigo-400 scale-105'
+              ? 'avatar-selected-box border-indigo-600 bg-indigo-50/90 shadow-lg ring-4 ring-indigo-400/80 scale-105'
               : 'border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300'
           }`;
           btn.innerHTML = `
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-2xl shadow-sm group-hover:scale-110 transition-transform">
+            <div class="avatar-icon-box w-12 h-12 rounded-xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-2xl shadow-sm group-hover:scale-110 transition-transform">
               ${av.icon}
             </div>
             <span class="text-[11px] font-extrabold text-slate-800 block truncate max-w-[70px]">${av.name}</span>
             <span class="text-[9px] font-semibold text-slate-500 block truncate max-w-[75px]">${av.trait}</span>
-            ${isSelected ? '<span class="absolute -top-1 -right-1 w-5 h-5 bg-indigo-600 text-white rounded-full text-[10px] flex items-center justify-center shadow font-bold">✓</span>' : ''}
+            <span class="avatar-check-badge absolute -top-1 -right-1 w-5 h-5 bg-indigo-600 text-white rounded-full text-[10px] flex items-center justify-center shadow-md font-bold ${isSelected ? '' : 'hidden'}">✓</span>
           `;
           btn.onclick = () => this.selectAvatar(av.id);
           grid.appendChild(btn);
         });
-        this.updatePreviewCard();
+        this.updatePreviewCard(false);
       }
 
       selectAvatar(avatarId) {
         this.selectedAvatarId = avatarId;
-        sound.playClick();
-        this.renderAvatarGrid();
+        if (window.sound) sound.playPop();
+
+        // Animate clicked avatar box
+        const allBtns = document.querySelectorAll('.avatar-choice-btn');
+        allBtns.forEach(btn => {
+          const id = btn.getAttribute('data-avatar-id');
+          const badge = btn.querySelector('.avatar-check-badge');
+          if (id === avatarId) {
+            btn.className = 'avatar-choice-btn p-2 rounded-2xl border-2 transition-all flex flex-col items-center space-y-1 relative group select-none avatar-selected-box avatar-just-clicked border-indigo-600 bg-indigo-50/90 shadow-lg ring-4 ring-indigo-400/80';
+            if (badge) badge.classList.remove('hidden');
+            setTimeout(() => {
+              btn.classList.remove('avatar-just-clicked');
+            }, 500);
+          } else {
+            btn.className = 'avatar-choice-btn p-2 rounded-2xl border-2 transition-all flex flex-col items-center space-y-1 relative group select-none border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300';
+            btn.classList.remove('avatar-selected-box', 'avatar-just-clicked');
+            if (badge) badge.classList.add('hidden');
+          }
+        });
+
+        // Trigger dynamic jump & sparkle animation on preview avatar next to child's name
+        this.updatePreviewCard(true);
       }
 
-      updatePreviewCard() {
+      updatePreviewCard(animate = false) {
         const av = this.avatars.find(a => a.id === this.selectedAvatarId) || this.avatars[0];
         const nameInput = document.getElementById('input-reg-name');
-        const name = (nameInput && nameInput.value ? nameInput.value : 'Nama Kamu').trim();
+        const name = (nameInput && nameInput.value ? nameInput.value : 'Nama Juara').trim();
         const gradeSelect = document.getElementById('select-reg-grade');
         const grade = (gradeSelect ? gradeSelect.value : '1') || '1';
 
         const prevAvatar = document.getElementById('reg-preview-avatar');
         if (prevAvatar) {
           prevAvatar.textContent = av.icon;
-          prevAvatar.className = `w-14 h-14 rounded-2xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-3xl shadow-md border-2 border-white/60 transform hover:rotate-6 transition-transform`;
+          prevAvatar.className = `w-14 h-14 rounded-2xl bg-gradient-to-tr ${av.bg} flex items-center justify-center text-3xl shadow-md border-2 border-white/60 transform`;
+          if (animate) {
+            prevAvatar.classList.remove('animate-preview-jump');
+            void prevAvatar.offsetWidth; // Force reflow to re-trigger keyframe animation
+            prevAvatar.classList.add('animate-preview-jump');
+          }
         }
         const prevName = document.getElementById('reg-preview-name');
         if (prevName) prevName.textContent = name;
@@ -1551,6 +1749,7 @@
             p.avatarBg = av.bg;
             p.avatarColor = av.color;
             p.trait = av.trait;
+            p.themeId = p.themeId || (window.themeManager ? themeManager.currentThemeId : 'candy');
           }
           app.showToast(`✅ Profil ${name} berhasil diperbarui!`);
         } else {
@@ -1564,6 +1763,7 @@
             avatarBg: av.bg,
             avatarColor: av.color,
             trait: av.trait,
+            themeId: window.themeManager ? themeManager.currentThemeId : 'candy',
             coins: 50, // Welcome gift coins!
             streak: 1,
             xp: 0,
@@ -1596,6 +1796,7 @@
 
         this.profiles.forEach(p => {
           const isActive = p.id === this.activeUserId;
+          const userTheme = (window.themeManager && themeManager.themes.find(t => t.id === p.themeId)) || { emoji: '🍭', name: 'Permen' };
           const card = document.createElement('div');
           card.className = `p-4 rounded-3xl border-2 transition-all flex flex-col justify-between ${
             isActive 
@@ -1615,7 +1816,10 @@
                     <span class="text-[9px] font-medium text-slate-500">${p.trait || 'Petualang Cerdik'}</span>
                   </div>
                 </div>
-                ${isActive ? '<span class="bg-emerald-500 text-white font-extrabold text-[10px] px-2.5 py-0.5 rounded-full shadow-sm">AKTIF</span>' : ''}
+                <div class="flex flex-col items-end gap-1">
+                  ${isActive ? '<span class="bg-emerald-500 text-white font-extrabold text-[10px] px-2.5 py-0.5 rounded-full shadow-sm">AKTIF</span>' : ''}
+                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200/80">${userTheme.emoji} ${userTheme.name.split(' ')[0]}</span>
+                </div>
               </div>
 
               <div class="grid grid-cols-3 gap-1.5 py-2 px-3 bg-slate-50/90 rounded-2xl border border-slate-200/60 text-center mb-3 text-[11px]">
@@ -1695,7 +1899,201 @@
     const userManager = new UserManager();
 
     /* -------------------------------------------------------------
-       5. MAIN APPLICATION LOGIC & STATE ENGINE
+       5. KIDS THEMES & MOOD BOOSTER MANAGER
+       ------------------------------------------------------------- */
+    class ThemeManager {
+      constructor() {
+        this.themes = [
+          {
+            id: 'candy',
+            name: 'Dunia Permen & Pelangi',
+            tagline: 'Manis, Ceria & Bebas Cemas',
+            emoji: '🍭',
+            mascot: '🦄 Sparkle & Bunny',
+            mood: 'Ceria & Anti-Stres',
+            desc: 'Warna-warni pastel manis pelangi dan permen kapas yang membuat suasana santai, menyenangkan, dan riang gembira.',
+            badgeClass: 'bg-pink-100 text-pink-700 border-pink-200',
+            borderAccent: 'border-pink-400',
+            bgPreview: 'from-pink-300 via-purple-300 to-sky-300',
+            colors: ['#f472b6', '#c084fc', '#38bdf8']
+          },
+          {
+            id: 'space',
+            name: 'Galaksi Luar Angkasa',
+            tagline: 'Bintang, Planet & Roket Angka',
+            emoji: '🚀',
+            mascot: '🐱 Miko Astronot',
+            mood: 'Imajinasi & Eksplorasi Sains',
+            desc: 'Menjelajahi keajaiban bintang kosmik dan planet luar angkasa dengan roket angka dan rasa ingin tahu astronomi.',
+            badgeClass: 'bg-indigo-900 text-indigo-200 border-indigo-700',
+            borderAccent: 'border-indigo-400',
+            bgPreview: 'from-slate-900 via-indigo-950 to-purple-950',
+            colors: ['#1e1b4b', '#4338ca', '#06b6d4']
+          },
+          {
+            id: 'safari',
+            name: 'Hutan Rimba & Safari',
+            tagline: 'Petualangan Liar Penuh Semangat',
+            emoji: '🦁',
+            mascot: '🦁 Leo & Rexy',
+            mood: 'Semangat Berani & Segar Alami',
+            desc: 'Petualangan rimba tropis hijau yang menyegarkan pikiran, memicu keberanian dan energi positif pantang menyerah.',
+            badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+            borderAccent: 'border-emerald-400',
+            bgPreview: 'from-emerald-300 via-teal-200 to-amber-300',
+            colors: ['#10b981', '#14b8a6', '#f59e0b']
+          },
+          {
+            id: 'castle',
+            name: 'Kastil Ksatria Dongeng',
+            tagline: 'Magis, Heroik & Jiwa Juara',
+            emoji: '🏰',
+            mascot: '🧙‍♀️ Luna & Bao Bao',
+            mood: 'Percaya Diri & Jiwa Ksatria',
+            desc: 'Kerajaan megah dongeng dengan mahkota emas dan kastil ajaib, menumbuhkan rasa percaya diri layaknya ksatria sejati.',
+            badgeClass: 'bg-purple-100 text-purple-800 border-purple-200',
+            borderAccent: 'border-purple-400',
+            bgPreview: 'from-amber-300 via-purple-300 to-rose-300',
+            colors: ['#fbbf24', '#8b5cf6', '#f43f5e']
+          },
+          {
+            id: 'ocean',
+            name: 'Samudra Biru & Lumba-lumba',
+            tagline: 'Sejuk, Tenang & Fokus Tinggi',
+            emoji: '🐬',
+            mascot: '🐬 Finny Lumba-lumba',
+            mood: 'Fokus Tenang & Anti-Gugup',
+            desc: 'Kesejukan terumbu karang laut biru dan lumba-lumba cerdas menenangkan debar cemas dan mempertajam konsentrasi.',
+            badgeClass: 'bg-sky-100 text-sky-800 border-sky-200',
+            borderAccent: 'border-sky-400',
+            bgPreview: 'from-cyan-300 via-sky-300 to-blue-300',
+            colors: ['#06b6d4', '#0ea5e9', '#3b82f6']
+          },
+          {
+            id: 'cyber',
+            name: 'Cyber Robot & Lab Canggih',
+            tagline: 'Futuristik, Gadget & Logika Cepat',
+            emoji: '🤖',
+            mascot: '🤖 Robo & Ren Ninja',
+            mood: 'Logika Cepat & Cerdas',
+            desc: 'Laboratorium teknologi masa depan dengan sirkuit AI modern yang memacu kecepatan berpikir analitis dan pemecahan masalah.',
+            badgeClass: 'bg-teal-100 text-teal-800 border-teal-200',
+            borderAccent: 'border-teal-400',
+            bgPreview: 'from-teal-300 via-cyan-200 to-lime-300',
+            colors: ['#14b8a6', '#06b6d4', '#84cc16']
+          }
+        ];
+        this.currentThemeId = localStorage.getItem('olimath_active_theme') || 'candy';
+      }
+
+      init() {
+        this.applyTheme(this.currentThemeId, false);
+      }
+
+      applyTheme(themeId, showFeedback = true) {
+        const theme = this.themes.find(t => t.id === themeId) || this.themes[0];
+        this.currentThemeId = theme.id;
+        localStorage.setItem('olimath_active_theme', theme.id);
+
+        // Update body styling
+        const body = document.getElementById('app-body') || document.body;
+        this.themes.forEach(t => body.classList.remove(`theme-${t.id}`));
+        body.classList.add(`theme-${theme.id}`);
+
+        // Update header mascot and HUD icon
+        const headerMascot = document.getElementById('header-main-mascot');
+        if (headerMascot) headerMascot.textContent = theme.emoji;
+
+        const themeBtnIcon = document.getElementById('current-theme-icon');
+        if (themeBtnIcon) themeBtnIcon.textContent = theme.emoji;
+
+        const themeBtnText = document.getElementById('current-theme-name');
+        if (themeBtnText) themeBtnText.textContent = theme.name.split(' ')[0];
+
+        // Save theme to active user profile
+        if (window.userManager) {
+          const user = userManager.getActiveUser();
+          if (user && user.themeId !== theme.id) {
+            user.themeId = theme.id;
+            userManager.saveProfiles();
+          }
+        }
+
+        // Re-render themes modal grid if visible
+        this.renderGrid();
+
+        if (showFeedback) {
+          if (window.sound) sound.playThemeChime();
+          if (window.confetti) {
+            confetti({
+              particleCount: 45,
+              spread: 75,
+              origin: { y: 0.65 }
+            });
+          }
+          app.showToast(`🎨 Tema ${theme.emoji} ${theme.name} Aktif! (${theme.mood})`);
+        }
+      }
+
+      openModal() {
+        this.renderGrid();
+        app.openModal('modal-themes');
+      }
+
+      renderGrid() {
+        const container = document.getElementById('themes-grid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        this.themes.forEach(th => {
+          const isActive = th.id === this.currentThemeId;
+          const card = document.createElement('div');
+          card.className = `p-4 rounded-3xl border-2 transition-all cursor-pointer flex flex-col justify-between space-y-3 relative group select-none ${
+            isActive
+              ? 'border-indigo-600 bg-indigo-50/80 shadow-lg ring-4 ring-indigo-400/60 scale-[1.02]'
+              : 'border-slate-200/90 bg-white hover:bg-slate-50 hover:border-indigo-300 hover:shadow-md'
+          }`;
+          card.onclick = () => this.applyTheme(th.id, true);
+
+          const colorPills = th.colors.map(c => `<span class="w-3.5 h-3.5 rounded-full inline-block shadow-sm border border-white" style="background-color: ${c}"></span>`).join('');
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${th.bgPreview} flex items-center justify-center text-2xl shadow-sm transform group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                  ${th.emoji}
+                </div>
+                <div class="flex items-center space-x-1">
+                  ${colorPills}
+                </div>
+              </div>
+              <div class="space-y-1">
+                <h4 class="font-display font-black text-slate-800 text-sm group-hover:text-indigo-600 transition-colors">${th.name}</h4>
+                <p class="text-[11px] font-bold text-indigo-600">${th.tagline}</p>
+                <p class="text-[10px] text-slate-500 leading-relaxed">${th.desc}</p>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${th.badgeClass}">
+                ${th.mood}
+              </span>
+              ${
+                isActive
+                  ? '<span class="text-[11px] font-black text-indigo-600 flex items-center gap-1 animate-pulse"><i class="fa-solid fa-circle-check"></i> Aktif</span>'
+                  : '<button class="text-[11px] font-bold text-slate-500 group-hover:text-indigo-600">Pilih ➔</button>'
+              }
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      }
+    }
+    const themeManager = new ThemeManager();
+
+    /* -------------------------------------------------------------
+       6. MAIN APPLICATION LOGIC & STATE ENGINE
        ------------------------------------------------------------- */
     class OliMathApp {
       constructor() {
@@ -1713,6 +2111,7 @@
       }
 
       init() {
+        themeManager.init();
         userManager.init();
         this.renderGradeButtons();
         scratchpad.init();
