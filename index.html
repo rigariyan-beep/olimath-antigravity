@@ -132,6 +132,89 @@
     }
 
     /* ==============================================================
+       INTERACTIVE STORY QUEST & BATTLE RPG ANIMATIONS
+       ============================================================== */
+    @keyframes optionCorrectGlow {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      50% { transform: scale(1.04); box-shadow: 0 0 25px 8px rgba(34, 197, 94, 0.45); }
+      100% { transform: scale(1.02); box-shadow: 0 0 15px 4px rgba(34, 197, 94, 0.3); }
+    }
+    @keyframes playfulWobble {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      20% { transform: translateX(-8px) rotate(-3deg); }
+      40% { transform: translateX(8px) rotate(3deg); }
+      60% { transform: translateX(-5px) rotate(-1.5deg); }
+      80% { transform: translateX(5px) rotate(1.5deg); }
+    }
+    @keyframes mapAvatarHop {
+      0% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-18px) scale(1.25) rotate(-6deg); }
+      70% { transform: translateY(-6px) scale(1.1) rotate(4deg); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); }
+    }
+    @keyframes mapNodeGlowPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.5); }
+      50% { transform: scale(1.15); box-shadow: 0 0 16px 6px rgba(234, 179, 8, 0.7); }
+    }
+    @keyframes heroSlashDash {
+      0% { transform: translateX(0) scale(1); }
+      40% { transform: translateX(65px) scale(1.2) rotate(8deg); }
+      70% { transform: translateX(20px) scale(1.05); }
+      100% { transform: translateX(0) scale(1); }
+    }
+    @keyframes bossHurtTremor {
+      0%, 100% { transform: translateX(0); filter: drop-shadow(0 0 0 transparent); }
+      20% { transform: translateX(12px) scale(0.92); filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.9)) saturate(2); }
+      40% { transform: translateX(-12px) scale(1.04); filter: drop-shadow(0 0 20px rgba(239, 68, 68, 1)) saturate(2.5); }
+      60% { transform: translateX(8px) scale(0.95); filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.8)); }
+      80% { transform: translateX(-6px) scale(1.02); }
+    }
+    @keyframes floatDmgUp {
+      0% { opacity: 0; transform: translateY(0) scale(0.6); }
+      30% { opacity: 1; transform: translateY(-16px) scale(1.3); }
+      80% { opacity: 1; transform: translateY(-38px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-55px) scale(0.9); }
+    }
+    @keyframes coinFlyUp {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      30% { opacity: 1; transform: translateY(-14px) scale(1.2); }
+      75% { opacity: 0.9; transform: translateY(-34px) scale(1); }
+      100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+    }
+    .animate-option-correct {
+      animation: optionCorrectGlow 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+    }
+    .animate-playful-wobble {
+      animation: playfulWobble 0.5s ease-in-out !important;
+    }
+    .animate-map-hop {
+      animation: mapAvatarHop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    .animate-hero-slash {
+      animation: heroSlashDash 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    .animate-boss-hurt {
+      animation: bossHurtTremor 0.6s ease-in-out !important;
+    }
+    .floating-dmg-bubble {
+      position: absolute;
+      pointer-events: none;
+      animation: floatDmgUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 40;
+    }
+    .floating-coin-bubble {
+      position: absolute;
+      pointer-events: none;
+      animation: coinFlyUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 40;
+    }
+    .story-checkpoint-active {
+      animation: mapNodeGlowPulse 1.8s infinite ease-in-out;
+      border-color: #f59e0b !important;
+      background: #fef3c7 !important;
+    }
+
+    /* ==============================================================
        KIDS LEARNING THEMES (MOOD BOOSTER PALETTES)
        ============================================================== */
     body.theme-candy {
@@ -351,6 +434,150 @@
         </div>
       </div>
 
+      <!-- ==============================================================
+           CHALLENGE SELECTOR BAR (10, 15, 20, 25 SOAL - FAST LEVEL BOOST)
+           ============================================================== -->
+      <div class="glass-card rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center text-lg shadow-sm">
+              🎯
+            </div>
+            <div>
+              <h3 class="font-display font-extrabold text-sm sm:text-base text-slate-800 flex items-center gap-2">
+                <span>Pilihan Tantangan Petualangan</span>
+                <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">Level Boost</span>
+              </h3>
+              <p class="text-xs text-slate-500">
+                Pilih jumlah soal untuk memulai perjalanan. Makin tinggi tantangan, levelmu naik makin cepat!
+              </p>
+            </div>
+          </div>
+          <div class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-xl self-start sm:self-auto border border-indigo-100 flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-amber-500"></i>
+            <span>Bonus XP & Koin Berlipat!</span>
+          </div>
+        </div>
+
+        <!-- 4 Challenge Pills -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5" id="challenge-options-grid">
+          <!-- 10 Soal -->
+          <button onclick="app.setChallengeLength(10)" id="challenge-btn-10" class="challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-white hover:bg-slate-50 border-slate-200 shadow-2xs active:scale-98">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-display font-black text-sm text-slate-800 group-hover:text-indigo-600">⚡ 10 Soal</span>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800">+100 XP</span>
+            </div>
+            <div class="text-[11px] font-medium text-slate-500">Petualangan Kilat</div>
+          </button>
+
+          <!-- 15 Soal (Default) -->
+          <button onclick="app.setChallengeLength(15)" id="challenge-btn-15" class="challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-indigo-50/80 border-indigo-500 shadow-sm ring-2 ring-indigo-400/50 active:scale-98">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-display font-black text-sm text-indigo-700">🧭 15 Soal</span>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-indigo-200 text-indigo-800">+200 XP</span>
+            </div>
+            <div class="text-[11px] font-bold text-indigo-600">Misi Penjelajah</div>
+          </button>
+
+          <!-- 20 Soal -->
+          <button onclick="app.setChallengeLength(20)" id="challenge-btn-20" class="challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-white hover:bg-slate-50 border-slate-200 shadow-2xs active:scale-98">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-display font-black text-sm text-slate-800 group-hover:text-indigo-600">🏆 20 Soal</span>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-800">+350 XP</span>
+            </div>
+            <div class="text-[11px] font-medium text-slate-500">Ekspedisi Master</div>
+          </button>
+
+          <!-- 25 Soal -->
+          <button onclick="app.setChallengeLength(25)" id="challenge-btn-25" class="challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-white hover:bg-slate-50 border-slate-200 shadow-2xs active:scale-98">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-display font-black text-sm text-slate-800 group-hover:text-indigo-600">👑 25 Soal</span>
+              <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-800">+500 XP</span>
+            </div>
+            <div class="text-[11px] font-medium text-slate-500">Maraton Juara OSN</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- ==============================================================
+           ADVENTURE STORY QUEST PANEL & JOURNEY MAP (SESUAI TEMA)
+           ============================================================== -->
+      <div id="story-quest-panel" class="glass-card rounded-3xl border border-slate-200/90 p-5 sm:p-6 shadow-sm space-y-4 relative overflow-hidden">
+        
+        <!-- Theme Atmosphere Glow -->
+        <div id="story-panel-glow" class="absolute -top-12 -right-12 w-40 h-40 bg-pink-300/30 rounded-full blur-2xl pointer-events-none transition-all duration-700"></div>
+
+        <!-- Story Quest Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3 relative z-10">
+          <div class="flex items-center space-x-3">
+            <div id="story-theme-icon" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 to-purple-500 flex items-center justify-center text-2xl shadow-md text-white">
+              🍭
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
+                  Alur Cerita Petualangan
+                </span>
+                <span id="quest-stage-indicator" class="text-xs font-bold text-slate-500">
+                  Pos 1 dari 5
+                </span>
+              </div>
+              <h3 id="quest-story-title" class="font-display font-black text-base sm:text-lg text-slate-800 leading-tight">
+                Misi Penyelamatan Putri Permen & Istana Pelangi
+              </h3>
+              <p id="quest-story-tagline" class="text-xs text-indigo-600 font-medium">
+                Pecahkan teka-teki manis untuk membuka jalan jembatan permen kapas!
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-2 self-start sm:self-auto">
+            <span id="quest-target-badge" class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs shadow-2xs">
+              Misi 15 Soal
+            </span>
+          </div>
+        </div>
+
+        <!-- Visual Journey Progress Map -->
+        <div class="relative pt-4 pb-2 px-2 sm:px-6 z-10">
+          
+          <!-- Background Progress Line -->
+          <div class="relative h-2.5 bg-slate-200/80 rounded-full overflow-hidden mb-6">
+            <div id="quest-progress-track" class="h-full bg-gradient-to-r from-emerald-400 via-indigo-500 to-pink-500 rounded-full transition-all duration-500" style="width: 10%;"></div>
+          </div>
+
+          <!-- Travelling Avatar on Map -->
+          <div id="quest-avatar-marker" class="absolute top-1 transform -translate-x-1/2 transition-all duration-500 z-30 pointer-events-none" style="left: 10%;">
+            <div id="map-travel-avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white border-2 border-indigo-500 shadow-md flex items-center justify-center text-xl sm:text-2xl animate-bounceSmall">
+              🦁
+            </div>
+          </div>
+
+          <!-- 5 Checkpoint Nodes -->
+          <div id="journey-checkpoints-row" class="flex justify-between items-center relative z-20">
+            <!-- Rendered dynamically by JS -->
+          </div>
+
+        </div>
+
+        <!-- Themed Mascot Dialogue Bubble -->
+        <div class="flex items-start space-x-3 bg-slate-50/90 border border-slate-200/80 p-3.5 sm:p-4 rounded-2xl relative z-10 shadow-2xs">
+          <div id="quest-mascot-avatar" class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-2xl shadow-sm shrink-0">
+            🦄
+          </div>
+          <div class="flex-1 space-y-0.5">
+            <div class="flex items-center space-x-2">
+              <span id="quest-mascot-name" class="font-extrabold text-xs text-indigo-700">Sparkle si Unicorn:</span>
+              <span class="text-[10px] text-slate-400 font-bold uppercase">Panduan Cerita</span>
+            </div>
+            <p id="quest-dialogue-text" class="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
+              Halo Ksatria Cilik! Mari mulai perjalanan kita. Jawab soal di bawah untuk mengumpulkan kristal pertama!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
       <!-- QUESTION DISPLAY CARD -->
       <div id="question-card" class="glass-card rounded-3xl border border-slate-200/90 p-5 sm:p-8 shadow-sm transition-all duration-300 relative">
         
@@ -479,11 +706,32 @@
           </div>
         </div>
 
+        <!-- Dynamic Theme Boss Story Lore Card -->
+        <div id="boss-theme-lore-card" class="bg-gradient-to-r from-rose-50 to-amber-50 border border-rose-200/80 p-4 rounded-2xl flex items-start space-x-3 mb-4">
+          <div id="boss-theme-mascot-icon" class="w-10 h-10 rounded-xl bg-white border border-rose-200 flex items-center justify-center text-2xl shadow-sm shrink-0">
+            🍮
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span id="boss-theme-lore-badge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">
+                Cerita Duel Sesuai Tema
+              </span>
+              <span id="boss-theme-location" class="text-xs font-bold text-slate-500">Pabrik Permen Gula</span>
+            </div>
+            <p id="boss-theme-lore-text" class="text-xs text-slate-700 font-medium leading-relaxed mt-0.5">
+              Raja Slime Karamel mencuri formula rahasia olimpiade! Jawab mantra matematika untuk menembus armor sirupnya!
+            </p>
+          </div>
+        </div>
+
         <!-- BATTLE ARENA VIEW -->
-        <div class="bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden mb-6">
+        <div id="boss-arena-box" class="bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden mb-6 transition-all duration-700">
           
           <!-- Background Particles/Aura -->
           <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))] pointer-events-none"></div>
+
+          <!-- Floating Damage Layer -->
+          <div id="boss-damage-float-container" class="absolute inset-0 pointer-events-none flex items-center justify-center z-40"></div>
 
           <!-- Combatants Row -->
           <div class="grid grid-cols-2 gap-4 items-center relative z-10 mb-6">
@@ -1286,6 +1534,128 @@
     </div>
   </div>
 
+  <!-- ==================== MODAL: GRAND QUEST COMPLETION & EVALUATION ==================== -->
+  <div id="modal-quest-complete" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border-2 border-amber-300 space-y-5 my-8 animate-fade-in relative overflow-hidden text-center">
+      
+      <!-- Festive background sparkles -->
+      <div class="absolute -top-16 -right-16 w-36 h-36 bg-amber-200/50 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-36 h-36 bg-indigo-200/50 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- Trophy & Mascot Header -->
+      <div class="relative z-10 flex flex-col items-center">
+        <div class="relative mb-3">
+          <div id="quest-complete-mascot" class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-amber-400 via-yellow-400 to-orange-500 flex items-center justify-center text-5xl sm:text-6xl shadow-xl animate-bounceSmall border-4 border-white">
+            🏆
+          </div>
+          <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-emerald-500 text-white font-black text-xs flex items-center justify-center border-2 border-white shadow">
+            ✓
+          </div>
+        </div>
+
+        <span class="text-xs uppercase font-extrabold tracking-widest text-amber-600 bg-amber-100 px-3 py-1 rounded-full border border-amber-200 mb-1">
+          🎉 MISI PETUALANGAN TUNTAS!
+        </span>
+        <h2 id="quest-complete-title" class="font-display font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
+          Luar Biasa, Ksatria Juara!
+        </h2>
+        <p id="quest-complete-sub" class="text-xs sm:text-sm text-slate-500 max-w-md">
+          Kamu telah menyelesaikan seluruh rintangan petualangan dengan dedikasi tinggi!
+        </p>
+      </div>
+
+      <!-- Score & Metrics Card -->
+      <div class="bg-gradient-to-br from-slate-50 to-amber-50/50 rounded-2xl p-5 border border-amber-200/70 shadow-sm relative z-10 text-left">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-amber-100 pb-4 mb-4">
+          
+          <!-- Score Dial -->
+          <div class="flex items-center space-x-3.5">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-amber-400 flex flex-col items-center justify-center shadow-sm">
+              <span id="quest-score-num" class="font-display font-black text-2xl text-amber-600 leading-none">100</span>
+              <span class="text-[9px] font-bold text-slate-400">SKOR AKHIR</span>
+            </div>
+            <div>
+              <div id="quest-medal-badge" class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-extrabold text-xs border border-amber-300">
+                <span>🥇</span>
+                <span>Medali Emas Olimpiade</span>
+              </div>
+              <div id="quest-eval-grade" class="text-xs font-semibold text-slate-500 mt-1">
+                Kategori: Kelas 1 SD • Standar OSN
+              </div>
+            </div>
+          </div>
+
+          <!-- Fast Level Boost XP / Coins Reward -->
+          <div class="bg-white px-3.5 py-2 rounded-xl border border-amber-200 shadow-sm text-center sm:text-right">
+            <div class="text-[10px] font-bold text-slate-400 uppercase">Hadiah Misi</div>
+            <div id="quest-reward-stat" class="font-extrabold text-xs sm:text-sm text-indigo-600">
+              +250 XP • +100 🪙
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="p-2.5 rounded-xl bg-white border border-slate-100 shadow-2xs">
+            <div class="text-[10px] font-bold text-slate-400 uppercase">Benar</div>
+            <div id="quest-correct-stat" class="font-black text-sm text-emerald-600">10 / 10</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white border border-slate-100 shadow-2xs">
+            <div class="text-[10px] font-bold text-slate-400 uppercase">Akurasi</div>
+            <div id="quest-accuracy-stat" class="font-black text-sm text-indigo-600">100%</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white border border-slate-100 shadow-2xs">
+            <div class="text-[10px] font-bold text-slate-400 uppercase">Waktu</div>
+            <div id="quest-time-stat" class="font-black text-sm text-amber-600">2m 14s</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Motivational Words Card -->
+      <div class="p-4 rounded-2xl bg-amber-50/90 border border-amber-200/90 text-left relative z-10">
+        <div class="flex items-center space-x-2 text-xs font-extrabold text-amber-800 mb-1">
+          <i class="fa-solid fa-heart text-rose-500"></i>
+          <span>Pesan Motivasi untuk Sang Juara:</span>
+        </div>
+        <p id="quest-motivation-text" class="text-xs sm:text-sm text-amber-950 leading-relaxed font-medium">
+          Hebat sekali, Ksatria Cilik! Ketelitianmu bagaikan seorang juara olimpiade sejati. Teruslah penasaran dan cintai matematika!
+        </p>
+      </div>
+
+      <!-- Story Epilogue Card -->
+      <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 text-left relative z-10">
+        <div class="flex items-center space-x-2 text-xs font-extrabold text-indigo-800 mb-1">
+          <i class="fa-solid fa-book-sparkles text-indigo-600"></i>
+          <span>Epilog Perjalanan Petualangan:</span>
+        </div>
+        <p id="quest-epilogue-text" class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          Pintu gerbang istana pelangi terbuka lebar! Putri permen tersenyum dan menyematkan mahkota kejayaan di kepalamu!
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2.5 pt-2 relative z-10">
+        <!-- Direct Download Certificate Button -->
+        <button onclick="app.downloadQuestCertificate()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 active:scale-98 text-slate-950 font-black text-sm shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2 border border-amber-300">
+          <i class="fa-solid fa-award text-lg text-amber-900"></i>
+          <span>📜 Unduh Sertifikat Piagam Juara (PNG)</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="app.viewCertificateTab()" class="py-2.5 px-4 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all border border-indigo-200">
+            <i class="fa-solid fa-eye mr-1"></i> Buka Sertifikat
+          </button>
+          <button onclick="app.closeModal('modal-quest-complete'); app.startNewQuestChallenge();" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Main Lagi / Ganti Misi
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
@@ -1389,6 +1759,20 @@
         const notes = [523.25, 659.25, 783.99, 1046.5];
         notes.forEach((freq, idx) => {
           setTimeout(() => this.playTone(freq, 0.18, 'sine', 0.2), idx * 75);
+        });
+      }
+
+      playSlash() {
+        // Dynamic sword slash SFX for hero attack
+        this.playTone(360, 0.08, 'sawtooth', 0.2);
+        setTimeout(() => this.playTone(180, 0.12, 'square', 0.25), 40);
+      }
+
+      playQuestVictory() {
+        // High triumphant victory fanfare
+        const notes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => this.playTone(freq, 0.3, 'triangle', 0.22), idx * 110);
         });
       }
     }
@@ -2206,6 +2590,10 @@
           }
         }
 
+        // Sync Story Quest and Boss Battle to active theme
+        if (window.storyQuest) storyQuest.syncTheme(theme.id);
+        if (window.bossBattle && bossBattle.syncThemeBoss) bossBattle.syncThemeBoss(theme.id);
+
         // Re-render themes modal grid if visible
         this.renderGrid();
 
@@ -2979,13 +3367,616 @@
     const academyManager = new AcademyManager();
 
     /* -------------------------------------------------------------
-       7. MAIN APPLICATION LOGIC & STATE ENGINE
+       7. INTERACTIVE ADVENTURE STORY QUEST & PROCEDURAL GENERATOR
+       ------------------------------------------------------------- */
+    class StoryQuestEngine {
+      constructor() {
+        this.themes = {
+          candy: {
+            title: 'Misi Penyelamatan Putri Permen & Istana Pelangi',
+            tagline: 'Kumpulkan bintang kristal manis untuk membuka jembatan pelangi!',
+            mascotName: 'Sparkle si Unicorn 🦄',
+            mascotAvatar: '🦄',
+            location: 'Lembah Permen & Gula Kapas',
+            themeBoss: { name: 'King Caramel Slime', icon: '🍮', maxHp: 120, dmg: 20, loc: 'Pabrik Karamel' },
+            checkpoints: [
+              { name: 'Desa Gulali', icon: '🍭', desc: 'Awal perjalanan di desa permen kapas yang ceria.' },
+              { name: 'Jembatan Cokelat', icon: '🍫', desc: 'Menyeberangi aliran sungai cokelat manis.' },
+              { name: 'Lembah Marshmallow', icon: '🍥', desc: 'Melompat di bukit marshmallow empuk.' },
+              { name: 'Air Terjun Karamel', icon: '🍯', desc: 'Membuka gerbang air terjun sirup keemasan.' },
+              { name: 'Istana Pelangi Permen', icon: '🏰', desc: 'Takhta Putri Permen terselamatkan dengan gemilang!' }
+            ],
+            dialogues: [
+              'Halo Ksatria Manis! Putri Permen menunggumu. Pecahkan soal pertama untuk membuka gerbang permen!',
+              'Yummy! Jawabanmu manis dan tepat! Jembatan cokelat mulai terbentuk melintasi sungai!',
+              'Lompatan hebat! Biskuit dan marshmallow empuk menyambut langkah kakimu!',
+              'Sedikit lagi! Air Terjun Karamel berkilau keemasan memancarkan cahaya rahasia!',
+              'Gerbang Istana Pelangi terbuka! Putri Permen tersenyum menyambut sang juara sejati!'
+            ],
+            epilogueHigh: 'Berkat ketajaman akal dan ketelitianmu yang luar biasa, seluruh misteri di Lembah Permen berhasil dipecahkan! Putri Permen menyematkan Mahkota Kristal Gula Pelangi di kepalamu, dan seluruh warga kerajaan bergembira merayakan pahlawan matematika cilik!',
+            epilogueGood: 'Perjalanan yang sangat manis dan penuh semangat! Kamu telah menunjukkan ketangguhan pantang menyerah melewati lembah marshmallow. Teruslah berlatih, mahkota juara tertinggi siap menantimu!'
+          },
+          space: {
+            title: 'Ekspedisi Roket Kosmik & Inti Bintang Supernova',
+            tagline: 'Luncurkan roket angka dan jelajahi galaksi antariksa!',
+            mascotName: 'Miko Si Kucing Astronot 🚀',
+            mascotAvatar: '🐱‍🚀',
+            location: 'Stasiun Orbit Antariksa',
+            themeBoss: { name: 'Galactic Mecha Titan', icon: '👾', maxHp: 150, dmg: 25, loc: 'Orbit Stasiun Mars' },
+            checkpoints: [
+              { name: 'Landasan Apollo', icon: '🚀', desc: 'Peluncuran roket dengan bahan bakar matematika.' },
+              { name: 'Sabuk Asteroid', icon: '☄️', desc: 'Manuver lincah menghindari pecahan meteorit.' },
+              { name: 'Kubah Stasiun Bulan', icon: '🌕', desc: 'Mengisi ulang baterai surya di pangkalan bulan.' },
+              { name: 'Cincin Planet Saturnus', icon: '🪐', desc: 'Melintasi orbit es kristal raksasa.' },
+              { name: 'Inti Galaksi Supernova', icon: '✨', desc: 'Reaktor bintang abadi menyala sempurna!' }
+            ],
+            dialogues: [
+              'Panggilan Kapten! Mesin roket siap dinyalakan. Hitung koordinat awal dengan tepat!',
+              'Bagus sekali! Roket meluncur mulus menembus lapisan atmosfer Bumi!',
+              'Manuver hebat! Sabuk asteroid berhasil kamu lewati tanpa goresan!',
+              'Orbit Saturnus di depan mata! Sensor menangkap pancaran energi bintang!',
+              'Inti Supernova aktif 100%! Selamat Kapten, namamu kini terukir abadi di peta bintang galaksi!'
+            ],
+            epilogueHigh: 'Spektakuler! Roket antariksamu mendarat dengan sempurna di Inti Galaksi Supernova. Seluruh dewan ilmuwan antariksa memberikan tepuk tangan meriah untuk Kapten [Nama Anak], Sang Penjelajah Angkasa Sejati!',
+            epilogueGood: 'Misi antariksa yang gagah berani! Ketelitianmu membaca koordinat membuat roket melewati badai kosmik dengan selamat. Teruslah meluncur setinggi bintang-bintang di langit!'
+          },
+          safari: {
+            title: 'Ekspedisi Rimba Purba & Kuil Singa Emas',
+            tagline: 'Ikuti jejak rahasia purba di dalam hutan tropis yang lebat!',
+            mascotName: 'Leo si Singa Rimba 🦁',
+            mascotAvatar: '🦁',
+            location: 'Hutan Tropis Purba',
+            themeBoss: { name: 'King Kong Titan Rimba', icon: '🦍', maxHp: 140, dmg: 25, loc: 'Lembah Rimba Purba' },
+            checkpoints: [
+              { name: 'Tenda Penjelajah', icon: '🏕️', desc: 'Menyiapkan kompas dan ransel petualangan.' },
+              { name: 'Jembatan Gantung', icon: '🌉', desc: 'Meniti jembatan bambu di atas jurang hijau.' },
+              { name: 'Air Terjun Zamrud', icon: '🌊', desc: 'Mendengarkan gemuruh air terjun dan burung rimba.' },
+              { name: 'Gua Cenderawasih', icon: '🦜', desc: 'Gua berkilau kristal tempat kunci kuno tersimpan.' },
+              { name: 'Kuil Singa Emas', icon: '🏛️', desc: 'Pintu kuil purba terbuka memancarkan cahaya harta!' }
+            ],
+            dialogues: [
+              'Aummm! Selamat datang penjelajah rimba! Buka peta dengan angka pertamamu!',
+              'Langkah pertama yang mantap! Jejak hewan langka mulai terlihat jelas!',
+              'Hebat! Jembatan gantung bambu berhasil kamu lalui dengan tenang dan seimbang!',
+              'Dengar gemuruh itu? Air Terjun Zamrud memancarkan teka-teki berikutnya!',
+              'Pintu Kuil Singa Emas terbelah! Harta karun kebijaksanaan purba resmi menjadi milikmu!'
+            ],
+            epilogueHigh: 'Luar biasa! Keberanian dan ketajaman analisismu membuka gerbang Kuil Singa Emas yang telah terkunci ribuan tahun. Sang Raja Rimba menganugerahi [Nama Anak] Gelar Penjelajah Agung!',
+            epilogueGood: 'Ekspedisi rimba yang sangat berani! Kamu menunjukkan ketangguhan mental seorang petualang sejati menghadapi berbagai teka-teki alam. Tetaplah penasaran dan pantang menyerah!'
+          },
+          castle: {
+            title: 'Pencarian Pedang Hikmah & Mahkota Ksatria Kerajaan',
+            tagline: 'Buktikan ketajaman nalar dan keberanian jiwamu di negeri dongeng!',
+            mascotName: 'Luna si Penyihir Cilik 🧙‍♀️',
+            mascotAvatar: '🧙‍♀️',
+            location: 'Kastil Dongeng Megah',
+            themeBoss: { name: 'Ancient Pyro Dragon', icon: '🐲', maxHp: 160, dmg: 30, loc: 'Puncak Kastil Sihir' },
+            checkpoints: [
+              { name: 'Gerbang Kerajaan', icon: '🚪', desc: 'Prajurit menantang calon ksatria membuktikan akalnya.' },
+              { name: 'Hutan Kabut Sihir', icon: '🌲', desc: 'Pohon sihir membisikkan deret angka rahasia.' },
+              { name: 'Danau Kristal Ajaib', icon: '💎', desc: 'Permukaan danau memantulkan teka-teki cahaya.' },
+              { name: 'Menara Jam Astronomi', icon: '🕰️', desc: 'Memutar roda gigi perbintangan waktu kuno.' },
+              { name: 'Ruang Takhta Emas', icon: '👑', desc: 'Penobatan Ksatria Agung oleh Sri Baginda Raja!' }
+            ],
+            dialogues: [
+              'Salam Ksatria! Ayunkan tongkat analisismu untuk membuka gerbang istana!',
+              'Mantra matematika tepat sasaran! Kabut sihir ungu mulai tersibak perlahan!',
+              'Kristal danau beresonansi dengan jawaban cerdasmu! Cahaya memandu jalan!',
+              'Roda gigi menara jam berputar selaras! Waktu penobatan semakin dekat!',
+              'Terompet kerajaan berbunyi nyaring! Mahkota ksatria kini disematkan di kepalamu!'
+            ],
+            epilogueHigh: 'Dengarlah sorak-sorai seisi kerajaan dongeng! Sri Baginda Raja secara resmi menyematkan Pedang Kebijaksanaan dan Mahkota Ksatria Emas kepada [Nama Anak] atas kejeniusan matematikanya!',
+            epilogueGood: 'Jiwa ksatriamu bersinar terang! Kamu telah berjuang menuntaskan ujian istana dengan penuh ketelitian dan pantang mundur. Suatu hari nanti, mahkota tertinggi pasti jadi milikmu!'
+          },
+          ocean: {
+            title: 'Penyelaman Atlantis & Mutiara Kristal Samudra',
+            tagline: 'Selami kedalaman samudra biru dan temukan kota tersembunyi!',
+            mascotName: 'Finny si Lumba-lumba Cerdas 🐬',
+            mascotAvatar: '🐬',
+            location: 'Samudra Atlantis',
+            themeBoss: { name: 'Deep Sea Kraken', icon: '🐙', maxHp: 130, dmg: 22, loc: 'Palung Samudra Atlantis' },
+            checkpoints: [
+              { name: 'Mercusuar Biru', icon: '🏮', desc: 'Menyalakan lentera penuntun arah kapal selam mini.' },
+              { name: 'Hutan Rumput Laut', icon: '🌿', desc: 'Berenang lincah di sela terumbu karang warna-warni.' },
+              { name: 'Taman Koral Pelangi', icon: '🪸', desc: 'Ikan-ikan badut berkumpul membentuk formasi angka.' },
+              { name: 'Palung Laut Dalam', icon: '🌊', desc: 'Menjaga ketenangan dan fokus tinggi di dasar samudra.' },
+              { name: 'Istana Kristal Atlantis', icon: '🏛️', desc: 'Mutiara Kebijaksanaan bercahaya di puncak istana laut!' }
+            ],
+            dialogues: [
+              'Klik-klik! Lumba-lumba Finny siap memandu! Mari selami soal pertama!',
+              'Bagus sekali! Gelembung jawabanmu membawa kita melewati terumbu karang!',
+              'Lihat formasi ikan-ikan itu! Mereka kagum dengan kecepatan berhitungmu!',
+              'Palung dalam sudah terlewati dengan aman berkat ketenangan fokusmu!',
+              'Istana Atlantis tampak bersinar megah! Mutiara samudra kini berada di tanganmu!'
+            ],
+            epilogueHigh: 'Sungguh penyelaman yang menakjubkan! Di kedalaman Samudra Atlantis yang legendaris, Mutiara Kristal Kebijaksanaan menyala terang menyinari nama [Nama Anak], Sang Penyelam Juara Samudra!',
+            epilogueGood: 'Ketenangan fokusmu di bawah laut sangat luar biasa! Kamu mampu memecahkan soal-soal ombak samudra dengan tekun. Teruslah berenang menuju cita-cita tertinggimu!'
+          },
+          cyber: {
+            title: 'Misi Penyelamat Cyber AI & Inti Matrix Quantum',
+            tagline: 'Jalankan algoritma pemecah teka-teki di laboratorium masa depan!',
+            mascotName: 'Robo & Ren Ninja Siber 🤖',
+            mascotAvatar: '🤖',
+            location: 'Laboratorium Cyber AI',
+            themeBoss: { name: 'Cybertron Dark AI', icon: '🤖', maxHp: 150, dmg: 25, loc: 'Server Vault Quantum' },
+            checkpoints: [
+              { name: 'Terminal Laboratorium', icon: '💻', desc: 'Inisialisasi sistem enkripsi dan pemindai data AI.' },
+              { name: 'Firewall Neon', icon: '🛡️', desc: 'Mendekripsi pola keamanan lapis pertama.' },
+              { name: 'Tol Serat Optik', icon: '⚡', desc: 'Melaju secepat kilat melewati kabel optik bercahaya.' },
+              { name: 'Vault Data Kuantum', icon: '🗄️', desc: 'Membuka kunci berkas formula matematika legendaris.' },
+              { name: 'Inti Matrix Quantum', icon: '🔮', desc: 'Sistem pulih sempurna! Status: SAFE & OPTIMAL!' }
+            ],
+            dialogues: [
+              'Inisialisasi sistem... Masukkan kunci logika untuk meluncurkan protokol!',
+              'Akses diberikan! Firewall terbuka tanpa menyisakan celah bug!',
+              'Laju data berkecepatan 10 Terabit per detik! Logika analisismu luar biasa cepat!',
+              'Vault kuantum terdekripsi! Satu perintah lagi menuju pemulihan server!',
+              'Overdrive Berhasil! Inti Matrix Quantum stabil 100%! Kamu adalah Arsitek Masa Depan!'
+            ],
+            epilogueHigh: 'Sistem pertahanan superkomputer berhasil diamankan 100%! Dewan AI Antigravity memberikan medali kehormatan "Chief Cyber Mind" kepada [Nama Anak] atas kecepatan komputasi dan kecerdasannya yang tiada tanding!',
+            epilogueGood: 'Logika analisismu sangat tajam! Berbagai firewall berhasil kamu dekripsi dengan teliti. Tetaplah mengasah keahlian berpikir kritis untuk masa depan teknologi yang gemilang!'
+          }
+        };
+      }
+
+      getThemeData(themeId) {
+        return this.themes[themeId] || this.themes.candy;
+      }
+
+      syncTheme(themeId) {
+        const t = this.getThemeData(themeId);
+        const iconEl = document.getElementById('story-theme-icon');
+        if (iconEl) iconEl.textContent = themeId === 'candy' ? '🍭' : (themeId === 'space' ? '🚀' : (themeId === 'safari' ? '🦁' : (themeId === 'castle' ? '🏰' : (themeId === 'ocean' ? '🐬' : '🤖'))));
+
+        const titleEl = document.getElementById('quest-story-title');
+        if (titleEl) titleEl.textContent = t.title;
+
+        const tagEl = document.getElementById('quest-story-tagline');
+        if (tagEl) tagEl.textContent = t.tagline;
+
+        const mascotAv = document.getElementById('quest-mascot-avatar');
+        if (mascotAv) mascotAv.textContent = t.mascotAvatar;
+
+        const mascotName = document.getElementById('quest-mascot-name');
+        if (mascotName) mascotName.textContent = t.mascotName + ':';
+
+        if (window.app && app.challengeLength) {
+          this.renderJourneyMap(app.challengeLength, app.currentQIndex, userManager ? userManager.getActiveUser() : null);
+        }
+      }
+
+      renderJourneyMap(targetCount, currentQIndex, activeUser) {
+        const themeId = (window.themeManager ? themeManager.currentThemeId : 'candy') || 'candy';
+        const t = this.getThemeData(themeId);
+        const container = document.getElementById('journey-checkpoints-row');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const progressPercent = Math.min(Math.max((currentQIndex / Math.max(1, targetCount - 1)) * 100, 4), 96);
+        const track = document.getElementById('quest-progress-track');
+        if (track) track.style.width = `${progressPercent}%`;
+
+        const avatarMarker = document.getElementById('quest-avatar-marker');
+        if (avatarMarker) avatarMarker.style.left = `${progressPercent}%`;
+
+        const travelAvatar = document.getElementById('map-travel-avatar');
+        if (travelAvatar && activeUser) {
+          travelAvatar.textContent = activeUser.avatar || '🦁';
+        }
+
+        const stageIdx = Math.min(Math.floor((currentQIndex / targetCount) * 5), 4);
+        const stageInd = document.getElementById('quest-stage-indicator');
+        if (stageInd) stageInd.textContent = `Pos ${stageIdx + 1} dari 5`;
+
+        const dialogueText = document.getElementById('quest-dialogue-text');
+        if (dialogueText && t.dialogues[stageIdx]) {
+          dialogueText.textContent = t.dialogues[stageIdx];
+        }
+
+        t.checkpoints.forEach((cp, idx) => {
+          const isPassed = idx < stageIdx;
+          const isActive = idx === stageIdx;
+          const node = document.createElement('div');
+          node.className = 'flex flex-col items-center group cursor-pointer';
+          node.onclick = () => app.showToast(`📍 Pos ${idx + 1}: ${cp.name} - ${cp.desc}`);
+
+          let badgeHtml = '';
+          if (isPassed) {
+            badgeHtml = `<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-emerald-500 text-white border-2 border-white shadow flex items-center justify-center text-sm font-black transition-all">✓</div>`;
+          } else if (isActive) {
+            badgeHtml = `<div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-400 text-slate-900 border-2 border-amber-500 shadow-md flex items-center justify-center text-base sm:text-lg font-black story-checkpoint-active transition-all">${cp.icon}</div>`;
+          } else {
+            badgeHtml = `<div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 text-slate-400 border border-slate-300 shadow-2xs flex items-center justify-center text-xs font-bold transition-all opacity-80">${cp.icon}</div>`;
+          }
+
+          node.innerHTML = `
+            ${badgeHtml}
+            <span class="text-[9px] sm:text-[10px] font-bold mt-1 max-w-[60px] sm:max-w-[80px] text-center truncate ${isActive ? 'text-amber-800 font-extrabold' : (isPassed ? 'text-emerald-700' : 'text-slate-400')}">
+              ${cp.name}
+            </span>
+          `;
+          container.appendChild(node);
+        });
+      }
+
+      createQuestion(qText, correctVal, distractors, topic, diff, hint, exp, trick, grade) {
+        const allVals = [correctVal, ...distractors].slice(0, 4);
+        // Shuffle options
+        for (let i = allVals.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [allVals[i], allVals[j]] = [allVals[j], allVals[i]];
+        }
+        const letters = ['A', 'B', 'C', 'D'];
+        const correctIndex = allVals.indexOf(correctVal);
+        const ansLetter = letters[correctIndex !== -1 ? correctIndex : 0];
+        const opts = letters.map((l, idx) => `${l}. ${allVals[idx]}`);
+
+        return {
+          id: `quest_gen_${Date.now()}_${Math.floor(Math.random() * 99999)}`,
+          grade: grade,
+          topic: topic,
+          source: 'Olimpiade Petualangan (Procedural)',
+          diff: diff || 'Olimpiade',
+          q: qText,
+          opts: opts,
+          ans: ansLetter,
+          hint: hint,
+          exp: exp,
+          trick: trick
+        };
+      }
+
+      generateProceduralQuestion(grade, themeId) {
+        const themeNouns = {
+          candy: { item: 'Permen Kristal', box: 'Kotak Cokelat', role: 'Ksatria Manis', loc: 'Lembah Permen' },
+          space: { item: 'Baterai Kosmik', box: 'Kapsul Roket', role: 'Astronot Cilik', loc: 'Stasiun Antariksa' },
+          safari: { item: 'Buah Kelapa Emas', box: 'Peti Rimba', role: 'Penjelajah Rimba', loc: 'Kuil Singa Emas' },
+          castle: { item: 'Permata Ajaib', box: 'Peti Mahkota', role: 'Ksatria Kerajaan', loc: 'Ruang Takhta' },
+          ocean: { item: 'Mutiara Samudra', box: 'Kerang Raksasa', role: 'Penyelam Samudra', loc: 'Istana Atlantis' },
+          cyber: { item: 'Chip Data AI', box: 'Server Vault', role: 'Hacker Kebaikan', loc: 'Laboratorium Quantum' }
+        };
+        const n = themeNouns[themeId] || themeNouns.candy;
+        const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+        switch (grade) {
+          case 1: {
+            const types = [
+              () => {
+                const step = rand(2, 5);
+                const start = rand(2, 8);
+                const seq = [start, start + step, start + 2 * step, start + 3 * step, start + 4 * step];
+                const missIdx = rand(1, 3);
+                const correct = seq[missIdx];
+                const displayed = seq.map((v, i) => i === missIdx ? '__' : v).join(', ');
+                return this.createQuestion(
+                  `Dalam perjalanan di ${n.loc}, kamu menemukan jejak lompatan angka: ${displayed}. Berapakah angka lompatan yang hilang pada tanda garis?`,
+                  correct,
+                  [correct - step, correct + 1, correct + step],
+                  'Pola Bilangan', 'Mudah',
+                  `Perhatikan selisih lompatan dari angka pertama ke kedua: bertambah ${step}.`,
+                  `Pola lompatan selalu bertambah ${step}.\nJadi, angka yang hilang adalah ${seq[missIdx - 1]} + ${step} = ${correct}.`,
+                  `Trik Juara Cepat: Lihat pola bertambah ${step}, langsung tambahkan ${seq[missIdx - 1]} + ${step} = ${correct}!`,
+                  1
+                );
+              },
+              () => {
+                const boxes = rand(3, 6);
+                const perBox = rand(2, 4);
+                const correct = boxes * perBox;
+                return this.createQuestion(
+                  `Ada ${boxes} wadah ${n.box}. Setiap wadah berisi tepat ${perBox} buah ${n.item}. Berapakah jumlah total seluruh ${n.item}?`,
+                  `${correct} buah`,
+                  [`${correct - perBox} buah`, `${correct + perBox} buah`, `${correct + 1} buah`],
+                  'Aritmatika Dasar', 'Mudah',
+                  `Gunakan perkalian atau penjumlahan berulang: ${boxes} kali ${perBox}.`,
+                  `Jumlah total = ${boxes} x ${perBox} = ${correct} buah.`,
+                  `Trik Cepat: Perkalian berulang: ${boxes} x ${perBox} = ${correct}!`,
+                  1
+                );
+              },
+              () => {
+                const diff = rand(2, 6) * 2;
+                const personB = rand(4, 10);
+                const personA = personB + diff;
+                const correct = diff / 2;
+                return this.createQuestion(
+                  `Ksatria A memiliki ${personA} ${n.item}, sedangkan Ksatria B memiliki ${personB} ${n.item}. Berapa banyak ${n.item} yang harus diberikan Ksatria A kepada Ksatria B agar jumlah mereka sama banyak?`,
+                  `${correct} buah`,
+                  [`${correct + 1} buah`, `${diff} buah`, `${correct - 1 > 0 ? correct - 1 : correct + 2} buah`],
+                  'Logika Pembagian', 'Sedang',
+                  `Hitung selisihnya terlebih dahulu: ${personA} - ${personB} = ${diff}. Lalu bagi 2.`,
+                  `Selisih = ${personA} - ${personB} = ${diff}.\nAgar sama, yang diberikan adalah separuh selisih = ${diff} / 2 = ${correct} buah.`,
+                  `Trik Juara: Rumus Bagi Dua: Selisih ${diff} : 2 = ${correct}!`,
+                  1
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          case 2: {
+            const types = [
+              () => {
+                const len = rand(10, 24);
+                const step = 2;
+                const cuts = (len / step) - 1;
+                return this.createQuestion(
+                  `Sebuah tali jembatan di ${n.loc} memiliki panjang ${len} meter. Tali tersebut dipotong menjadi bagian-bagian sepanjang ${step} meter. Berapa kali pemotongan yang harus dilakukan?`,
+                  `${cuts} kali`,
+                  [`${cuts + 1} kali`, `${cuts - 1} kali`, `${cuts + 2} kali`],
+                  'Interval & Pemotongan', 'Sedang',
+                  `Banyak potongan = ${len} : ${step}. Banyak kali pemotongan = Potongan - 1.`,
+                  `Banyak bagian = ${len} / ${step} = ${len / step}.\nBanyak kali menggunting = ${len / step} - 1 = ${cuts} kali.`,
+                  `Trik Juara: Banyak Guntingan = Banyak Batang - 1! Langsung ${len / step} - 1 = ${cuts}!`,
+                  2
+                );
+              },
+              () => {
+                const nKids = rand(4, 6);
+                const handshakes = (nKids * (nKids - 1)) / 2;
+                return this.createQuestion(
+                  `Sebanyak ${nKids} orang ${n.role} bertemu di pos petualangan dan masing-masing saling berjabat tangan tepat satu kali. Berapa kali jabat tangan yang terjadi seluruhnya?`,
+                  `${handshakes} kali`,
+                  [`${handshakes - 2} kali`, `${handshakes + 2} kali`, `${nKids * 2} kali`],
+                  'Kombinatorika Sederhana', 'Sedang',
+                  `Orang pertama bersalaman dengan ${nKids - 1} orang, orang kedua ${nKids - 2} orang, dan seterusnya.`,
+                  `Jumlah jabat tangan = (${nKids} x ${nKids - 1}) / 2 = ${handshakes} kali.`,
+                  `Trik Juara: Rumus Salam: n x (n - 1) / 2 = (${nKids} x ${nKids - 1}) / 2 = ${handshakes}!`,
+                  2
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          case 3: {
+            const types = [
+              () => {
+                const heads = rand(10, 18);
+                const rabbits = rand(3, 7);
+                const chickens = heads - rabbits;
+                const totalLegs = (chickens * 2) + (rabbits * 4);
+                return this.createQuestion(
+                  `Di padang rumput ${n.loc}, terlihat sejumlah ayam (kaki 2) dan kelinci (kaki 4). Jumlah seluruh kepala ada ${heads} dan jumlah seluruh kaki ada ${totalLegs}. Berapakah banyak kelinci?`,
+                  `${rabbits} ekor`,
+                  [`${rabbits + 1} ekor`, `${rabbits - 1} ekor`, `${chickens} ekor`],
+                  'Metode Asumsi (Ayam & Kelinci)', 'Olimpiade',
+                  `Asumsikan semua berkaki 2: ${heads} x 2 = ${heads * 2}. Selisih kaki dibagi 2.`,
+                  `Kelebihan kaki = ${totalLegs} - (${heads} x 2) = ${totalLegs - heads * 2}.\nBanyak kelinci = ${totalLegs - heads * 2} / 2 = ${rabbits} ekor.`,
+                  `Trik Asumsi Juara: (${totalLegs} - ${heads * 2}) / 2 = ${rabbits} ekor langsung ketemu!`,
+                  3
+                );
+              },
+              () => {
+                const N = rand(10, 20);
+                const sum = (N * (N + 1)) / 2;
+                return this.createQuestion(
+                  `Berapakah hasil penjumlahan berurutan dari kristal angka: 1 + 2 + 3 + 4 + ... + ${N}?`,
+                  `${sum}`,
+                  [`${sum - N}`, `${sum + N}`, `${sum + 5}`],
+                  'Aritmatika Deret Gauss', 'Sedang',
+                  `Gunakan metode cerdik Carl Friedrich Gauss: (Angka Pertama + Angka Terakhir) x Banyak Angka / 2.`,
+                  `Rumus Gauss = (${N} x (${N} + 1)) / 2 = (${N} x ${N + 1}) / 2 = ${sum}.`,
+                  `Trik Gauss: Kalikan angka dengan adiknya lalu bagi 2: (${N} x ${N + 1}) / 2 = ${sum}!`,
+                  3
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          case 4: {
+            const types = [
+              () => {
+                const v1 = rand(30, 45);
+                const v2 = rand(45, 60);
+                const tHours = rand(2, 4);
+                const dist = (v1 + v2) * tHours;
+                return this.createQuestion(
+                  `Dua regu penjelajah berangkat bersamaan dari dua stasiun berjarak ${dist} km dan saling mendekat. Regu A melaju dengan kecepatan ${v1} km/jam dan Regu B ${v2} km/jam. Setelah berapa jam mereka akan berpapasan?`,
+                  `${tHours} jam`,
+                  [`${tHours + 1} jam`, `${tHours - 1 > 0 ? tHours - 1 : tHours + 2} jam`, `${tHours * 2} jam`],
+                  'Kecepatan & Papasan', 'Olimpiade',
+                  `Kecepatan gabungan = ${v1} + ${v2} km/jam. Waktu = Jarak / Kecepatan Gabungan.`,
+                  `Kecepatan total = ${v1} + ${v2} = ${v1 + v2} km/jam.\nWaktu papasan = ${dist} / ${v1 + v2} = ${tHours} jam.`,
+                  `Trik Papasan: Jarak dibagi Total Kecepatan: ${dist} / ${v1 + v2} = ${tHours} jam!`,
+                  4
+                );
+              },
+              () => {
+                const d1 = rand(2, 5);
+                const d2 = rand(3, 6);
+                const d4 = rand(1, 4);
+                const sumKnown = d1 + d2 + d4;
+                const rem = sumKnown % 9;
+                const correctDigit = (9 - rem) % 9;
+                return this.createQuestion(
+                  `Sebuah kode sandi kuno 4-angka berbentuk ${d1}${d2}X${d4} dapat dibagi habis oleh 9. Berapakah nilai digit angka X yang tepat?`,
+                  `${correctDigit}`,
+                  [`${(correctDigit + 2) % 9}`, `${(correctDigit + 4) % 9}`, `${(correctDigit + 1) % 9}`],
+                  'Teori Bilangan & Keterbagian', 'Olimpiade',
+                  `Ciri bilangan habis dibagi 9: jumlah seluruh digitnya harus kelipatan 9.`,
+                  `Jumlah digit = ${d1} + ${d2} + X + ${d4} = ${sumKnown} + X.\nAgar kelipatan 9 terdekat, X = ${correctDigit}.`,
+                  `Trik Keterbagian 9: Jumlahkan digit yang ada (${sumKnown}), cari kekurangannya ke kelipatan 9: ${correctDigit}!`,
+                  4
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          case 5: {
+            const types = [
+              () => {
+                const base = [2, 3, 7, 8][rand(0, 3)];
+                const exp = rand(2024, 2030);
+                const cycle = [
+                  [2, 4, 8, 6],
+                  [3, 9, 7, 1],
+                  [7, 9, 3, 1],
+                  [8, 4, 2, 6]
+                ][[2, 3, 7, 8].indexOf(base)];
+                const rem = exp % 4;
+                const correct = rem === 0 ? cycle[3] : cycle[rem - 1];
+                return this.createQuestion(
+                  `Dalam brankas ${n.loc}, terdapat kode eksponensial super: berapakah angka satuan (digit terakhir) dari hasil perpangkatan ${base}^${exp}?`,
+                  `${correct}`,
+                  [`${(correct + 2) % 10}`, `${(correct + 4) % 10}`, `${(correct + 6) % 10}`],
+                  'Pola Angka Satuan Siklus', 'Olimpiade',
+                  `Pola angka satuan perpangkatan ${base} berulang setiap 4 siklus: ${cycle.join(', ')}. Bagi pangkat dengan 4.`,
+                  `Pangkat ${exp} dibagi 4 menghasilkan sisa ${rem === 0 ? 4 : rem}.\nMaka satuannya berada pada urutan ke-${rem === 0 ? 4 : rem}, yaitu ${correct}.`,
+                  `Trik Modulo 4: Ambil 2 digit terakhir ${exp % 100} mod 4 = ${rem}, langsung petik urutan ke-${rem === 0 ? 4 : rem} = ${correct}!`,
+                  5
+                );
+              },
+              () => {
+                const t1 = 6;
+                const t2 = 12;
+                const combined = (t1 * t2) / (t1 + t2);
+                return this.createQuestion(
+                  `Sebuah tangki energi di ${n.loc} dapat diisi penuh oleh Pipa A dalam waktu ${t1} jam, sedangkan Pipa B memerlukan ${t2} jam. Berapa jam waktu yang dibutuhkan jika kedua pipa dibuka bersama-sama?`,
+                  `${combined} jam`,
+                  [`${combined + 2} jam`, `${combined + 1} jam`, `${t1 + t2} jam`],
+                  'Kerja Bersama & Debit', 'Olimpiade',
+                  `Laju gabungan = 1/${t1} + 1/${t2}. Waktu = 1 / Laju Gabungan.`,
+                  `Laju = 1/${t1} + 1/${t2} = 2/${t2} + 1/${t2} = 3/${t2} = 1/${combined}.\nWaktu = ${combined} jam.`,
+                  `Trik Cepat (Kali per Tambah): (${t1} x ${t2}) / (${t1} + ${t2}) = ${t1 * t2} / ${t1 + t2} = ${combined} jam!`,
+                  5
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          case 6: {
+            const types = [
+              () => {
+                const colors = rand(3, 5);
+                const minPick = colors + 1;
+                return this.createQuestion(
+                  `Di dalam kotak tertutup terdapat kelereng dengan ${colors} warna berbeda dalam jumlah banyak. Berapa kelereng paling sedikit yang harus diambil dalam kegelapan agar kamu PASTI mendapatkan setidaknya 2 kelereng dengan warna yang sama?`,
+                  `${minPick} kelereng`,
+                  [`${colors} kelereng`, `${minPick + 2} kelereng`, `${colors * 2} kelereng`],
+                  'Prinsip Sarang Burung (Pigeonhole)', 'Olimpiade',
+                  `Kondisi terburuk (worst case): setiap pengambilan pertama menghasilkan warna berbeda (${colors} warna). Pengambilan berikutnya pasti kembar.`,
+                  `Kondisi terburuk = ${colors} kelereng dengan warna berbeda-beda.\nKelereng ke-(${colors} + 1) = ${minPick} dijamin pasti kembar.`,
+                  `Trik Pigeonhole: Jumlah Kategori Warna + 1 = ${colors} + 1 = ${minPick}!`,
+                  6
+                );
+              },
+              () => {
+                const r = 7;
+                const squareSide = r * 2;
+                const squareArea = squareSide * squareSide;
+                const circleArea = (22 / 7) * r * r;
+                const shaded = squareArea - circleArea;
+                return this.createQuestion(
+                  `Sebuah lingkaran dengan jari-jari ${r} cm tepat berada di dalam sebuah persegi bersisi ${squareSide} cm. Berapakah luas daerah di luar lingkaran tetapi di dalam persegi (luas sudut arsir)?`,
+                  `${shaded} cm²`,
+                  [`${shaded + 12} cm²`, `${shaded - 8} cm²`, `${circleArea} cm²`],
+                  'Geometri & Luas Arsir', 'Olimpiade',
+                  `Luas arsir = Luas Persegi - Luas Lingkaran.`,
+                  `Luas persegi = ${squareSide} x ${squareSide} = ${squareArea} cm².\nLuas lingkaran = (22/7) x ${r} x ${r} = ${circleArea} cm².\nLuas sisa = ${squareArea} - ${circleArea} = ${shaded} cm².`,
+                  `Trik Cepat Luas Pojok: 4r² - (22/7)r² = (6/7)r² = (6/7) x 49 = ${shaded} cm²!`,
+                  6
+                );
+              }
+            ];
+            return types[rand(0, types.length - 1)]();
+          }
+          default:
+            return null;
+        }
+      }
+
+      buildQuestPool(grade, targetCount, baseQuestions, themeId) {
+        let pool = [...baseQuestions];
+        const needed = targetCount - pool.length;
+        if (needed > 0) {
+          for (let i = 0; i < needed; i++) {
+            const newQ = this.generateProceduralQuestion(grade, themeId);
+            if (newQ) pool.push(newQ);
+          }
+        }
+        // Shuffle pool
+        for (let i = pool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [pool[i], pool[j]] = [pool[j], pool[i]];
+        }
+        return pool.slice(0, targetCount);
+      }
+
+      renderCompletionModal(score, correct, total, timeStr, rewardXP, rewardCoins, activeUser, themeId) {
+        const t = this.getThemeData(themeId);
+        const childName = activeUser ? activeUser.name : 'Ksatria Cilik';
+
+        document.getElementById('quest-score-num').textContent = score;
+        document.getElementById('quest-correct-stat').textContent = `${correct} / ${total}`;
+        document.getElementById('quest-accuracy-stat').textContent = `${Math.round((correct / total) * 100)}%`;
+        document.getElementById('quest-time-stat').textContent = timeStr;
+        document.getElementById('quest-reward-stat').textContent = `+${rewardXP} XP • +${rewardCoins} 🪙`;
+
+        // Medal Badge
+        const badgeEl = document.getElementById('quest-medal-badge');
+        let medalName = 'Medali Emas Olimpiade';
+        if (score >= 90) {
+          medalName = 'Medali Emas Olimpiade';
+          badgeEl.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-extrabold text-xs border border-amber-300';
+          badgeEl.innerHTML = '<span>🥇</span><span>Medali Emas Olimpiade</span>';
+        } else if (score >= 75) {
+          medalName = 'Medali Perak Olimpiade';
+          badgeEl.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-800 font-extrabold text-xs border border-slate-300';
+          badgeEl.innerHTML = '<span>🥈</span><span>Medali Perak Olimpiade</span>';
+        } else if (score >= 60) {
+          medalName = 'Medali Perunggu Olimpiade';
+          badgeEl.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-orange-100 text-orange-800 font-extrabold text-xs border border-orange-300';
+          badgeEl.innerHTML = '<span>🥉</span><span>Medali Perunggu Olimpiade</span>';
+        } else {
+          medalName = 'Ksatria Tangguh';
+          badgeEl.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 font-extrabold text-xs border border-indigo-300';
+          badgeEl.innerHTML = '<span>🎖️</span><span>Ksatria Tangguh Pantang Menyerah</span>';
+        }
+        if (window.app) app.questMedal = medalName;
+
+        // Grade label
+        const gradeEl = document.getElementById('quest-eval-grade');
+        if (gradeEl) gradeEl.textContent = `Kategori: Kelas ${activeUser ? activeUser.grade : 1} SD • Standar OSN SD`;
+
+        // Motivation Text
+        const motivEl = document.getElementById('quest-motivation-text');
+        if (motivEl) {
+          if (score >= 90) {
+            motivEl.innerHTML = `🌟 <strong>Luar biasa, Ksatria ${childName}!</strong> Ketelitian dan daya analisismu bagaikan seorang juara olimpiade sejati. Setiap soal yang kamu selesaikan membuktikan bahwa matematika itu sangat seru dan mengasyikkan!`;
+          } else if (score >= 70) {
+            motivEl.innerHTML = `👏 <strong>Hebat sekali, ${childName}!</strong> Usaha dan fokusmu sungguh membanggakan. Teruslah penasaran, banyak berlatih dengan trik 10 detik, dan puncak prestasi tertinggi pasti ada di genggamanmu!`;
+          } else {
+            motivEl.innerHTML = `💪 <strong>Semangat pantang menyerah, ${childName}!</strong> Setiap kesalahan adalah anak tangga menuju kecerdasan sejati. Jadikan petualangan ini pengalaman berharga dan mari coba lagi!`;
+          }
+        }
+
+        // Epilogue Text
+        const epilogueEl = document.getElementById('quest-epilogue-text');
+        if (epilogueEl) {
+          const rawEpilogue = score >= 75 ? t.epilogueHigh : t.epilogueGood;
+          epilogueEl.textContent = rawEpilogue.replace(/\[Nama Anak\]/g, childName);
+        }
+
+        // Mascot Icon
+        const mascotBox = document.getElementById('quest-complete-mascot');
+        if (mascotBox) mascotBox.textContent = score >= 80 ? '🏆' : '⭐';
+      }
+    }
+    const storyQuest = new StoryQuestEngine();
+
+    /* -------------------------------------------------------------
+       8. MAIN APPLICATION LOGIC & STATE ENGINE
        ------------------------------------------------------------- */
     class OliMathApp {
       constructor() {
         this.currentGrade = 1;
         this.allQuestions = [];
         this.currentQIndex = 0;
+        this.challengeLength = 15;
+        this.questQuestions = [];
+        this.questCorrectCount = 0;
+        this.questStartTime = Date.now();
+        this.questScore = 100;
+        this.questMedal = 'Medali Emas Olimpiade';
         this.userData = {
           coins: 0,
           streak: 0,
@@ -3032,7 +4023,6 @@
         document.getElementById('player-title').textContent = titles[titleIdx];
 
         // XP Bar
-        const xpForNext = this.userData.level * 100;
         const currentLevelXP = this.userData.xp % 100;
         const percent = Math.min(Math.max((currentLevelXP / 100) * 100, 5), 100);
         document.getElementById('player-xp-bar').style.width = percent + '%';
@@ -3059,6 +4049,39 @@
         this.saveUserData();
       }
 
+      setChallengeLength(len) {
+        this.challengeLength = len;
+        // Update challenge buttons styling
+        [10, 15, 20, 25].forEach(l => {
+          const btn = document.getElementById(`challenge-btn-${l}`);
+          if (!btn) return;
+          const title = btn.querySelector('.font-display');
+          if (l === len) {
+            btn.className = 'challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-indigo-50/80 border-indigo-500 shadow-sm ring-2 ring-indigo-400/50 active:scale-98';
+            if (title) title.className = 'font-display font-black text-sm text-indigo-700';
+          } else {
+            btn.className = 'challenge-pill p-3 rounded-2xl border-2 transition-all flex flex-col justify-between text-left group bg-white hover:bg-slate-50 border-slate-200 shadow-2xs active:scale-98';
+            if (title) title.className = 'font-display font-black text-sm text-slate-800 group-hover:text-indigo-600';
+          }
+        });
+        const badge = document.getElementById('quest-target-badge');
+        if (badge) badge.textContent = `Misi ${len} Soal`;
+
+        this.initQuest(len);
+        this.showToast(`🎯 Misi Tantangan ${len} Soal Dimulai!`);
+      }
+
+      initQuest(len = this.challengeLength) {
+        this.challengeLength = len;
+        const baseGradeQs = this.getQuestionsForGrade();
+        const activeTheme = (window.themeManager ? themeManager.currentThemeId : 'candy') || 'candy';
+        this.questQuestions = storyQuest.buildQuestPool(this.currentGrade, len, baseGradeQs, activeTheme);
+        this.currentQIndex = 0;
+        this.questCorrectCount = 0;
+        this.questStartTime = Date.now();
+        this.loadQuestion();
+      }
+
       renderGradeButtons() {
         const container = document.getElementById('grade-buttons');
         container.innerHTML = '';
@@ -3082,8 +4105,7 @@
       selectGrade(grade) {
         this.currentGrade = grade;
         this.renderGradeButtons();
-        this.currentQIndex = 0;
-        this.loadQuestion();
+        this.initQuest(this.challengeLength);
         bossBattle.initForGrade(grade);
         tryoutEngine.reset();
         if (window.academyManager) {
@@ -3095,14 +4117,13 @@
       async fetchQuestions() {
         const dbCountEl = document.getElementById('db-count');
         try {
-          // Attempt auto-fetch from GitHub/local file
           const res = await fetch(`./questions_db.json?v=${Date.now()}`);
           if (res.ok) {
             const data = await res.json();
             this.allQuestions = Array.isArray(data) ? data : (data.questions || []);
             dbCountEl.textContent = `${this.allQuestions.length} Soal`;
             this.showToast(`🟢 Database Terkoneksi (${this.allQuestions.length} Soal)`);
-            this.loadQuestion();
+            this.initQuest(this.challengeLength);
             bossBattle.initForGrade(this.currentGrade);
             return;
           }
@@ -3110,11 +4131,10 @@
           console.warn('Network fetch error, using embedded dataset:', e);
         }
 
-        // Fallback embedded dataset ensures offline 100% works
         if (this.allQuestions.length === 0) {
           this.allQuestions = this.getEmbeddedFallback();
           dbCountEl.textContent = `${this.allQuestions.length} Soal`;
-          this.loadQuestion();
+          this.initQuest(this.challengeLength);
           bossBattle.initForGrade(this.currentGrade);
         }
       }
@@ -3124,21 +4144,19 @@
       }
 
       loadQuestion() {
-        const gradeQuestions = this.getQuestionsForGrade();
-        if (gradeQuestions.length === 0) {
-          document.getElementById('q-text').textContent = 'Belum ada soal untuk kelas ini. Klik "Minta AI Buat Soal" untuk menambahkannya!';
-          document.getElementById('opts-container').innerHTML = '';
-          return;
+        if (!this.questQuestions || this.questQuestions.length === 0) {
+          this.initQuest(this.challengeLength);
+          if (!this.questQuestions || this.questQuestions.length === 0) return;
         }
 
-        if (this.currentQIndex >= gradeQuestions.length) {
+        if (this.currentQIndex >= this.questQuestions.length) {
           this.currentQIndex = 0;
         }
         if (this.currentQIndex < 0) {
-          this.currentQIndex = gradeQuestions.length - 1;
+          this.currentQIndex = this.questQuestions.length - 1;
         }
 
-        const q = gradeQuestions[this.currentQIndex];
+        const q = this.questQuestions[this.currentQIndex];
 
         // Meta badges
         document.getElementById('badge-grade').textContent = `Kelas ${q.grade}`;
@@ -3147,14 +4165,29 @@
         document.getElementById('badge-diff').textContent = q.diff || 'Sedang';
         
         const aiBadge = document.getElementById('badge-ai');
-        if (q.id && q.id.startsWith('daily_') || q.isAI) {
+        if (q.id && (q.id.startsWith('daily_') || q.id.startsWith('quest_gen_') || q.isAI)) {
           aiBadge.classList.remove('hidden');
         } else {
           aiBadge.classList.add('hidden');
         }
 
         document.getElementById('current-q-index').textContent = this.currentQIndex + 1;
-        document.getElementById('total-q-count').textContent = gradeQuestions.length;
+        document.getElementById('total-q-count').textContent = this.challengeLength;
+
+        // Render Journey Map & Travelling Avatar
+        storyQuest.renderJourneyMap(this.challengeLength, this.currentQIndex, userManager.getActiveUser());
+
+        // Update Next button label for final question
+        const nextBtn = document.getElementById('btn-next-q');
+        if (nextBtn) {
+          if (this.currentQIndex === this.challengeLength - 1) {
+            nextBtn.className = 'px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:opacity-95 text-slate-950 text-xs font-black shadow-md transition-all flex items-center space-x-1.5 animate-pulse';
+            nextBtn.innerHTML = '<span>Selesaikan Misi</span> <i class="fa-solid fa-flag-checkered text-xs"></i>';
+          } else {
+            nextBtn.className = 'px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition-all flex items-center space-x-1';
+            nextBtn.innerHTML = '<span>Lanjut</span> <i class="fa-solid fa-chevron-right text-xs"></i>';
+          }
+        }
 
         // Question text
         document.getElementById('q-text').textContent = q.q;
@@ -3172,9 +4205,9 @@
         optsContainer.innerHTML = '';
 
         q.opts.forEach((optText) => {
-          const optKey = optText.trim().charAt(0).toUpperCase(); // 'A', 'B', 'C', 'D'
+          const optKey = optText.trim().charAt(0).toUpperCase();
           const btn = document.createElement('button');
-          btn.className = 'opt-btn text-left p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50/80 border border-slate-200/90 font-medium text-slate-800 text-sm transition-all duration-200 flex items-center space-x-3 active:scale-98';
+          btn.className = 'opt-btn text-left p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50/80 border border-slate-200/90 font-medium text-slate-800 text-sm transition-all duration-200 flex items-center space-x-3 active:scale-98 relative';
           btn.innerHTML = `
             <span class="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-700 shadow-sm">${optKey}</span>
             <span class="flex-1">${optText.replace(/^[A-D]\.\s*/, '')}</span>
@@ -3191,27 +4224,129 @@
         if (isCorrect) {
           sound.playCorrect();
           btn.classList.remove('bg-slate-50', 'hover:bg-indigo-50/80');
-          btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600', 'shadow-md');
+          btn.classList.add('animate-option-correct', 'bg-emerald-500', 'text-white', 'border-emerald-600', 'shadow-md');
           allBtns.forEach(b => b.disabled = true);
           
+          this.questCorrectCount++;
+
+          // Floating Coin & XP Burst above button
+          const chip = document.createElement('div');
+          chip.className = 'floating-coin-bubble text-emerald-700 font-extrabold text-xs bg-white px-2.5 py-1 rounded-full shadow-lg border border-emerald-300';
+          chip.innerHTML = '🪙 +XP & Bintang!';
+          chip.style.left = '40%';
+          chip.style.top = '-12px';
+          btn.appendChild(chip);
+          setTimeout(() => chip.remove(), 1100);
+
+          // Animate travelling avatar hop on Journey Map
+          const travelAv = document.getElementById('map-travel-avatar');
+          if (travelAv) {
+            travelAv.classList.remove('animate-map-hop');
+            void travelAv.offsetWidth;
+            travelAv.classList.add('animate-map-hop');
+          }
+
           this.triggerConfetti();
-          this.addReward(25, 10);
-          this.showToast('🎯 HEBAT! Jawabanmu Benar (+25 XP, +10 Koin)');
+
+          // Challenge multiplier rewards (faster level up!)
+          const mult = this.challengeLength === 25 ? 2.5 : (this.challengeLength === 20 ? 2 : (this.challengeLength === 15 ? 1.5 : 1));
+          const xpGained = Math.round(25 * mult);
+          const coinsGained = Math.round(10 * mult);
+          this.addReward(xpGained, coinsGained);
+          this.showToast(`🎯 TEPAT SEKALI! (+${xpGained} XP, +${coinsGained} Koin)`);
 
           // Unlock solution
           document.getElementById('solution-box').classList.remove('hidden');
         } else {
           sound.playWrong();
-          btn.classList.add('bg-rose-100', 'text-rose-800', 'border-rose-300', 'animate-shake');
+          btn.classList.add('animate-playful-wobble', 'bg-rose-100', 'text-rose-800', 'border-rose-300');
           this.userData.streak = 0;
           this.saveUserData();
-          this.showToast('❌ Kurang tepat. Coba baca Petunjuk (Hint) ya!');
+          this.showToast('❌ Kurang tepat. Coba buka Petunjuk (Hint) rahasia ya! 😉');
         }
       }
 
       nextQuestion() {
-        this.currentQIndex++;
-        this.loadQuestion();
+        if (this.currentQIndex + 1 < this.challengeLength) {
+          this.currentQIndex++;
+          this.loadQuestion();
+        } else {
+          // Completed all questions in challenge!
+          this.completeQuest();
+        }
+      }
+
+      completeQuest() {
+        this.questScore = Math.round((this.questCorrectCount / this.challengeLength) * 100);
+        const elapsedSec = Math.max(1, Math.round((Date.now() - this.questStartTime) / 1000));
+        const timeStr = `${Math.floor(elapsedSec / 60)}m ${elapsedSec % 60}s`;
+
+        // Challenge completion bonus
+        let bonusXP = 100;
+        let bonusCoins = 40;
+        if (this.challengeLength === 15) {
+          bonusXP = 200;
+          bonusCoins = 75;
+        } else if (this.challengeLength === 20) {
+          bonusXP = 350;
+          bonusCoins = 120;
+        } else if (this.challengeLength === 25) {
+          bonusXP = 500;
+          bonusCoins = 200;
+        }
+
+        // Add bonus reward & boost level
+        this.userData.xp += bonusXP;
+        this.userData.coins += bonusCoins;
+        const newLevel = Math.floor(this.userData.xp / 100) + 1;
+        if (newLevel > this.userData.level) {
+          this.userData.level = newLevel;
+        }
+        this.saveUserData();
+
+        const activeUser = userManager.getActiveUser();
+        const activeTheme = (window.themeManager ? themeManager.currentThemeId : 'candy') || 'candy';
+
+        storyQuest.renderCompletionModal(
+          this.questScore,
+          this.questCorrectCount,
+          this.challengeLength,
+          timeStr,
+          bonusXP,
+          bonusCoins,
+          activeUser,
+          activeTheme
+        );
+
+        sound.playQuestVictory();
+        this.triggerConfetti();
+        this.openModal('modal-quest-complete');
+      }
+
+      downloadQuestCertificate() {
+        const activeUser = userManager.getActiveUser();
+        const nameInput = document.getElementById('cert-child-name');
+        if (nameInput && activeUser) {
+          nameInput.value = activeUser.name;
+        }
+        certificateEngine.renderPreview(this.questScore, this.questMedal);
+        certificateEngine.downloadPNG();
+      }
+
+      viewCertificateTab() {
+        this.closeModal('modal-quest-complete');
+        this.switchTab('cert');
+        const activeUser = userManager.getActiveUser();
+        const nameInput = document.getElementById('cert-child-name');
+        if (nameInput && activeUser) {
+          nameInput.value = activeUser.name;
+        }
+        certificateEngine.renderPreview(this.questScore, this.questMedal);
+      }
+
+      startNewQuestChallenge() {
+        this.initQuest(this.challengeLength);
+        this.showToast('🚀 Petualangan Baru Dimulai!');
       }
 
       prevQuestion() {
@@ -3220,11 +4355,10 @@
       }
 
       randomQuestion() {
-        const gradeQuestions = this.getQuestionsForGrade();
-        if (gradeQuestions.length > 1) {
+        if (this.questQuestions && this.questQuestions.length > 1) {
           let rand;
           do {
-            rand = Math.floor(Math.random() * gradeQuestions.length);
+            rand = Math.floor(Math.random() * this.questQuestions.length);
           } while (rand === this.currentQIndex);
           this.currentQIndex = rand;
           this.loadQuestion();
@@ -3542,12 +4676,12 @@ Format JSON yang WAJIB dipatuhi:
     class BossBattleEngine {
       constructor() {
         this.bosses = [
-          { grade: 1, name: 'Drakon Pola', icon: '🐲', maxHp: 100, dmg: 20 },
-          { grade: 2, name: 'Lupus Interval', icon: '🐺', maxHp: 140, dmg: 25 },
-          { grade: 3, name: 'Ursa Aritmatika', icon: '🐻', maxHp: 180, dmg: 30 },
-          { grade: 4, name: 'Phoenix Geometri', icon: '🦅', maxHp: 220, dmg: 35 },
-          { grade: 5, name: 'Kraken Aljabar', icon: '🐙', maxHp: 260, dmg: 40 },
-          { grade: 6, name: 'Kaisar Bilangan OSN', icon: '👑', maxHp: 320, dmg: 45 }
+          { grade: 1, themeId: 'candy', name: 'King Caramel Slime', icon: '🍮', maxHp: 120, dmg: 20, loc: 'Pabrik Karamel', lore: 'Raja Slime Karamel membekukan pabrik permen dan menyembunyikan resep olimpiade! Larutkan armor sirupnya dengan mantra hitungan!' },
+          { grade: 2, themeId: 'space', name: 'Galactic Mecha Titan', icon: '👾', maxHp: 150, dmg: 25, loc: 'Orbit Stasiun Mars', lore: 'Robot luar angkasa pencuri baterai energi kosmik! Tembus perisai plasma dengan koordinat hitungan cepat!' },
+          { grade: 3, themeId: 'safari', name: 'King Kong Titan Rimba', icon: '🦍', maxHp: 140, dmg: 25, loc: 'Lembah Rimba Purba', lore: 'Penjaga raksasa Kuil Singa Emas menguji nyali penjelajah! Buktikan akalmu lebih dahsyat dari kekuatannya!' },
+          { grade: 4, themeId: 'castle', name: 'Ancient Pyro Dragon', icon: '🐲', maxHp: 160, dmg: 30, loc: 'Puncak Kastil Sihir', lore: 'Naga Api Legendaris pelindung takhta kerajaan! Jinakkan apinya dengan mantra logika dan geometri!' },
+          { grade: 5, themeId: 'ocean', name: 'Deep Sea Kraken', icon: '🐙', maxHp: 130, dmg: 22, loc: 'Palung Samudra Atlantis', lore: 'Monster Gurita Raksasa penguasa palung samudra! Redakan pusaran ombak gelap dengan pecahan angka!' },
+          { grade: 6, themeId: 'cyber', name: 'Cybertron Dark AI', icon: '🤖', maxHp: 150, dmg: 25, loc: 'Server Vault Quantum', lore: 'Entitas virus kecerdasan buatan gelap mencoba menghapus database dunia! Format program virus dengan logika analitis!' }
         ];
         this.currentBoss = null;
         this.bossHp = 100;
@@ -3557,21 +4691,47 @@ Format JSON yang WAJIB dipatuhi:
 
       initForGrade(grade) {
         const selector = document.getElementById('boss-selector');
+        if (!selector) return;
         selector.innerHTML = '';
         this.bosses.forEach((b, idx) => {
           const opt = document.createElement('option');
           opt.value = idx;
-          opt.textContent = `Kelas ${b.grade}: ${b.icon} ${b.name}`;
+          opt.textContent = `${b.icon} ${b.name} (K${b.grade})`;
           if (b.grade === grade) opt.selected = true;
           selector.appendChild(opt);
         });
 
-        const bossIdx = this.bosses.findIndex(b => b.grade === grade);
-        this.selectBoss(bossIdx !== -1 ? bossIdx : 0);
+        const activeThemeId = (window.themeManager ? themeManager.currentThemeId : 'candy') || 'candy';
+        const bossIdxByTheme = this.bosses.findIndex(b => b.themeId === activeThemeId);
+        const bossIdxByGrade = this.bosses.findIndex(b => b.grade === grade);
+        const chosenIdx = bossIdxByTheme !== -1 ? bossIdxByTheme : (bossIdxByGrade !== -1 ? bossIdxByGrade : 0);
+        this.selectBoss(chosenIdx);
+      }
+
+      syncThemeBoss(themeId) {
+        const arenaBg = document.getElementById('boss-arena-box');
+        if (arenaBg) {
+          const gradients = {
+            candy: 'bg-gradient-to-b from-pink-950 via-purple-950 to-pink-900',
+            space: 'bg-gradient-to-b from-slate-950 via-indigo-950 to-purple-950',
+            safari: 'bg-gradient-to-b from-emerald-950 via-slate-950 to-teal-950',
+            castle: 'bg-gradient-to-b from-amber-950 via-purple-950 to-rose-950',
+            ocean: 'bg-gradient-to-b from-sky-950 via-blue-950 to-indigo-950',
+            cyber: 'bg-gradient-to-b from-teal-950 via-cyan-950 to-slate-950'
+          };
+          arenaBg.className = `${gradients[themeId] || gradients.candy} rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden mb-6 transition-all duration-700`;
+        }
+
+        const bossIdx = this.bosses.findIndex(b => b.themeId === themeId);
+        if (bossIdx !== -1) {
+          const selector = document.getElementById('boss-selector');
+          if (selector) selector.value = bossIdx;
+          this.selectBoss(bossIdx);
+        }
       }
 
       selectBoss(index) {
-        this.currentBoss = this.bosses[index];
+        this.currentBoss = this.bosses[index] || this.bosses[0];
         this.bossHp = this.currentBoss.maxHp;
         this.heroHp = 100;
 
@@ -3584,11 +4744,21 @@ Format JSON yang WAJIB dipatuhi:
         document.getElementById('hero-hp').textContent = this.heroHp;
         document.getElementById('hero-hp-bar').style.width = '100%';
 
+        // Update Theme Lore Card
+        const loreIcon = document.getElementById('boss-theme-mascot-icon');
+        if (loreIcon) loreIcon.textContent = this.currentBoss.icon;
+
+        const loreLoc = document.getElementById('boss-theme-location');
+        if (loreLoc) loreLoc.textContent = this.currentBoss.loc;
+
+        const loreText = document.getElementById('boss-theme-lore-text');
+        if (loreText) loreText.textContent = this.currentBoss.lore;
+
         const activeUser = (typeof userManager !== 'undefined') ? userManager.getActiveUser() : null;
         if (activeUser) {
           const heroAv = document.getElementById('hero-avatar');
           if (heroAv) {
-            heroAv.textContent = activeUser.avatar;
+            heroAv.textContent = activeUser.avatar || '🧙‍♂️';
             heroAv.className = `w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr ${activeUser.avatarBg} border-2 border-white/80 flex items-center justify-center text-4xl sm:text-5xl shadow-lg transition-transform`;
           }
           const heroName = document.getElementById('boss-hero-name');
@@ -3601,15 +4771,16 @@ Format JSON yang WAJIB dipatuhi:
           }
         }
 
-        document.getElementById('battle-log').textContent = `⚔️ ${this.currentBoss.name} muncul! Jawab soal untuk melancarkan serangan sihir matematika!`;
+        document.getElementById('battle-log').textContent = `⚔️ ${this.currentBoss.name} muncul di ${this.currentBoss.loc}! Jawab soal untuk melancarkan serangan sihir matematika!`;
         this.loadBossQuestion();
       }
 
       loadBossQuestion() {
         const gradeQuestions = app.allQuestions.filter(q => q.grade === this.currentBoss.grade);
-        if (gradeQuestions.length === 0) return;
+        const questionsPool = gradeQuestions.length > 0 ? gradeQuestions : app.allQuestions;
+        if (!questionsPool || questionsPool.length === 0) return;
 
-        this.currentQ = gradeQuestions[Math.floor(Math.random() * gradeQuestions.length)];
+        this.currentQ = questionsPool[Math.floor(Math.random() * questionsPool.length)];
         document.getElementById('boss-q-topic').textContent = this.currentQ.topic;
         document.getElementById('boss-q-text').textContent = this.currentQ.q;
 
@@ -3619,7 +4790,7 @@ Format JSON yang WAJIB dipatuhi:
         this.currentQ.opts.forEach(optText => {
           const key = optText.trim().charAt(0).toUpperCase();
           const btn = document.createElement('button');
-          btn.className = 'boss-opt-btn text-left p-3.5 rounded-2xl bg-white hover:bg-rose-50 border border-slate-200 text-xs sm:text-sm font-semibold text-slate-800 transition-all flex items-center space-x-2.5';
+          btn.className = 'boss-opt-btn text-left p-3.5 rounded-2xl bg-white hover:bg-rose-50 border border-slate-200 text-xs sm:text-sm font-semibold text-slate-800 transition-all flex items-center space-x-2.5 active:scale-98';
           btn.innerHTML = `<span class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700">${key}</span> <span>${optText.replace(/^[A-D]\.\s*/, '')}</span>`;
           btn.onclick = () => this.handleBossAnswer(btn, key);
           container.appendChild(btn);
@@ -3633,38 +4804,66 @@ Format JSON yang WAJIB dipatuhi:
 
         if (isCorrect) {
           sound.playCorrect();
+          sound.playSlash();
           sound.playAttack();
           btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
           
-          // Hero attack animation
+          // Hero attack dash animation
           const hero = document.getElementById('hero-avatar');
-          hero.classList.add('scale-125');
-          setTimeout(() => hero.classList.remove('scale-125'), 300);
+          if (hero) {
+            hero.classList.remove('animate-hero-slash');
+            void hero.offsetWidth;
+            hero.classList.add('animate-hero-slash');
+          }
 
-          // Boss takes critical damage
-          const dmg = 45 + Math.floor(Math.random() * 20);
+          // Boss hurt tremor animation
+          const bossAv = document.getElementById('boss-avatar');
+          if (bossAv) {
+            bossAv.classList.remove('animate-boss-hurt');
+            void bossAv.offsetWidth;
+            bossAv.classList.add('animate-boss-hurt');
+          }
+
+          // Floating damage number
+          const dmg = 45 + Math.floor(Math.random() * 25);
+          const dmgContainer = document.getElementById('boss-damage-float-container');
+          if (dmgContainer) {
+            const floatEl = document.createElement('div');
+            floatEl.className = 'floating-dmg-bubble font-display font-black text-2xl sm:text-4xl text-rose-400 drop-shadow-xl';
+            floatEl.innerHTML = `-${dmg} CRITICAL! 💥`;
+            dmgContainer.appendChild(floatEl);
+            setTimeout(() => floatEl.remove(), 1200);
+          }
+
           this.bossHp = Math.max(0, this.bossHp - dmg);
           document.getElementById('boss-hp').textContent = this.bossHp;
           document.getElementById('boss-hp-bar').style.width = `${(this.bossHp / this.currentBoss.maxHp) * 100}%`;
 
-          document.getElementById('battle-log').innerHTML = `💥 <strong>CRITICAL HIT!</strong> Mantra matematika tepat! Kamu memberikan <strong>-${dmg} HP</strong> pada ${this.currentBoss.name}!`;
+          document.getElementById('battle-log').innerHTML = `💥 <strong>CRITICAL HIT!</strong> Mantra matematika tepat sasaran! Kamu memberikan <strong>-${dmg} HP</strong> pada ${this.currentBoss.name}!`;
 
           if (this.bossHp <= 0) {
             // Boss Defeated
             setTimeout(() => {
-              sound.playLevelUp();
+              sound.playQuestVictory();
               app.triggerConfetti();
-              app.addReward(100, 50);
+              app.addReward(120, 60);
               app.userData.bossDefeats += 1;
               app.saveUserData();
-              alert(`🏆 VICTORIA! Kamu berhasil menaklukkan ${this.currentBoss.name}!\n+100 XP & +50 Koin Bintang!`);
-              this.selectBoss(this.bosses.indexOf(this.currentBoss));
+
+              const activeUser = userManager.getActiveUser();
+              const heroName = activeUser ? activeUser.name : 'Cilik';
+              document.getElementById('battle-log').innerHTML = `🏆 <strong>VICTORIA!</strong> ${this.currentBoss.name} mengakui keunggulanmu! "Kekuatan analisa Ksatria ${heroName} sungguh luar biasa!" (+120 XP, +60 🪙)`;
+              app.showToast(`🏆 VICTORIA! Kamu menaklukkan ${this.currentBoss.name}! (+120 XP, +60 🪙)`);
+
+              setTimeout(() => {
+                this.selectBoss(this.bosses.indexOf(this.currentBoss));
+              }, 2500);
             }, 600);
             return;
           }
         } else {
           sound.playWrong();
-          btn.classList.add('bg-rose-200', 'text-rose-900', 'animate-shake');
+          btn.classList.add('animate-playful-wobble', 'bg-rose-200', 'text-rose-900');
 
           // Boss counter-attacks
           const bossDmg = this.currentBoss.dmg;
@@ -3672,11 +4871,11 @@ Format JSON yang WAJIB dipatuhi:
           document.getElementById('hero-hp').textContent = this.heroHp;
           document.getElementById('hero-hp-bar').style.width = `${(this.heroHp / 100) * 100}%`;
 
-          document.getElementById('battle-log').innerHTML = `💔 Jawaban meleset! ${this.currentBoss.name} menyerang balik dengan <strong>-${bossDmg} HP</strong>!`;
+          document.getElementById('battle-log').innerHTML = `💔 Jawaban kurang tepat! ${this.currentBoss.name} menyerang balik dengan <strong>-${bossDmg} HP</strong>!`;
 
           if (this.heroHp <= 0) {
             setTimeout(() => {
-              alert(`☠️ HP Kamu habis! Jangan menyerah, pulihkan energimu dan coba duel lagi!`);
+              alert(`☠️ HP Kamu habis! Jangan patah semangat, pulihkan tenagamu dan buktikan kecerdasanmu di duel berikutnya!`);
               this.selectBoss(this.bosses.indexOf(this.currentBoss));
             }, 600);
             return;
