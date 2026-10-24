@@ -16,15 +16,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Jalankan Generator Soal Harian dengan Gemini AI
+      - name: Jalankan Generator Soal Harian
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PYTHONIOENCODING: utf-8
         run: |
           python scripts/generate_daily_questions.py
 
@@ -33,12 +37,12 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Cek apakah ada perubahan pada questions_db.json
-          if git status --porcelain questions_db.json | grep -q "questions_db.json"; then
-            echo "Ada soal baru yang ditambahkan! Melakukan commit & push..."
-            git add questions_db.json
-            git commit -m "Auto-update: Daily Olympiad Questions [$(date +'%Y-%m-%d')]"
-            git push
-          else
+          git add questions_db.json
+          if git diff --staged --quiet; then
             echo "Tidak ada perubahan pada questions_db.json."
+          else
+            echo "Ada soal baru yang ditambahkan! Melakukan commit & push..."
+            git commit -m "Auto-update: Daily Olympiad Questions [$(date +'%Y-%m-%d')]"
+            git pull --rebase origin main || true
+            git push origin main
           fi

@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "author": "Antigravity AI",
     "description": "Database Soal Olimpiade Matematika SD (Kelas 1-6) Standar OSN/SASMO/Kangaroo/AMC 8",
-    "total_questions": 30,
+    "total_questions": 36,
     "last_updated": "2026-10-24"
   },
   "questions": [
@@ -15,7 +15,12 @@
       "source": "Kangaroo Pre-Ecolier",
       "diff": "Mudah",
       "q": "Di sebuah taman safari, seekor kanguru melompat dengan pola angka: 2, 5, 8, 11, __, 17. Berapakah angka lompatan yang hilang di tanda garis?",
-      "opts": ["A. 13", "B. 14", "C. 15", "D. 16"],
+      "opts": [
+        "A. 13",
+        "B. 14",
+        "C. 15",
+        "D. 16"
+      ],
       "ans": "B",
       "hint": "Coba perhatikan selisih lompatan dari 2 ke 5, dan dari 5 ke 8. Berapa angka yang selalu ditambahkan?",
       "exp": "Pola lompatan bertambah 3 secara teratur:\n- 2 + 3 = 5\n- 5 + 3 = 8\n- 8 + 3 = 11\n- 11 + 3 = 14\n- 14 + 3 = 17\nJadi, angka yang hilang adalah 14.",
@@ -28,7 +33,12 @@
       "source": "SASMO Grade 1",
       "diff": "Sedang",
       "q": "1 buah Apel sama beratnya dengan 2 Stroberi. 1 Stroberi sama beratnya dengan 3 Permen. Berapa buah permen yang dibutuhkan agar seimbang dengan 1 buah Apel?",
-      "opts": ["A. 4 permen", "B. 5 permen", "C. 6 permen", "D. 8 permen"],
+      "opts": [
+        "A. 4 permen",
+        "B. 5 permen",
+        "C. 6 permen",
+        "D. 8 permen"
+      ],
       "ans": "C",
       "hint": "Ganti setiap stroberi dengan 3 permen. Jika ada 2 stroberi, berapa permen semuanya?",
       "exp": "1 Apel = 2 Stroberi.\nKarena 1 Stroberi = 3 Permen, maka:\n1 Apel = 3 Permen + 3 Permen = 6 Permen.",
@@ -41,7 +51,12 @@
       "source": "Kangaroo Math",
       "diff": "Sedang",
       "q": "Budi menyusun kubus mainan menjadi tangga 3 tingkat. Tingkat pertama ada 1 kubus, tingkat kedua ada 2 kubus, dan tingkat ketiga ada 3 kubus. Berapa total kubus yang digunakan Budi?",
-      "opts": ["A. 5 kubus", "B. 6 kubus", "C. 7 kubus", "D. 9 kubus"],
+      "opts": [
+        "A. 5 kubus",
+        "B. 6 kubus",
+        "C. 7 kubus",
+        "D. 9 kubus"
+      ],
       "ans": "B",
       "hint": "Jumlahkan kubus dari setiap tingkat: tingkat 1 + tingkat 2 + tingkat 3.",
       "exp": "Total kubus = 1 + 2 + 3 = 6 kubus.",
@@ -54,7 +69,12 @@
       "source": "IKMC Grade 1",
       "diff": "Sedang",
       "q": "Saat ini usia Ali adalah 7 tahun dan usia kakaknya adalah 10 tahun. Berapakah jumlah usia Ali dan kakaknya 2 tahun yang lalu?",
-      "opts": ["A. 13 tahun", "B. 14 tahun", "C. 15 tahun", "D. 17 tahun"],
+      "opts": [
+        "A. 13 tahun",
+        "B. 14 tahun",
+        "C. 15 tahun",
+        "D. 17 tahun"
+      ],
       "ans": "A",
       "hint": "Ingat bahwa 2 tahun yang lalu, usia Ali berkurang 2 dan usia kakaknya juga berkurang 2.",
       "exp": "Usia saat ini: Ali = 7 tahun, Kakak = 10 tahun.\nDua tahun lalu:\n- Ali = 7 - 2 = 5 tahun\n- Kakak = 10 - 2 = 8 tahun\nJumlah usia = 5 + 8 = 13 tahun.",
@@ -67,7 +87,12 @@
       "source": "HKIMO Preliminary",
       "diff": "Sulit",
       "q": "Kiki memikirkan sebuah angka rahasia. Jika angka tersebut ditambah 4, lalu dikurangi 2, hasilnya adalah 9. Berapakah angka rahasia Kiki mula-mula?",
-      "opts": ["A. 5", "B. 6", "C. 7", "D. 8"],
+      "opts": [
+        "A. 5",
+        "B. 6",
+        "C. 7",
+        "D. 8"
+      ],
       "ans": "C",
       "hint": "Jalan mundur dari hasil akhir 9! Lawan dari dikurangi 2 adalah ditambah 2, lawan dari ditambah 4 adalah dikurangi 4.",
       "exp": "Jalan mundur (reverse thinking):\n- Hasil akhir = 9\n- Sebelum dikurangi 2: 9 + 2 = 11\n- Sebelum ditambah 4: 11 - 4 = 7\nJadi angka rahasia mula-mula adalah 7.",
@@ -80,7 +105,12 @@
       "source": "Kangaroo Ecolier",
       "diff": "Mudah",
       "q": "Sebuah pita panjangnya 12 meter. Rara ingin memotong pita tersebut menjadi potongan-potongan sepanjang 3 meter. Berapa kali Rara harus menggunting pita itu?",
-      "opts": ["A. 2 kali", "B. 3 kali", "C. 4 kali", "D. 5 kali"],
+      "opts": [
+        "A. 2 kali",
+        "B. 3 kali",
+        "C. 4 kali",
+        "D. 5 kali"
+      ],
       "ans": "B",
       "hint": "Cari dulu ada berapa potongan pita yang dihasilkan, lalu ingat bahwa potongan terakhir tidak perlu digunting lagi.",
       "exp": "Jumlah potongan pita = 12 : 3 = 4 potongan.\nBanyaknya guntingan = Jumlah potongan - 1 = 4 - 1 = 3 kali pengguntingan.",
@@ -93,7 +123,12 @@
       "source": "SASMO Grade 2",
       "diff": "Sedang",
       "q": "Berapakah hasil dari penjumlahan bilangan beruntun: 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10?",
-      "opts": ["A. 50", "B. 55", "C. 60", "D. 65"],
+      "opts": [
+        "A. 50",
+        "B. 55",
+        "C. 60",
+        "D. 65"
+      ],
       "ans": "B",
       "hint": "Pasangkan ujung kiri dan ujung kanan: 1 + 10, 2 + 9, 3 + 8... Berapa nilai tiap pasang?",
       "exp": "Pasangkan bilangan:\n- (1 + 10) = 11\n- (2 + 9) = 11\n- (3 + 8) = 11\n- (4 + 7) = 11\n- (5 + 6) = 11\nAda 5 pasang angka 11, sehingga total = 5 x 11 = 55.",
@@ -106,7 +141,12 @@
       "source": "ASMO Grade 2",
       "diff": "Sedang",
       "q": "Seekor semut berada di pojok kiri bawah petak 2x2. Semut hanya boleh bergerak ke kanan atau ke atas di sepanjang garis. Ada berapa banyak jalur berbeda untuk mencapai pojok kanan atas?",
-      "opts": ["A. 4 jalur", "B. 5 jalur", "C. 6 jalur", "D. 8 jalur"],
+      "opts": [
+        "A. 4 jalur",
+        "B. 5 jalur",
+        "C. 6 jalur",
+        "D. 8 jalur"
+      ],
       "ans": "C",
       "hint": "Setiap jalur membutuhkan 2 langkah ke kanan dan 2 langkah ke atas.",
       "exp": "Jalur yang dapat dilalui:\n1. Kanan-Kanan-Atas-Atas\n2. Kanan-Atas-Kanan-Atas\n3. Kanan-Atas-Atas-Kanan\n4. Atas-Kanan-Kanan-Atas\n5. Atas-Kanan-Atas-Kanan\n6. Atas-Atas-Kanan-Kanan\nTotal ada 6 jalur berbeda.",
@@ -119,7 +159,12 @@
       "source": "OSN SD Tingkat Kecamatan",
       "diff": "Sedang",
       "q": "Tiga bilangan asli berurutan jika dijumlahkan menghasilkan 27. Berapakah bilangan yang paling besar di antara ketiganya?",
-      "opts": ["A. 8", "B. 9", "C. 10", "D. 11"],
+      "opts": [
+        "A. 8",
+        "B. 9",
+        "C. 10",
+        "D. 11"
+      ],
       "ans": "C",
       "hint": "Bagi 27 dengan 3 untuk menemukan bilangan yang berada tepat di tengah-tengah.",
       "exp": "Bilangan tengah = 27 : 3 = 9.\nKarena tiga bilangan berurutan, maka bilangannya adalah 8, 9, dan 10.\nBilangan yang paling besar adalah 10.",
@@ -132,7 +177,12 @@
       "source": "SEAMO Grade 2",
       "diff": "Sulit",
       "q": "Lima buah persegi kecil dengan panjang sisi masing-masing 2 cm disusun berjejer menyamping membentuk sebuah persegi panjang. Berapakah keliling persegi panjang tersebut?",
-      "opts": ["A. 20 cm", "B. 24 cm", "C. 28 cm", "D. 30 cm"],
+      "opts": [
+        "A. 20 cm",
+        "B. 24 cm",
+        "C. 28 cm",
+        "D. 30 cm"
+      ],
       "ans": "B",
       "hint": "Hitung panjang dan lebar persegi panjang baru. Panjang = 5 x 2 cm, lebar = 2 cm.",
       "exp": "Panjang persegi panjang = 5 x 2 cm = 10 cm.\nLebar persegi panjang = 2 cm.\nKeliling = 2 x (Panjang + Lebar) = 2 x (10 + 2) = 2 x 12 = 24 cm.",
@@ -145,7 +195,12 @@
       "source": "SASMO Grade 3",
       "diff": "Sedang",
       "q": "Di sebuah peternakan terdapat ayam (berkaki 2) dan kelinci (berkaki 4). Jumlah kepala seluruh hewan adalah 10 dan jumlah seluruh kaki hewan adalah 28. Berapakah banyak kelinci di peternakan itu?",
-      "opts": ["A. 3 ekor", "B. 4 ekor", "C. 5 ekor", "D. 6 ekor"],
+      "opts": [
+        "A. 3 ekor",
+        "B. 4 ekor",
+        "C. 5 ekor",
+        "D. 6 ekor"
+      ],
       "ans": "B",
       "hint": "Bayangkan seandainya semua hewan adalah ayam berkaki 2. Berapa kaki yang kurang?",
       "exp": "Metode Asumsi:\n1. Anggap semua 10 hewan adalah ayam: 10 x 2 = 20 kaki.\n2. Selisih kaki sebenarnya: 28 - 20 = 8 kaki lebih banyak.\n3. Selisih kaki tiap kelinci dan ayam: 4 - 2 = 2 kaki.\n4. Banyak kelinci = 8 : 2 = 4 ekor kelinci (dan 6 ekor ayam).",
@@ -158,7 +213,12 @@
       "source": "Kangaroo Ecolier",
       "diff": "Sedang",
       "q": "Hari ini adalah hari Selasa. Hari apakah 100 hari yang akan datang dari hari ini?",
-      "opts": ["A. Rabu", "B. Kamis", "C. Jumat", "D. Sabtu"],
+      "opts": [
+        "A. Rabu",
+        "B. Kamis",
+        "C. Jumat",
+        "D. Sabtu"
+      ],
       "ans": "B",
       "hint": "Nama hari berulang setiap 7 hari sekali. Bagi 100 dengan 7 dan cari sisa pembagiannya.",
       "exp": "1 minggu = 7 hari.\n100 : 7 = 14 bersisa 2 hari.\nArtinya setelah 14 minggu penuh, kita cukup maju 2 hari dari hari Selasa:\n- Maju 1 hari = Rabu\n- Maju 2 hari = Kamis.\nJadi hari ke-100 adalah hari Kamis.",
@@ -171,7 +231,12 @@
       "source": "OSN SD Tingkat Kota",
       "diff": "Sedang",
       "q": "Sebuah persegi besar ABCD memiliki panjang sisi 8 cm. Pada salah satu sudutnya dipotong persegi kecil dengan panjang sisi 3 cm. Berapakah luas sisa bangun tersebut?",
-      "opts": ["A. 49 cm²", "B. 55 cm²", "C. 61 cm²", "D. 64 cm²"],
+      "opts": [
+        "A. 49 cm²",
+        "B. 55 cm²",
+        "C. 61 cm²",
+        "D. 64 cm²"
+      ],
       "ans": "B",
       "hint": "Luas sisa = Luas persegi besar dikurangi luas persegi kecil yang dipotong.",
       "exp": "Luas persegi besar = 8 x 8 = 64 cm².\nLuas persegi kecil = 3 x 3 = 9 cm².\nLuas sisa bangun = 64 - 9 = 55 cm².",
@@ -184,7 +249,12 @@
       "source": "AMC 8 Preview",
       "diff": "Sulit",
       "q": "Di dalam laci gelap terdapat 8 kaus kaki merah, 6 kaus kaki biru, dan 4 kaus kaki putih. Berapa paling sedikit kaus kaki yang harus diambil secara acak tanpa melihat agar PASTI diperoleh sepasang kaus kaki berwarna sama?",
-      "opts": ["A. 3 buah", "B. 4 buah", "C. 5 buah", "D. 9 buah"],
+      "opts": [
+        "A. 3 buah",
+        "B. 4 buah",
+        "C. 5 buah",
+        "D. 9 buah"
+      ],
       "ans": "B",
       "hint": "Pikirkan skenario terburuk: kamu mengambil kaus kaki yang warnanya selalu berbeda-beda pada pengambilan pertama.",
       "exp": "Ada 3 jenis warna kaus kaki (Merah, Biru, Putih).\nSkenario terburuk saat mengambil 3 buah kaus kaki adalah mendapatkan 1 merah, 1 biru, dan 1 putih (belum ada yang kembar).\nPada pengambilan ke-4, apa pun warnanya pasti akan cocok dengan salah satu dari 3 warna sebelumnya.\nJadi paling sedikit harus mengambil 4 buah.",
@@ -197,7 +267,12 @@
       "source": "ASMO Grade 3",
       "diff": "Sulit",
       "q": "Berapakah besar sudut terkecil yang dibentuk oleh kedua jarum jam dinding saat menunjukkan tepat pukul 03.30?",
-      "opts": ["A. 60°", "B. 75°", "C. 80°", "D. 90°"],
+      "opts": [
+        "A. 60°",
+        "B. 75°",
+        "C. 80°",
+        "D. 90°"
+      ],
       "ans": "B",
       "hint": "Hati-hati! Pada pukul 03.30, jarum pendek tidak berada tepat di angka 3, melainkan sudah berjalan setengah jalan menuju angka 4.",
       "exp": "Setiap 1 jam (angka ke angka berikutnya) = 360° / 12 = 30°.\nPada pukul 03.30:\n- Jarum panjang tepat menunjuk ke angka 6 (posisi 180°).\n- Jarum pendek berada di antara angka 3 dan 4:\n  Posisi = 3 x 30° + (30/60 x 30°) = 90° + 15° = 105°.\nSudut antara kedua jarum = 180° - 105° = 75°.",
@@ -210,7 +285,12 @@
       "source": "OSN SD Tingkat Kota",
       "diff": "Sedang",
       "q": "Lampu mercusuar merah berkedip setiap 12 detik, lampu hijau setiap 15 detik, dan lampu biru setiap 20 detik. Jika ketiga lampu berkedip bersamaan pada pukul 08.00, pada pukul berapakah ketiga lampu akan berkedip bersamaan untuk berikutnya?",
-      "opts": ["A. 08.01", "B. 08.02", "C. 08.03", "D. 08.05"],
+      "opts": [
+        "A. 08.01",
+        "B. 08.02",
+        "C. 08.03",
+        "D. 08.05"
+      ],
       "ans": "A",
       "hint": "Cari Kelipatan Persekutuan Terkecil (KPK) dari 12, 15, dan 20 dalam satuan detik.",
       "exp": "Faktorisasi prima:\n- 12 = 2² x 3\n- 15 = 3 x 5\n- 20 = 2² x 5\nKPK = 2² x 3 x 5 = 60 detik = 1 menit.\nMaka ketiga lampu akan berkedip bersama lagi 1 menit setelah pukul 08.00, yaitu pukul 08.01.",
@@ -223,7 +303,12 @@
       "source": "SASMO Grade 4",
       "diff": "Sedang",
       "q": "Kota A dan Kota B berjarak 180 km. Dodi berangkat dari A menuju B pukul 07.00 dengan kecepatan konstan 40 km/jam. Pada saat yang sama, Erik berangkat dari B menuju A dengan kecepatan 50 km/jam. Pukul berapakah mereka akan berpapasan di jalan?",
-      "opts": ["A. Pukul 08.30", "B. Pukul 09.00", "C. Pukul 09.30", "D. Pukul 10.00"],
+      "opts": [
+        "A. Pukul 08.30",
+        "B. Pukul 09.00",
+        "C. Pukul 09.30",
+        "D. Pukul 10.00"
+      ],
       "ans": "B",
       "hint": "Karena bergerak saling mendekat, kecepatan gabungan mereka adalah penjumlahan kedua kecepatan.",
       "exp": "Kecepatan gabungan = 40 km/jam + 50 km/jam = 90 km/jam.\nWaktu tempuh hingga berpapasan = Jarak total : Kecepatan gabungan\n= 180 km : 90 km/jam = 2 jam.\nBerangkat pukul 07.00 + 2 jam = Pukul 09.00.",
@@ -236,7 +321,12 @@
       "source": "Kangaroo Benjamin",
       "diff": "Sedang",
       "q": "Pada persegi ABCD dengan panjang sisi 10 cm, titik E terletak tepat di tengah sisi CD. Berapakah luas segitiga ABE?",
-      "opts": ["A. 25 cm²", "B. 50 cm²", "C. 75 cm²", "D. 100 cm²"],
+      "opts": [
+        "A. 25 cm²",
+        "B. 50 cm²",
+        "C. 75 cm²",
+        "D. 100 cm²"
+      ],
       "ans": "B",
       "hint": "Perhatikan bahwa alas segitiga ABE adalah sisi AB, dan tingginya adalah jarak dari titik E tegak lurus ke garis AB.",
       "exp": "Alas segitiga ABE = sisi AB = 10 cm.\nTinggi segitiga = jarak tegak lurus dari CD ke AB = 10 cm.\nLuas segitiga = 1/2 x alas x tinggi = 1/2 x 10 cm x 10 cm = 50 cm².",
@@ -249,7 +339,12 @@
       "source": "AMC 8",
       "diff": "Sulit",
       "q": "Berapakah nilai dari penjumlahan deret pecahan: 1/(1x2) + 1/(2x3) + 1/(3x4) + 1/(4x5) + 1/(5x6)?",
-      "opts": ["A. 4/5", "B. 5/6", "C. 6/7", "D. 7/8"],
+      "opts": [
+        "A. 4/5",
+        "B. 5/6",
+        "C. 6/7",
+        "D. 7/8"
+      ],
       "ans": "B",
       "hint": "Ubah setiap suku: 1/(n x (n+1)) = 1/n - 1/(n+1). Perhatikan suku-suku yang saling menghilangkan!",
       "exp": "Pecahkan tiap suku:\n- 1/(1x2) = 1/1 - 1/2\n- 1/(2x3) = 1/2 - 1/3\n- 1/(3x4) = 1/3 - 1/4\n- 1/(4x5) = 1/4 - 1/5\n- 1/(5x6) = 1/5 - 1/6\nJika dijumlahkan, suku tengah saling menghabiskan:\nTotal = 1/1 - 1/6 = 5/6.",
@@ -262,7 +357,12 @@
       "source": "OSN SD Provinsi",
       "diff": "Sulit",
       "q": "Dalam sebuah babak final olimpiade matematika, terdapat 8 siswa juara. Jika setiap siswa berjabat tangan dengan semua siswa lainnya tepat satu kali, berapakah jumlah jabat tangan yang terjadi?",
-      "opts": ["A. 24 kali", "B. 28 kali", "C. 32 kali", "D. 56 kali"],
+      "opts": [
+        "A. 24 kali",
+        "B. 28 kali",
+        "C. 32 kali",
+        "D. 56 kali"
+      ],
       "ans": "B",
       "hint": "Siswa pertama berjabat tangan dengan 7 orang, siswa kedua dengan 6 orang yang tersisa, dan seterusnya.",
       "exp": "Jumlah jabat tangan = 7 + 6 + 5 + 4 + 3 + 2 + 1 = 28 kali.\nAtau menggunakan rumus kombinasi n x (n - 1) / 2 = 8 x 7 / 2 = 28 kali.",
@@ -275,7 +375,12 @@
       "source": "OSN SD Nasional",
       "diff": "Sulit",
       "q": "Berapakah angka satuan (digit paling belakang) dari hasil perpangkatan 3^2026?",
-      "opts": ["A. 1", "B. 3", "C. 7", "D. 9"],
+      "opts": [
+        "A. 1",
+        "B. 3",
+        "C. 7",
+        "D. 9"
+      ],
       "ans": "D",
       "hint": "Cari pola angka satuan dari perpangkatan 3: 3^1, 3^2, 3^3, 3^4... Berapa panjang siklus polanya?",
       "exp": "Pola angka satuan dari 3^n:\n- 3^1 = 3\n- 3^2 = 9\n- 3^3 = 27 (satuan 7)\n- 3^4 = 81 (satuan 1)\n- 3^5 = 243 (kembali ke 3)\nSiklus berulang setiap 4 pangkat: [3, 9, 7, 1].\nBagi pangkatnya dengan 4: 2026 : 4 = 506 bersisa 2.\nKarena sisa 2, maka digit satuannya sama dengan urutan ke-2 siklus, yaitu 9.",
@@ -288,7 +393,12 @@
       "source": "SASMO Grade 5",
       "diff": "Sedang",
       "q": "Jumlah dua bilangan adalah 120. Jika bilangan yang besar dibagi bilangan yang kecil, hasilnya adalah 4 dengan sisa pembagian 10. Berapakah selisih kedua bilangan tersebut?",
-      "opts": ["A. 68", "B. 76", "C. 82", "D. 86"],
+      "opts": [
+        "A. 68",
+        "B. 76",
+        "C. 82",
+        "D. 86"
+      ],
       "ans": "B",
       "hint": "Misal bilangan kecil = y. Bilangan besar = 4y + 10. Jumlah keduanya adalah 120.",
       "exp": "Misalkan bilangan besar = X dan bilangan kecil = Y.\n1. X + Y = 120\n2. X = 4Y + 10\nSubstitusi: (4Y + 10) + Y = 120\n5Y + 10 = 120\n5Y = 110 => Y = 22.\nBilangan besar X = 120 - 22 = 98.\nSelisih kedua bilangan = 98 - 22 = 76.",
@@ -301,7 +411,12 @@
       "source": "AMC 8",
       "diff": "Sulit",
       "q": "Pada segitiga ABC, titik D terletak pada sisi BC sehingga perbandingan panjang BD : DC = 2 : 3. Jika luas segitiga ABD adalah 24 cm², berapakah luas seluruh segitiga ABC?",
-      "opts": ["A. 40 cm²", "B. 48 cm²", "C. 60 cm²", "D. 72 cm²"],
+      "opts": [
+        "A. 40 cm²",
+        "B. 48 cm²",
+        "C. 60 cm²",
+        "D. 72 cm²"
+      ],
       "ans": "C",
       "hint": "Kedua segitiga ABD dan ADC memiliki titik puncak yang sama di A, sehingga perbandingan luasnya sama persis dengan perbandingan panjang alasnya.",
       "exp": "Karena puncak di A sama, tinggi segitiga ABD dan ADC sama.\nMaka Luas ABD : Luas ADC = BD : DC = 2 : 3.\nLuas ABD = 24 cm² merepresentasikan 2 bagian.\nNilai 1 bagian = 24 : 2 = 12 cm².\nTotal alas BC = 2 + 3 = 5 bagian.\nLuas seluruh segitiga ABC = 5 x 12 cm² = 60 cm².",
@@ -314,7 +429,12 @@
       "source": "OSN SD Provinsi",
       "diff": "Sedang",
       "q": "Rata-rata nilai matematika 15 siswa adalah 80. Jika nilai Budi dan Siti ditambahkan, rata-rata kelas naik menjadi 82. Jika nilai Budi 4 poin lebih tinggi dari Siti, berapakah nilai Siti?",
-      "opts": ["A. 93", "B. 95", "C. 97", "D. 99"],
+      "opts": [
+        "A. 93",
+        "B. 95",
+        "C. 97",
+        "D. 99"
+      ],
       "ans": "B",
       "hint": "Hitung total nilai 15 siswa awal, lalu hitung total nilai 17 siswa baru.",
       "exp": "Total nilai 15 siswa = 15 x 80 = 1200.\nSetelah ditambah 2 siswa, banyak siswa = 17.\nTotal nilai 17 siswa = 17 x 82 = 1394.\nJumlah nilai Budi + Siti = 1394 - 1200 = 194.\nBudi = Siti + 4.\n(Siti + 4) + Siti = 194\n2 x Siti = 190 => Nilai Siti = 95 (dan nilai Budi = 99).",
@@ -327,7 +447,12 @@
       "source": "Kangaroo Cadet",
       "diff": "Sulit",
       "q": "Berapa banyak bilangan ganjil 3-angka berbeda yang dapat disusun dari angka-angka 1, 2, 3, 4, dan 5?",
-      "opts": ["A. 24", "B. 36", "C. 48", "D. 60"],
+      "opts": [
+        "A. 24",
+        "B. 36",
+        "C. 48",
+        "D. 60"
+      ],
       "ans": "B",
       "hint": "Tentukan dulu digit satuannya karena harus ganjil (pilih dari 1, 3, atau 5), lalu isi digit ratusan dan puluhan dari angka yang tersisa.",
       "exp": "Susunan 3 angka: [Ratusan] [Puluhan] [Satuan]\n1. Digit Satuan (harus ganjil): {1, 3, 5} -> ada 3 pilihan.\n2. Digit Ratusan: Dari 5 angka sudah terpakai 1 untuk satuan -> tersisa 4 pilihan.\n3. Digit Puluhan: Dari 5 angka sudah terpakai 2 angka -> tersisa 3 pilihan.\nTotal bilangan yang dapat dibentuk = 4 x 3 x 3 = 36 bilangan.",
@@ -340,7 +465,12 @@
       "source": "OSN SD Nasional",
       "diff": "Olimpiade",
       "q": "Bilangan lima digit 5A31B habis dibagi 72. Jika A dan B adalah digit angka bilangan tersebut, berapakah nilai dari A + B?",
-      "opts": ["A. 6", "B. 9", "C. 11", "D. 14"],
+      "opts": [
+        "A. 6",
+        "B. 9",
+        "C. 11",
+        "D. 14"
+      ],
       "ans": "B",
       "hint": "72 = 8 x 9. Syarat habis dibagi 8 dilihat dari 3 digit terakhir (31B), dan syarat habis dibagi 9 dilihat dari jumlah seluruh digitnya.",
       "exp": "1. Syarat habis dibagi 8: 31B harus habis dibagi 8.\n   310 : 8 = 38 bersisa 6. Agar habis dibagi 8, 31B haruslah 312 (karena 312 : 8 = 39).\n   Maka B = 2.\n2. Syarat habis dibagi 9: Jumlah digit (5 + A + 3 + 1 + B) harus kelipatan 9.\n   5 + A + 3 + 1 + 2 = 11 + A.\n   Kelipatan 9 terdekat adalah 18, sehingga 11 + A = 18 => A = 7.\n3. Maka nilai A + B = 7 + 2 = 9.",
@@ -353,7 +483,12 @@
       "source": "IMSO (International Math Olympiad)",
       "diff": "Olimpiade",
       "q": "Sebuah perahu motor menempuh jarak 60 km searah arus sungai dalam waktu 2 jam. Saat kembali pulang melawan arus sungai, perahu tersebut membutuhkan waktu 3 jam untuk menempuh jarak yang sama. Berapakah kecepatan arus sungai tersebut?",
-      "opts": ["A. 5 km/jam", "B. 10 km/jam", "C. 15 km/jam", "D. 25 km/jam"],
+      "opts": [
+        "A. 5 km/jam",
+        "B. 10 km/jam",
+        "C. 15 km/jam",
+        "D. 25 km/jam"
+      ],
       "ans": "A",
       "hint": "Kecepatan searah arus = V_perahu + V_arus. Kecepatan lawan arus = V_perahu - V_arus.",
       "exp": "1. Kecepatan searah arus = 60 km / 2 jam = 30 km/jam = Vp + Va.\n2. Kecepatan lawan arus = 60 km / 3 jam = 20 km/jam = Vp - Va.\nKurangkan kedua persamaan:\n(Vp + Va) - (Vp - Va) = 30 - 20\n2 x Va = 10\nVa = 5 km/jam.\n(Kecepatan perahu di air tenang Vp = 25 km/jam dan kecepatan arus Va = 5 km/jam).",
@@ -366,7 +501,12 @@
       "source": "SASMO Grade 6",
       "diff": "Sulit",
       "q": "Di dalam persegi dengan panjang sisi 14 cm, dibuat dua busur seperempat lingkaran yang berpusat di dua sudut berhadapan sehingga membentuk daerah irisan seperti daun. Berapakah luas daerah daun tersebut? (Gunakan π = 22/7)",
-      "opts": ["A. 56 cm²", "B. 112 cm²", "C. 154 cm²", "D. 196 cm²"],
+      "opts": [
+        "A. 56 cm²",
+        "B. 112 cm²",
+        "C. 154 cm²",
+        "D. 196 cm²"
+      ],
       "ans": "B",
       "hint": "Luas daun = 2 x Luas seperempat lingkaran dikurangi Luas persegi.",
       "exp": "Panjang sisi persegi s = 14 cm, jari-jari r = 14 cm.\n1. Luas dua seperempat lingkaran = 2 x (1/4 x π x r²) = 1/2 x (22/7) x 14 x 14 = 308 cm².\n2. Luas persegi = 14 x 14 = 196 cm².\n3. Luas daerah daun = Luas kedua busur - Luas persegi = 308 - 196 = 112 cm².",
@@ -379,7 +519,12 @@
       "source": "AMC 8",
       "diff": "Sedang",
       "q": "Jika x = 1 + 1 / (1 + 1/2), berapakah nilai dari 1/x?",
-      "opts": ["A. 3/5", "B. 5/3", "C. 2/3", "D. 3/2"],
+      "opts": [
+        "A. 3/5",
+        "B. 5/3",
+        "C. 2/3",
+        "D. 3/2"
+      ],
       "ans": "A",
       "hint": "Selesaikan pecahan dari tingkat paling bawah terlebih dahulu.",
       "exp": "1. Tingkat bawah: 1 + 1/2 = 3/2.\n2. Tingkat tengah: 1 / (3/2) = 2/3.\n3. Nilai x = 1 + 2/3 = 5/3.\n4. Maka nilai 1/x = 1 / (5/3) = 3/5.",
@@ -392,11 +537,130 @@
       "source": "OSN SD Nasional",
       "diff": "Olimpiade",
       "q": "Sebuah kolam dapat diisi penuh oleh pipa A dalam 12 menit, dan oleh pipa B dalam 20 menit. Pipa pembuangan C dapat mengosongkan kolam penuh dalam 15 menit. Jika ketiga pipa dibuka bersamaan, berapa menit waktu yang diperlukan hingga kolam terisi penuh?",
-      "opts": ["A. 10 menit", "B. 15 menit", "C. 20 menit", "D. 30 menit"],
+      "opts": [
+        "A. 10 menit",
+        "B. 15 menit",
+        "C. 20 menit",
+        "D. 30 menit"
+      ],
       "ans": "B",
       "hint": "Hitung bagian kolam yang diisi atau dikosongkan oleh masing-masing pipa dalam 1 menit.",
       "exp": "Debit pipa per menit:\n- Pipa A (mengisi) = +1/12 kolam/menit\n- Pipa B (mengisi) = +1/20 kolam/menit\n- Pipa C (menguras) = -1/15 kolam/menit\nDebit gabungan per menit:\n= 1/12 + 1/20 - 1/15\nSamakan penyebut (KPK 60):\n= 5/60 + 3/60 - 4/60 = 4/60 = 1/15 kolam per menit.\nWaktu yang dibutuhkan hingga penuh = 1 : (1/15) = 15 menit.",
       "trick": "Trik Kolam Gabungan: KPK(12, 20, 15) = 60 liter kapasitas. Laju = +5 + 3 - 4 = 4 liter/menit. Waktu = 60 / 4 = 15 menit!"
+    },
+    {
+      "id": "daily_20261024_g1",
+      "grade": 1,
+      "topic": "Pola Bilangan Petualangan",
+      "source": "OliMath Daily Kangaroo",
+      "diff": "Mudah",
+      "q": "Dalam ekspedisi luar angkasa 24 October 2026, robot penjelajah melompat melewati batu komet bernomor: 5, 7, 9, 11, __, 15. Berapakah nomor batu komet yang hilang?",
+      "opts": [
+        "A. 12",
+        "B. 13",
+        "C. 15",
+        "D. 16"
+      ],
+      "ans": "B",
+      "hint": "Coba perhatikan selisih angka: 7 - 5 = 2. Berapa angka setelah 11 jika ditambah 2?",
+      "exp": "Pola bilangan bertambah 2 secara konstan:\n- 11 + 2 = 13.\n- 13 + 2 = 15.\nJadi batu komet bernomor 13.",
+      "trick": "Trik Juara: Cukup tambahkan selisih (2) ke angka sebelumnya: 11 + 2 = 13!",
+      "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261024_g2",
+      "grade": 2,
+      "topic": "Masalah Interval & Pemotongan",
+      "source": "OliMath Daily SASMO",
+      "diff": "Sedang",
+      "q": "Seorang tukang kayu memiliki sebatang balok kayu sepanjang 12 meter. Ia ingin memotongnya menjadi balok-balok kecil sepanjang 3 meter. Berapa kali penggergajian yang harus ia lakukan?",
+      "opts": [
+        "A. 2 kali",
+        "B. 3 kali",
+        "D. 5 kali",
+        "C. 4 kali"
+      ],
+      "ans": "B",
+      "hint": "Hitung dulu jumlah potongan: 12 : 3 = 4. Ingat, potongan terakhir tidak perlu dipotong lagi!",
+      "exp": "1. Banyaknya potongan balok = 12 : 3 = 4 bagian.\n2. Banyaknya penggergajian = Jumlah bagian - 1 = 4 - 1 = 3 kali.",
+      "trick": "Trik Juara Interval: Pemotongan = Jumlah Bagian - 1 = 4 - 1 = 3 kali!",
+      "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261024_g3",
+      "grade": 3,
+      "topic": "Metode Asumsi (Ayam & Kelinci)",
+      "source": "OliMath Daily OSN SD",
+      "diff": "Sedang",
+      "q": "Di kebun binatang terdapat ayam berkaki 2 dan kelinci berkaki 4. Jumlah seluruh kepala hewan adalah 11 dan jumlah seluruh kaki hewan adalah 28. Berapakah jumlah kelinci di kebun binatang tersebut?",
+      "opts": [
+        "B. 3 ekor",
+        "D. 5 ekor",
+        "A. 2 ekor",
+        "C. 4 ekor"
+      ],
+      "ans": "A",
+      "hint": "Asumsikan semua 11 hewan berkaki 2: totalnya 22 kaki. Selisih kekurangannya dibagi 2 kaki kelinci.",
+      "exp": "Metode Asumsi:\n1. Jika semua ayam: 11 x 2 = 22 kaki.\n2. Selisih kaki sebenarnya = 28 - 22 = 6 kaki.\n3. Banyak kelinci = 6 : 2 = 3 ekor.",
+      "trick": "Trik Juara Kilat: Kelinci = (Total Kaki - 2 x Kepala) / 2 = (28 - 22) / 2 = 3 ekor!",
+      "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261024_g4",
+      "grade": 4,
+      "topic": "Kecepatan Relatif & Papasan",
+      "source": "OliMath Daily AMC 8",
+      "diff": "Sedang",
+      "q": "Dua mobil berangkat bersamaan pukul 07.00 dari dua kota yang berjarak 200 km saling mendekat. Mobil A berkecepatan 40 km/jam dan Mobil B berkecepatan 60 km/jam. Pada pukul berapakah kedua mobil akan berpapasan?",
+      "opts": [
+        "A. Pukul 08.00",
+        "B. Pukul 08.30",
+        "C. Pukul 09.00",
+        "D. Pukul 09.30"
+      ],
+      "ans": "C",
+      "hint": "Kecepatan gabungan = 40 + 60 = 100 km/jam. Waktu tempuh = Jarak : Kecepatan gabungan.",
+      "exp": "Kecepatan relatif saling mendekat = 40 + 60 = 100 km/jam.\nWaktu berpapasan = 200 km : 100 km/jam = 2 jam.\nPukul 07.00 + 2 jam = Pukul 09.00.",
+      "trick": "Trik Juara Papasan: Waktu = Jarak / (V1 + V2) = 200 / 100 = 2 jam. 07.00 + 2 jam = 09.00!",
+      "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261024_g5",
+      "grade": 5,
+      "topic": "Teori Bilangan - Angka Satuan Modulo",
+      "source": "OliMath Daily OSN Nasional",
+      "diff": "Sulit",
+      "q": "Berapakah angka satuan (digit paling belakang) dari hasil perpangkatan 2^2026?",
+      "opts": [
+        "A. 2",
+        "B. 4",
+        "C. 6",
+        "D. 8"
+      ],
+      "ans": "B",
+      "hint": "Pola satuan 2^n berulang setiap 4 siklus: [2, 4, 8, 6]. Bagi pangkatnya dengan 4 dan lihat sisa pembagiannya.",
+      "exp": "Pola angka satuan 2^n:\n2^1 = 2, 2^2 = 4, 2^3 = 8, 2^4 = 16 (satuan 6).\nSiklus berulang 4 kali.\n2026 dibagi 4 bersisa 2.\nMaka angka satuannya adalah 4.",
+      "trick": "Trik Modulo 4: Ambil 2 digit terakhir (26) dibagi 4 bersisa 2. Hasil satuan = 4!",
+      "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261024_g6",
+      "grade": 6,
+      "topic": "Geometri Luas Irisan Daun Lingkaran",
+      "source": "OliMath Daily IMSO",
+      "diff": "Olimpiade",
+      "q": "Pada persegi bersisi 14 cm digambar dua busur seperempat lingkaran dari dua sudut berhadapan sehingga membentuk daerah irisan seperti daun. Berapakah luas daerah daun tersebut? (Gunakan π = 22/7)",
+      "opts": [
+        "A. 56 cm²",
+        "B. 98 cm²",
+        "C. 112 cm²",
+        "D. 154 cm²"
+      ],
+      "ans": "C",
+      "hint": "Luas daun = 2 x Luas 1/4 lingkaran dikurangi Luas persegi.",
+      "exp": "Luas 2 x seperempat lingkaran = 1/2 x (22/7) x 14 x 14 = 308 cm².\nLuas persegi = 14 x 14 = 196 cm².\nLuas daun = 308 - 196 = 112 cm².",
+      "trick": "Trik Juara Kilat Daun Persegi: Luas Daun = 4/7 x s² = (4/7) x 196 = 112 cm² dalam 5 detik!",
+      "date_added": "2026-10-24"
     }
   ]
 }
