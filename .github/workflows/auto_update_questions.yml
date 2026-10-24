@@ -1,0 +1,44 @@
+name: Auto Update Daily Olympiad Questions
+
+on:
+  schedule:
+    # Berjalan setiap hari pukul 17:00 UTC (00:00 WIB tengah malam)
+    - cron: '0 17 * * *'
+  workflow_dispatch: # Tombol pemicu manual di tab GitHub Actions
+
+permissions:
+  contents: write
+
+jobs:
+  update-questions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Jalankan Generator Soal Harian dengan Gemini AI
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python scripts/generate_daily_questions.py
+
+      - name: Commit dan Push Perubahan Database Soal
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Cek apakah ada perubahan pada questions_db.json
+          if git status --porcelain questions_db.json | grep -q "questions_db.json"; then
+            echo "Ada soal baru yang ditambahkan! Melakukan commit & push..."
+            git add questions_db.json
+            git commit -m "Auto-update: Daily Olympiad Questions [$(date +'%Y-%m-%d')]"
+            git push
+          else
+            echo "Tidak ada perubahan pada questions_db.json."
+          fi

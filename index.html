@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>OliMath Adventure by antigravity - Olimpiade Matematika SD</title>
+  <meta name="description" content="Platform Latihan Olimpiade Matematika SD (Kelas 1-6) Berbasis Petualangan RPG, Auto-Update Soal AI, Papan Coret Sentuh, Tryout Diagnostik & Sertifikat Juara.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Fredoka', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            },
+            gold: {
+              300: '#fde047',
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          },
+          keyframes: {
+            bounceSmall: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            pulseSlow: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.6' },
+            },
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '20%, 60%': { transform: 'translateX(-6px)' },
+              '40%, 80%': { transform: 'translateX(6px)' },
+            }
+          },
+          animation: {
+            bounceSmall: 'bounceSmall 2s infinite ease-in-out',
+            pulseSlow: 'pulseSlow 2.5s infinite ease-in-out',
+            shake: 'shake 0.4s ease-in-out',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Confetti Canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    /* Custom Scrollbar & Aesthetics */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    }
+    .scratchpad-active {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-sky-50 to-emerald-50 min-h-screen text-slate-800 font-sans selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP HEADER / STATUS HUD -->
+  <header class="sticky top-0 z-30 glass-card border-b border-slate-200/80 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- LOGO & MASCOT -->
+      <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="app.switchTab('arena')">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-emerald-500 to-indigo-600 p-0.5 shadow-md transform hover:rotate-6 transition-transform">
+          <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-2xl">
+            🦁
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="font-display font-extrabold text-xl tracking-tight bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 bg-clip-text text-transparent">
+              OliMath Adventure
+            </span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+              by antigravity
+            </span>
+          </div>
+          <div class="flex items-center space-x-2 text-xs font-semibold text-slate-500">
+            <span id="db-status-badge" class="inline-flex items-center text-[11px] text-emerald-600">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1 animate-pulse"></span>
+              DB: <span id="db-count" class="ml-0.5 font-bold">30 Soal</span>
+            </span>
+            <span>•</span>
+            <span id="player-title" class="text-indigo-600 font-bold">Penjelajah Angka</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRADE SELECTOR (Kelas 1 - 6) -->
+      <div class="flex items-center bg-slate-100/90 p-1 rounded-2xl border border-slate-200 shadow-inner">
+        <span class="text-xs font-bold text-slate-500 px-2 hidden sm:inline">Kelas:</span>
+        <div id="grade-buttons" class="flex space-x-1">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- HUD STATS (Coins, Streak, Level, Audio, Settings) -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Coin Counter -->
+        <div class="flex items-center space-x-1 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full shadow-sm">
+          <span class="text-base">🪙</span>
+          <span id="player-coins" class="text-xs font-extrabold text-amber-700">0</span>
+        </div>
+
+        <!-- Streak Counter -->
+        <div class="flex items-center space-x-1 bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-full shadow-sm">
+          <span class="text-base">🔥</span>
+          <span id="player-streak" class="text-xs font-extrabold text-rose-700">0</span>
+        </div>
+
+        <!-- Level & XP Badge -->
+        <div class="hidden md:flex flex-col items-end cursor-pointer" onclick="app.showLevelInfo()">
+          <div class="flex items-center space-x-1 text-xs font-bold text-slate-700">
+            <span>Level</span>
+            <span id="player-level" class="text-indigo-600 font-extrabold text-sm">1</span>
+          </div>
+          <div class="w-20 h-2 bg-slate-200 rounded-full overflow-hidden mt-0.5">
+            <div id="player-xp-bar" class="h-full bg-gradient-to-r from-emerald-400 to-indigo-500 rounded-full transition-all duration-500" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- Scratchpad Button -->
+        <button onclick="scratchpad.toggle()" title="Buka Papan Coret-Coret" class="p-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 active:scale-95 transition-all flex items-center space-x-1 border border-indigo-200">
+          <i class="fa-solid fa-pencil text-sm"></i>
+          <span class="text-xs font-bold hidden lg:inline">Coretan</span>
+        </button>
+
+        <!-- Audio Toggle -->
+        <button id="btn-audio" onclick="sound.toggle()" title="Suara Efek On/Off" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all">
+          <i class="fa-solid fa-volume-high text-sm"></i>
+        </button>
+
+        <!-- Cloud Sync & Settings -->
+        <button onclick="app.openModal('modal-sync')" title="Sinkronisasi & Backup Progres" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all">
+          <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
+        </button>
+        <button onclick="app.openModal('modal-settings')" title="Pengaturan & Gemini AI Key" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-all">
+          <i class="fa-solid fa-gear text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- MAIN NAVIGATION TABS -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 flex space-x-2 border-t border-slate-200/60 overflow-x-auto py-1.5 scrollbar-none">
+      <button onclick="app.switchTab('arena')" id="tab-btn-arena" class="tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all bg-emerald-500 text-white shadow-sm">
+        <i class="fa-solid fa-compass"></i>
+        <span>Arena Petualangan</span>
+      </button>
+      <button onclick="app.switchTab('boss')" id="tab-btn-boss" class="tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all">
+        <i class="fa-solid fa-dragon text-rose-500"></i>
+        <span>Duel Bos RPG</span>
+        <span class="bg-rose-100 text-rose-700 text-[10px] px-1.5 py-0.2 rounded-full font-extrabold">SERU</span>
+      </button>
+      <button onclick="app.switchTab('tryout')" id="tab-btn-tryout" class="tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all">
+        <i class="fa-solid fa-stopwatch text-amber-500"></i>
+        <span>Simulasi Tryout OSN</span>
+      </button>
+      <button onclick="app.switchTab('cert')" id="tab-btn-cert" class="tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all">
+        <i class="fa-solid fa-award text-indigo-500"></i>
+        <span>Sertifikat Juara</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 pb-24">
+
+    <!-- ==================== TAB 1: ARENA PETUALANGAN ==================== -->
+    <section id="tab-arena" class="tab-content block space-y-6">
+
+      <!-- AI Question Generator Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 p-5 sm:p-6 text-white shadow-lg">
+        <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div class="space-y-1">
+            <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold text-amber-300">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Live AI Math Engine</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-display font-extrabold tracking-tight">
+              Ingin Tantangan Soal Baru Tanpa Batas?
+            </h2>
+            <p class="text-xs sm:text-sm text-indigo-100 max-w-xl">
+              Minta Gemini AI meracik soal olimpiade baru secara instan untuk <span class="font-bold underline text-amber-200 current-grade-label">Kelas 1</span> lengkap dengan Trik Cepat Juara Dunia!
+            </p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="aiGenerator.requestQuestion()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-900 font-extrabold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all flex items-center space-x-2">
+              <i class="fa-solid fa-sparkles text-amber-800 animate-spin" style="animation-duration: 4s;"></i>
+              <span>✨ Minta AI Buat Soal Baru</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESTION DISPLAY CARD -->
+      <div id="question-card" class="glass-card rounded-3xl border border-slate-200/90 p-5 sm:p-8 shadow-sm transition-all duration-300 relative">
+        
+        <!-- Question Meta Header -->
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="badge-grade" class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-extrabold text-xs">
+              Kelas 1
+            </span>
+            <span id="badge-topic" class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 font-bold text-xs">
+              Pola Bilangan
+            </span>
+            <span id="badge-source" class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 font-medium text-xs">
+              SASMO / Kangaroo
+            </span>
+            <span id="badge-diff" class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 font-bold text-xs">
+              Sedang
+            </span>
+            <span id="badge-ai" class="hidden px-3 py-1 rounded-full bg-gradient-to-r from-pink-500 to-indigo-500 text-white font-extrabold text-xs">
+              ✨ Dibuat AI
+            </span>
+          </div>
+
+          <div class="text-xs font-bold text-slate-600">
+            Nomor: <span id="current-q-index" class="text-indigo-600 font-extrabold text-sm">1</span> / <span id="total-q-count">5</span>
+          </div>
+        </div>
+
+        <!-- Question Body Text -->
+        <div class="space-y-4 mb-6">
+          <p id="q-text" class="text-base sm:text-lg text-slate-800 font-medium leading-relaxed">
+            Memuat soal petualangan matematika...
+          </p>
+        </div>
+
+        <!-- Options Grid -->
+        <div id="opts-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Action Tools Bar: Scratchpad & Hint -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+          <div class="flex items-center space-x-2">
+            <button onclick="scratchpad.toggle()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center space-x-1.5">
+              <i class="fa-solid fa-pencil text-indigo-500"></i>
+              <span>Papan Coretan</span>
+            </button>
+            <button onclick="app.toggleHint()" class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold transition-all flex items-center space-x-1.5 border border-amber-200/60">
+              <i class="fa-regular fa-lightbulb text-amber-600"></i>
+              <span>Petunjuk (Hint)</span>
+            </button>
+          </div>
+
+          <!-- Nav Buttons -->
+          <div class="flex items-center space-x-2">
+            <button onclick="app.prevQuestion()" id="btn-prev-q" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="app.randomQuestion()" title="Soal Acak" class="px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all">
+              <i class="fa-solid fa-shuffle"></i>
+            </button>
+            <button onclick="app.nextQuestion()" id="btn-next-q" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition-all flex items-center space-x-1">
+              <span>Lanjut</span>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hint Box -->
+        <div id="hint-box" class="hidden mt-4 p-4 rounded-2xl bg-amber-50/90 border border-amber-200 text-xs text-amber-900 leading-relaxed animate-fade-in">
+          <div class="flex items-center space-x-2 font-bold mb-1 text-amber-800">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span>Petunjuk Rahasia:</span>
+          </div>
+          <p id="hint-text">-</p>
+        </div>
+
+        <!-- Explanation & Champion Trick (Unlocked after answering) -->
+        <div id="solution-box" class="hidden mt-5 p-5 rounded-3xl bg-slate-50 border border-slate-200/80 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="inline-flex items-center space-x-1.5 font-extrabold text-sm text-emerald-700">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Pembahasan Lengkap Step-by-Step</span>
+            </span>
+            <span class="text-[11px] font-bold text-slate-400 uppercase">Jawaban: <span id="sol-correct-key" class="text-emerald-700 font-extrabold">A</span></span>
+          </div>
+          <p id="sol-text" class="text-xs sm:text-sm text-slate-700 leading-relaxed whitespace-pre-line bg-white p-3.5 rounded-2xl border border-slate-100"></p>
+          
+          <!-- Trick Box -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border border-amber-200/80">
+            <div class="flex items-center space-x-2 font-extrabold text-xs text-amber-800 mb-1">
+              <i class="fa-solid fa-bolt text-amber-600"></i>
+              <span class="font-display">Trik Juara Dunia (Tips 10 Detik):</span>
+            </div>
+            <p id="sol-trick" class="text-xs text-amber-900 font-medium"></p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: RPG BOSS BATTLE ==================== -->
+    <section id="tab-boss" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5 mb-6">
+          <div>
+            <div class="inline-flex items-center space-x-1 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-bold mb-1">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Mode RPG Petualangan</span>
+            </div>
+            <h2 class="text-2xl font-display font-black text-slate-800">
+              Duel Bos Monster Matematika!
+            </h2>
+            <p class="text-xs text-slate-500">
+              Kalahkan monster matematika legendaris dengan menjawab soal olimpiade secara tepat!
+            </p>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-bold text-slate-600">Pilih Bos:</span>
+            <select id="boss-selector" onchange="bossBattle.selectBoss(this.value)" class="text-xs font-bold bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 outline-none">
+              <!-- Rendered dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <!-- BATTLE ARENA VIEW -->
+        <div class="bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden mb-6">
+          
+          <!-- Background Particles/Aura -->
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))] pointer-events-none"></div>
+
+          <!-- Combatants Row -->
+          <div class="grid grid-cols-2 gap-4 items-center relative z-10 mb-6">
+            
+            <!-- Hero Side -->
+            <div class="flex flex-col items-center sm:items-start space-y-2">
+              <div class="relative">
+                <div id="hero-avatar" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-indigo-500/30 border-2 border-indigo-400 flex items-center justify-center text-4xl sm:text-5xl shadow-lg transition-transform">
+                  🧙‍♂️
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-emerald-500 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full border border-slate-900">
+                  Lv <span id="boss-hero-level">1</span>
+                </div>
+              </div>
+              <span class="font-extrabold text-sm sm:text-base text-indigo-200">Ksatria Matematika</span>
+              
+              <!-- Hero HP Bar -->
+              <div class="w-full max-w-[180px]">
+                <div class="flex justify-between text-[11px] font-bold text-emerald-400 mb-1">
+                  <span>HP Kamu</span>
+                  <span><span id="hero-hp">100</span>/100</span>
+                </div>
+                <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                  <div id="hero-hp-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-300" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Boss Side -->
+            <div class="flex flex-col items-center sm:items-end space-y-2">
+              <div class="relative">
+                <div id="boss-avatar" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-rose-500/30 border-2 border-rose-400 flex items-center justify-center text-4xl sm:text-5xl shadow-lg animate-bounceSmall">
+                  🐲
+                </div>
+                <div class="absolute -bottom-2 -left-2 bg-rose-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded-full border border-slate-900">
+                  BOS
+                </div>
+              </div>
+              <span id="boss-name" class="font-extrabold text-sm sm:text-base text-rose-300">Drakon Pola</span>
+              
+              <!-- Boss HP Bar -->
+              <div class="w-full max-w-[180px]">
+                <div class="flex justify-between text-[11px] font-bold text-rose-400 mb-1">
+                  <span>HP Bos</span>
+                  <span><span id="boss-hp">120</span>/<span id="boss-max-hp">120</span></span>
+                </div>
+                <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                  <div id="boss-hp-bar" class="h-full bg-gradient-to-r from-rose-500 to-red-600 rounded-full transition-all duration-300" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Battle Dialog Log -->
+          <div id="battle-log" class="bg-slate-950/80 rounded-2xl p-3 border border-slate-800 text-xs text-slate-300 min-h-[44px] flex items-center justify-center text-center font-medium">
+            ⚔️ Bos menghadang jalanmu! Jawab soal di bawah untuk menyerang dengan mantra matematika!
+          </div>
+
+        </div>
+
+        <!-- BOSS QUESTION CARD -->
+        <div id="boss-question-container" class="space-y-4">
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="flex items-center space-x-2 mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-800">Serangan Mat-Magic</span>
+              <span id="boss-q-topic" class="text-xs font-bold text-slate-500">Pola Bilangan</span>
+            </div>
+            <p id="boss-q-text" class="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed">
+              Memuat mantra soal bos...
+            </p>
+          </div>
+
+          <!-- Boss Option Buttons -->
+          <div id="boss-opts-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: SIMULASI TRYOUT OSN ==================== -->
+    <section id="tab-tryout" class="tab-content hidden space-y-6">
+      
+      <!-- Tryout Intro Card -->
+      <div id="tryout-start-card" class="glass-card rounded-3xl border border-slate-200 p-6 sm:p-10 text-center space-y-4">
+        <div class="w-16 h-16 mx-auto rounded-3xl bg-amber-100 text-amber-600 flex items-center justify-center text-3xl shadow-sm">
+          🏆
+        </div>
+        <div class="space-y-1">
+          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-800">
+            Simulasi Tryout Olimpiade Matematika
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto">
+            Uji kemampuanmu dalam format olimpiade berbatas waktu. Dapatkan Analisis Rapor Diagnostik dan Sertifikat Juara Resmi!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-md mx-auto pt-2">
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[11px] font-bold uppercase">Jumlah Soal</span>
+            <span class="text-slate-800 font-extrabold text-lg">10 Soal</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[11px] font-bold uppercase">Waktu</span>
+            <span class="text-slate-800 font-extrabold text-lg">15 Menit</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[11px] font-bold uppercase">Tingkat</span>
+            <span class="text-emerald-600 font-extrabold text-lg current-grade-label">Kelas 1</span>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <button onclick="tryoutEngine.start()" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all">
+            🚀 Mulai Simulasi Sekarang
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Tryout Session (Hidden by default) -->
+      <div id="tryout-session" class="hidden glass-card rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+        
+        <!-- Timer & Progress Bar -->
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div class="flex items-center space-x-2">
+            <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm">
+              <i class="fa-regular fa-clock"></i>
+            </div>
+            <div>
+              <span class="text-[10px] uppercase font-bold text-slate-400 block">Sisa Waktu</span>
+              <span id="tryout-timer" class="font-extrabold text-slate-800 text-lg">15:00</span>
+            </div>
+          </div>
+
+          <button onclick="tryoutEngine.finishConfirm()" class="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs transition-all">
+            Selesai Ujian 🏁
+          </button>
+        </div>
+
+        <!-- Question Tracker Number Pills -->
+        <div id="tryout-tracker" class="flex flex-wrap gap-2">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Active Question Box -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-500">
+            <span id="tryout-q-number" class="text-indigo-600 font-extrabold">Soal 1</span>
+            <span id="tryout-q-topic">Topik Soal</span>
+          </div>
+          <p id="tryout-q-text" class="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed">
+            -
+          </p>
+        </div>
+
+        <!-- Tryout Option Choices -->
+        <div id="tryout-opts-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+          <button onclick="tryoutEngine.prev()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+            <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+          </button>
+          <button onclick="tryoutEngine.next()" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm transition-all">
+            Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Tryout Result & Diagnostic Report Card (Hidden by default) -->
+      <div id="tryout-report-card" class="hidden glass-card rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+        
+        <div class="text-center space-y-2">
+          <div id="report-medal-icon" class="text-6xl animate-bounceSmall">🥇</div>
+          <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-800">
+            Rapor Diagnostik Tryout Olimpiade
+          </h2>
+          <p id="report-medal-title" class="text-emerald-700 font-extrabold text-lg">
+            Predikat: Medali Emas
+          </p>
+        </div>
+
+        <!-- Score Overview Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[10px] font-bold uppercase">Nilai Akhir</span>
+            <span id="report-score" class="text-2xl font-black text-indigo-600">90</span>
+            <span class="text-slate-400 text-xs">/100</span>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[10px] font-bold uppercase">Jawaban Benar</span>
+            <span id="report-correct" class="text-2xl font-black text-emerald-600">9</span>
+            <span class="text-slate-400 text-xs">Soal</span>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[10px] font-bold uppercase">Waktu Tempuh</span>
+            <span id="report-time-spent" class="text-2xl font-black text-slate-700">08:45</span>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+            <span class="block text-slate-400 text-[10px] font-bold uppercase">Bonus XP</span>
+            <span id="report-xp-gain" class="text-2xl font-black text-amber-500">+150</span>
+          </div>
+        </div>
+
+        <!-- Topic Breakdown Diagnostics -->
+        <div class="space-y-3">
+          <h3 class="text-sm font-extrabold text-slate-700 flex items-center space-x-1.5">
+            <i class="fa-solid fa-chart-pie text-indigo-500"></i>
+            <span>Analisis Penguasaan Topik Matematika</span>
+          </h3>
+          <div id="report-topics-bars" class="space-y-2">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 space-y-1 text-xs text-indigo-900">
+          <span class="font-extrabold block text-indigo-950">💡 Rekomendasi Pelatih Juara:</span>
+          <p id="report-recommendation">Kuasai trik cepat logika untuk menghemat waktu pada soal bertingkat!</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-3">
+          <button onclick="certificateEngine.generateFromTryout()" class="px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-extrabold text-sm shadow-md flex items-center space-x-2">
+            <i class="fa-solid fa-award"></i>
+            <span>🎖️ Cetak Sertifikat Juara</span>
+          </button>
+          <button onclick="tryoutEngine.reset()" class="px-6 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm">
+            Ulangi Simulasi 🔄
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 4: SERTIFIKAT JUARA ==================== -->
+    <section id="tab-cert" class="tab-content hidden space-y-6">
+      <div class="glass-card rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-2xl font-display font-extrabold text-slate-800">
+              Sertifikat Prestasi Juara
+            </h2>
+            <p class="text-xs text-slate-500">
+              Simpan dan cetak bukti ketangguhan matematika anak sebagai piagam kebanggaan!
+            </p>
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <input type="text" id="cert-child-name" placeholder="Nama Lengkap Anak..." value="Ksatria Matematika" oninput="certificateEngine.renderPreview()" class="text-xs font-bold border border-slate-300 rounded-xl px-3 py-2 outline-none focus:border-indigo-500">
+            <button onclick="certificateEngine.downloadPNG()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm flex items-center space-x-1.5">
+              <i class="fa-solid fa-download"></i>
+              <span>Unduh PNG</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas Certificate Preview -->
+        <div class="flex justify-center overflow-x-auto py-2">
+          <canvas id="cert-canvas" width="800" height="560" class="w-full max-w-2xl rounded-2xl shadow-xl border-4 border-amber-300/60 bg-white"></canvas>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== TOUCH SCRATCHPAD OVERLAY / MODAL ==================== -->
+  <div id="scratchpad-overlay" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex flex-col justify-end sm:justify-center items-center p-0 sm:p-4 transition-opacity">
+    <div class="bg-white w-full sm:max-w-3xl sm:rounded-3xl rounded-t-3xl shadow-2xl overflow-hidden flex flex-col h-[85vh] sm:h-[680px] border border-slate-200">
+      
+      <!-- Scratchpad Header / Toolbar -->
+      <div class="p-3 sm:p-4 bg-slate-100 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">📝</span>
+          <span class="font-display font-bold text-slate-800 text-sm">Papan Coret-Coret Santai</span>
+        </div>
+
+        <!-- Color Palette -->
+        <div class="flex items-center space-x-1.5 bg-white px-2 py-1 rounded-xl border border-slate-200">
+          <button onclick="scratchpad.setColor('#1e293b')" class="w-6 h-6 rounded-full bg-slate-800 ring-2 ring-offset-1 ring-slate-800" title="Hitam"></button>
+          <button onclick="scratchpad.setColor('#2563eb')" class="w-6 h-6 rounded-full bg-blue-600 hover:scale-110 transition-transform" title="Biru"></button>
+          <button onclick="scratchpad.setColor('#dc2626')" class="w-6 h-6 rounded-full bg-red-600 hover:scale-110 transition-transform" title="Merah"></button>
+          <button onclick="scratchpad.setColor('#16a34a')" class="w-6 h-6 rounded-full bg-emerald-600 hover:scale-110 transition-transform" title="Hijau"></button>
+          <button onclick="scratchpad.setColor('#eab308')" class="w-6 h-6 rounded-full bg-amber-500 hover:scale-110 transition-transform" title="Kuning"></button>
+          <button onclick="scratchpad.useEraser()" id="btn-eraser" class="px-2 py-1 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all flex items-center space-x-1" title="Penghapus">
+            <i class="fa-solid fa-eraser"></i>
+            <span>Hapus</span>
+          </button>
+        </div>
+
+        <!-- Tools: Clear & Close -->
+        <div class="flex items-center space-x-2">
+          <button onclick="scratchpad.clear()" class="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 text-xs font-bold transition-all">
+            Bersihkan
+          </button>
+          <button onclick="scratchpad.toggle()" class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center justify-center font-bold">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Area -->
+      <div class="flex-1 relative bg-white overflow-hidden cursor-crosshair">
+        <canvas id="scratch-canvas" class="w-full h-full block scratchpad-active"></canvas>
+      </div>
+
+      <!-- Scratchpad Footer Clue -->
+      <div class="p-2.5 bg-slate-50 border-t border-slate-200 text-center text-[11px] text-slate-500 font-medium">
+        💡 Gunakan jari di HP/Tablet atau mouse di laptop untuk menghitung rumus!
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: AI QUESTION GENERATOR ==================== -->
+  <div id="modal-ai-gen" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">✨</span>
+          <h3 class="font-display font-extrabold text-slate-800 text-lg">AI Math Question Maker</h3>
+        </div>
+        <button onclick="app.closeModal('modal-ai-gen')" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-600">
+        <p>
+          Generate soal olimpiade baru secara live untuk <span class="font-extrabold text-indigo-600 current-grade-label">Kelas 1</span> menggunakan Google Gemini AI!
+        </p>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Pilih Tema Petualangan Soal:</label>
+          <select id="ai-topic-theme" class="w-full p-2.5 rounded-xl bg-slate-50 border border-slate-300 font-semibold outline-none focus:border-indigo-500 text-xs">
+            <option value="Astronot Luar Angkasa & Roket">🚀 Astronot Luar Angkasa & Roket</option>
+            <option value="Misteri Piramida & Harta Karun">🏺 Misteri Piramida & Harta Karun</option>
+            <option value="Ekspedisi Satwa Hutan Kalimantan">🐅 Ekspedisi Satwa Hutan Kalimantan</option>
+            <option value="Robot Cerdas & Kecerdasan Buatan">🤖 Robot Cerdas & Lab Rahasia</option>
+            <option value="Turnamen Koki & Festival Kue">🍰 Turnamen Koki & Festival Kue</option>
+          </select>
+        </div>
+
+        <div id="ai-api-key-warning" class="hidden p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] leading-relaxed">
+          ⚠️ <strong>Catatan:</strong> Masukkan Gemini API Key di menu Pengaturan (⚙️) untuk akses tanpa kuota, atau gunakan kuota dinamis built-in.
+        </div>
+
+        <!-- Spinner loader -->
+        <div id="ai-loader" class="hidden py-6 text-center space-y-2">
+          <div class="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto"></div>
+          <span class="text-xs font-bold text-indigo-600 block animate-pulse">Sedang meracik soal olimpiade kontekstual...</span>
+        </div>
+      </div>
+
+      <div id="ai-modal-footer" class="flex justify-end space-x-2 pt-2">
+        <button onclick="app.closeModal('modal-ai-gen')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">
+          Batal
+        </button>
+        <button onclick="aiGenerator.executeGenerate()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-xs shadow-md">
+          ✨ Racik Soal Sekarang!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CLOUD SYNC & EXPORT/IMPORT ==================== -->
+  <div id="modal-sync" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">☁️</span>
+          <h3 class="font-display font-extrabold text-slate-800 text-lg">Pindah Progres Antar HP / Tab</h3>
+        </div>
+        <button onclick="app.closeModal('modal-sync')" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Salin kode progres ini untuk memindahkan koin, level, dan medali ke HP/Laptop lain dengan mudah.
+      </p>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Kode Progres Kamu:</label>
+          <div class="flex space-x-2">
+            <input type="text" id="sync-code-output" readonly class="w-full text-xs font-mono bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 select-all">
+            <button onclick="cloudSync.copyCode()" class="px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold whitespace-nowrap">
+              Salin 📋
+            </button>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-100 pt-3">
+          <label class="block text-[11px] font-bold text-slate-500 uppercase mb-1">Tempel Kode dari Perangkat Lain:</label>
+          <div class="flex space-x-2">
+            <input type="text" id="sync-code-input" placeholder="Tempel kode di sini..." class="w-full text-xs font-mono bg-white border border-slate-300 rounded-xl px-3 py-2 outline-none focus:border-indigo-500">
+            <button onclick="cloudSync.importCode()" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold whitespace-nowrap">
+              Pulihkan 📥
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 text-center">
+        <span id="sync-status-msg" class="text-xs font-bold text-emerald-600"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SETTINGS & GEMINI API KEY ==================== -->
+  <div id="modal-settings" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">⚙️</span>
+          <h3 class="font-display font-extrabold text-slate-800 text-lg">Pengaturan Aplikasi</h3>
+        </div>
+        <button onclick="app.closeModal('modal-settings')" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- API KEY SETTING -->
+        <div class="space-y-1.5">
+          <label class="block font-bold text-slate-700">
+            Google Gemini API Key (Opsional / Pribadi):
+          </label>
+          <input type="password" id="input-gemini-key" placeholder="AIzaSy..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-mono text-xs outline-none focus:border-indigo-500">
+          <p class="text-[11px] text-slate-500 leading-relaxed">
+            API key disimpan secara aman hanya di browser lokal Anda (localStorage) untuk men-generate soal AI tanpa batas kuota.
+          </p>
+        </div>
+
+        <!-- SOUND TOGGLE -->
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200">
+          <span class="font-bold text-slate-700">Efek Suara Web Audio (SFX)</span>
+          <button onclick="sound.toggle(); app.updateSettingsUI();" id="btn-toggle-sfx" class="px-3 py-1 rounded-xl bg-emerald-500 text-white font-extrabold text-xs">
+            AKTIF
+          </button>
+        </div>
+
+        <!-- RESET DATA -->
+        <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
+          <span class="text-rose-600 font-bold">Reset Progres Game</span>
+          <button onclick="app.resetAllProgress()" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs">
+            Reset Data ⚠️
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button onclick="app.saveSettings()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-md">
+          Simpan Pengaturan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <!-- ==================== JAVASCRIPT APPLICATION CORE ==================== -->
+  <script>
+    /* -------------------------------------------------------------
+       1. WEB AUDIO API SYNTHESIZER (No external audio files needed!)
+       ------------------------------------------------------------- */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = localStorage.getItem('olimath_sfx_enabled') !== 'false';
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      toggle() {
+        this.enabled = !this.enabled;
+        localStorage.setItem('olimath_sfx_enabled', this.enabled);
+        const icon = document.querySelector('#btn-audio i');
+        if (icon) {
+          icon.className = this.enabled ? 'fa-solid fa-volume-high text-sm' : 'fa-solid fa-volume-xmark text-sm text-slate-400';
+        }
+        app.showToast(this.enabled ? '🔊 Suara Diaktifkan' : '🔇 Suara Dimatikan');
+        return this.enabled;
+      }
+
+      playTone(freq, duration, type = 'sine', gainVal = 0.15) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          console.warn('Audio play error:', e);
+        }
+      }
+
+      playCorrect() {
+        // Melodic arpeggio C5 -> E5 -> G5
+        setTimeout(() => this.playTone(523.25, 0.15, 'triangle', 0.2), 0);
+        setTimeout(() => this.playTone(659.25, 0.15, 'triangle', 0.2), 100);
+        setTimeout(() => this.playTone(783.99, 0.35, 'triangle', 0.25), 200);
+      }
+
+      playWrong() {
+        // Soft buzz
+        setTimeout(() => this.playTone(260, 0.15, 'sawtooth', 0.1), 0);
+        setTimeout(() => this.playTone(220, 0.25, 'sawtooth', 0.1), 120);
+      }
+
+      playCoin() {
+        // High ping B5 -> E6
+        setTimeout(() => this.playTone(987.77, 0.08, 'sine', 0.15), 0);
+        setTimeout(() => this.playTone(1318.51, 0.2, 'sine', 0.2), 80);
+      }
+
+      playLevelUp() {
+        // Brass-like triumphant fanfare
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => this.playTone(freq, 0.25, 'triangle', 0.2), idx * 120);
+        });
+      }
+
+      playAttack() {
+        this.playTone(180, 0.15, 'square', 0.15);
+      }
+    }
+    const sound = new SoundEngine();
+
+    /* -------------------------------------------------------------
+       2. TOUCH SCRATCHPAD CANVAS (Papan Coret-Coret Santai)
+       ------------------------------------------------------------- */
+    class ScratchpadEngine {
+      constructor() {
+        this.overlay = document.getElementById('scratchpad-overlay');
+        this.canvas = document.getElementById('scratch-canvas');
+        this.ctx = null;
+        this.drawing = false;
+        this.currentColor = '#1e293b';
+        this.lineWidth = 3;
+        this.isEraser = false;
+      }
+
+      init() {
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+
+        // Mouse listeners
+        this.canvas.addEventListener('mousedown', (e) => this.startDraw(e));
+        this.canvas.addEventListener('mousemove', (e) => this.draw(e));
+        window.addEventListener('mouseup', () => this.stopDraw());
+
+        // Touch listeners
+        this.canvas.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          this.startDraw(e.touches[0]);
+        }, { passive: false });
+        this.canvas.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          this.draw(e.touches[0]);
+        }, { passive: false });
+        window.addEventListener('touchend', () => this.stopDraw());
+      }
+
+      resize() {
+        if (!this.canvas || !this.canvas.parentElement) return;
+        const rect = this.canvas.parentElement.getBoundingClientRect();
+        if (rect.width && rect.height) {
+          const temp = this.ctx ? this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height) : null;
+          this.canvas.width = rect.width;
+          this.canvas.height = rect.height;
+          if (temp && this.ctx) {
+            try { this.ctx.putImageData(temp, 0, 0); } catch(e){}
+          }
+        }
+      }
+
+      toggle() {
+        this.overlay.classList.toggle('hidden');
+        if (!this.overlay.classList.contains('hidden')) {
+          setTimeout(() => this.resize(), 50);
+        }
+      }
+
+      setColor(color) {
+        this.isEraser = false;
+        this.currentColor = color;
+        this.lineWidth = 3;
+        document.getElementById('btn-eraser').classList.remove('bg-indigo-100', 'text-indigo-700');
+      }
+
+      useEraser() {
+        this.isEraser = true;
+        this.lineWidth = 18;
+        document.getElementById('btn-eraser').classList.add('bg-indigo-100', 'text-indigo-700');
+      }
+
+      clear() {
+        if (!this.ctx) return;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      }
+
+      getCoords(e) {
+        const rect = this.canvas.getBoundingClientRect();
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      }
+
+      startDraw(e) {
+        this.drawing = true;
+        const pt = this.getCoords(e);
+        this.ctx.beginPath();
+        this.ctx.moveTo(pt.x, pt.y);
+      }
+
+      draw(e) {
+        if (!this.drawing) return;
+        const pt = this.getCoords(e);
+        this.ctx.lineCap = 'round';
+        this.ctx.lineJoin = 'round';
+        this.ctx.lineWidth = this.lineWidth;
+        this.ctx.strokeStyle = this.isEraser ? '#ffffff' : this.currentColor;
+        this.ctx.lineTo(pt.x, pt.y);
+        this.ctx.stroke();
+      }
+
+      stopDraw() {
+        if (!this.drawing) return;
+        this.drawing = false;
+        this.ctx.closePath();
+      }
+    }
+    const scratchpad = new ScratchpadEngine();
+
+    /* -------------------------------------------------------------
+       3. CERTIFICATE GENERATOR (Canvas Piagam Juara)
+       ------------------------------------------------------------- */
+    class CertificateEngine {
+      constructor() {
+        this.canvas = document.getElementById('cert-canvas');
+      }
+
+      renderPreview(score = 90, medal = 'Medali Emas') {
+        if (!this.canvas) return;
+        const ctx = this.canvas.getContext('2d');
+        const w = this.canvas.width;
+        const h = this.canvas.height;
+        const childName = (document.getElementById('cert-child-name').value || 'Ksatria Matematika').trim();
+        const gradeText = `Siswa Kelas ${app.currentGrade} SD`;
+        const dateStr = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Background
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+
+        // Elegant Gold Borders
+        ctx.strokeStyle = '#ca8a04';
+        ctx.lineWidth = 12;
+        ctx.strokeRect(16, 16, w - 32, h - 32);
+
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(26, 26, w - 52, h - 52);
+
+        // Corner ornaments
+        ctx.fillStyle = '#ca8a04';
+        const corners = [[36, 36], [w - 48, 36], [36, h - 48], [w - 48, h - 48]];
+        corners.forEach(([cx, cy]) => {
+          ctx.beginPath();
+          ctx.arc(cx + 6, cy + 6, 8, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Header Title
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 15px Outfit, sans-serif';
+        ctx.fillText('PIAGAM PENGHARGAAN OLIMPIADE MATEMATIKA', w / 2, 80);
+
+        ctx.fillStyle = '#0f766e';
+        ctx.font = '900 32px Fredoka, Outfit, sans-serif';
+        ctx.fillText('OliMath Adventure by antigravity', w / 2, 122);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '500 13px Outfit, sans-serif';
+        ctx.fillText('Dengan bangga menganugerahkan sertifikat pencapaian istimewa kepada:', w / 2, 165);
+
+        // Child's Name
+        ctx.fillStyle = '#1e1b4b';
+        ctx.font = '900 34px Outfit, sans-serif';
+        ctx.fillText(childName, w / 2, 220);
+
+        // Underline for name
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 180, 235);
+        ctx.lineTo(w / 2 + 180, 235);
+        ctx.stroke();
+
+        // Grade & Achievement Description
+        ctx.fillStyle = '#334155';
+        ctx.font = '600 15px Outfit, sans-serif';
+        ctx.fillText(`${gradeText} • Predikat: ${medal} (Skor: ${score}/100)`, w / 2, 270);
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '400 13px Outfit, sans-serif';
+        ctx.fillText('Telah berhasil menyelesaikan Ujian Simulasi Standar Kompetisi OSN / SASMO / Kangaroo Math', w / 2, 305);
+        ctx.fillText('dengan dedikasi, ketelitian, dan daya nalar pemecahan masalah yang luar biasa.', w / 2, 325);
+
+        // Gold Seal Stamp in Center Bottom
+        ctx.fillStyle = '#fef08a';
+        ctx.beginPath();
+        ctx.arc(w / 2, 400, 38, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#ca8a04';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.fillStyle = '#854d0e';
+        ctx.font = 'bold 10px Outfit, sans-serif';
+        ctx.fillText('★ RESMI ★', w / 2, 395);
+        ctx.font = '800 13px Outfit, sans-serif';
+        ctx.fillText('JUARA', w / 2, 412);
+
+        // Signature & Date Footers
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#475569';
+        ctx.font = '500 12px Outfit, sans-serif';
+        ctx.fillText(`Diterbitkan: ${dateStr}`, 60, 485);
+        ctx.fillText(`ID Verifikasi: OLI-${Math.floor(100000 + Math.random() * 900000)}`, 60, 505);
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#0f766e';
+        ctx.font = 'bold 13px Outfit, sans-serif';
+        ctx.fillText('Tim Pelatih Antigravity AI', w - 60, 485);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '11px Outfit, sans-serif';
+        ctx.fillText('Dewan Pembina Olimpiade SD', w - 60, 505);
+      }
+
+      generateFromTryout() {
+        app.switchTab('cert');
+        this.renderPreview(tryoutEngine.lastScore, tryoutEngine.lastMedal);
+        app.showToast('🎖️ Sertifikat Siap Dicetak!');
+      }
+
+      downloadPNG() {
+        if (!this.canvas) return;
+        const link = document.createElement('a');
+        link.download = `Sertifikat_OliMath_${Date.now()}.png`;
+        link.href = this.canvas.toDataURL('image/png');
+        link.click();
+        sound.playCoin();
+        app.showToast('📥 Sertifikat berhasil diunduh!');
+      }
+    }
+    const certificateEngine = new CertificateEngine();
+
+    /* -------------------------------------------------------------
+       4. MAIN APPLICATION LOGIC & STATE ENGINE
+       ------------------------------------------------------------- */
+    class OliMathApp {
+      constructor() {
+        this.currentGrade = 1;
+        this.allQuestions = [];
+        this.currentQIndex = 0;
+        this.userData = {
+          coins: 0,
+          streak: 0,
+          xp: 0,
+          level: 1,
+          solvedIds: [],
+          bossDefeats: 0
+        };
+      }
+
+      init() {
+        this.loadLocalUserData();
+        this.renderGradeButtons();
+        scratchpad.init();
+        this.fetchQuestions();
+        this.updateHUD();
+      }
+
+      loadLocalUserData() {
+        const saved = localStorage.getItem('olimath_progress');
+        if (saved) {
+          try {
+            this.userData = Object.assign(this.userData, JSON.parse(saved));
+          } catch(e) {}
+        }
+      }
+
+      saveUserData() {
+        localStorage.setItem('olimath_progress', JSON.stringify(this.userData));
+        this.updateHUD();
+      }
+
+      updateHUD() {
+        document.getElementById('player-coins').textContent = this.userData.coins;
+        document.getElementById('player-streak').textContent = this.userData.streak;
+        document.getElementById('player-level').textContent = this.userData.level;
+
+        // Level Titles
+        const titles = [
+          'Penjelajah Angka', 'Ksatria Aritmatika', 'Pemberani Pecahan',
+          'Pakar Aljabar', 'Master Geometri', 'Grandmaster OSN SD'
+        ];
+        const titleIdx = Math.min(Math.floor((this.userData.level - 1) / 2), titles.length - 1);
+        document.getElementById('player-title').textContent = titles[titleIdx];
+
+        // XP Bar
+        const xpForNext = this.userData.level * 100;
+        const currentLevelXP = this.userData.xp % 100;
+        const percent = Math.min(Math.max((currentLevelXP / 100) * 100, 5), 100);
+        document.getElementById('player-xp-bar').style.width = percent + '%';
+
+        // Update Boss Mode Hero Level
+        const bossHeroLv = document.getElementById('boss-hero-level');
+        if (bossHeroLv) bossHeroLv.textContent = this.userData.level;
+      }
+
+      addReward(xp = 20, coins = 10) {
+        this.userData.xp += xp;
+        this.userData.coins += coins;
+        this.userData.streak += 1;
+
+        const newLevel = Math.floor(this.userData.xp / 100) + 1;
+        if (newLevel > this.userData.level) {
+          this.userData.level = newLevel;
+          sound.playLevelUp();
+          this.triggerConfetti();
+          this.showToast(`🎉 NAIK LEVEL! Sekarang kamu Level ${newLevel}!`);
+        } else {
+          sound.playCoin();
+        }
+        this.saveUserData();
+      }
+
+      renderGradeButtons() {
+        const container = document.getElementById('grade-buttons');
+        container.innerHTML = '';
+        for (let g = 1; g <= 6; g++) {
+          const btn = document.createElement('button');
+          btn.className = `px-2.5 py-1 rounded-xl text-xs font-bold transition-all ${
+            g === this.currentGrade 
+              ? 'bg-emerald-600 text-white shadow-sm' 
+              : 'text-slate-600 hover:bg-slate-200'
+          }`;
+          btn.textContent = `K${g}`;
+          btn.title = `Kelas ${g} SD`;
+          btn.onclick = () => this.selectGrade(g);
+          container.appendChild(btn);
+        }
+        document.querySelectorAll('.current-grade-label').forEach(el => {
+          el.textContent = `Kelas ${this.currentGrade}`;
+        });
+      }
+
+      selectGrade(grade) {
+        this.currentGrade = grade;
+        this.renderGradeButtons();
+        this.currentQIndex = 0;
+        this.loadQuestion();
+        bossBattle.initForGrade(grade);
+        tryoutEngine.reset();
+        this.showToast(`📚 Membuka Soal Kelas ${grade} SD`);
+      }
+
+      async fetchQuestions() {
+        const dbCountEl = document.getElementById('db-count');
+        try {
+          // Attempt auto-fetch from GitHub/local file
+          const res = await fetch(`./questions_db.json?v=${Date.now()}`);
+          if (res.ok) {
+            const data = await res.json();
+            this.allQuestions = Array.isArray(data) ? data : (data.questions || []);
+            dbCountEl.textContent = `${this.allQuestions.length} Soal`;
+            this.showToast(`🟢 Database Terkoneksi (${this.allQuestions.length} Soal)`);
+            this.loadQuestion();
+            bossBattle.initForGrade(this.currentGrade);
+            return;
+          }
+        } catch (e) {
+          console.warn('Network fetch error, using embedded dataset:', e);
+        }
+
+        // Fallback embedded dataset ensures offline 100% works
+        if (this.allQuestions.length === 0) {
+          this.allQuestions = this.getEmbeddedFallback();
+          dbCountEl.textContent = `${this.allQuestions.length} Soal`;
+          this.loadQuestion();
+          bossBattle.initForGrade(this.currentGrade);
+        }
+      }
+
+      getQuestionsForGrade() {
+        return this.allQuestions.filter(q => q.grade === this.currentGrade);
+      }
+
+      loadQuestion() {
+        const gradeQuestions = this.getQuestionsForGrade();
+        if (gradeQuestions.length === 0) {
+          document.getElementById('q-text').textContent = 'Belum ada soal untuk kelas ini. Klik "Minta AI Buat Soal" untuk menambahkannya!';
+          document.getElementById('opts-container').innerHTML = '';
+          return;
+        }
+
+        if (this.currentQIndex >= gradeQuestions.length) {
+          this.currentQIndex = 0;
+        }
+        if (this.currentQIndex < 0) {
+          this.currentQIndex = gradeQuestions.length - 1;
+        }
+
+        const q = gradeQuestions[this.currentQIndex];
+
+        // Meta badges
+        document.getElementById('badge-grade').textContent = `Kelas ${q.grade}`;
+        document.getElementById('badge-topic').textContent = q.topic;
+        document.getElementById('badge-source').textContent = q.source || 'Olimpiade SD';
+        document.getElementById('badge-diff').textContent = q.diff || 'Sedang';
+        
+        const aiBadge = document.getElementById('badge-ai');
+        if (q.id && q.id.startsWith('daily_') || q.isAI) {
+          aiBadge.classList.remove('hidden');
+        } else {
+          aiBadge.classList.add('hidden');
+        }
+
+        document.getElementById('current-q-index').textContent = this.currentQIndex + 1;
+        document.getElementById('total-q-count').textContent = gradeQuestions.length;
+
+        // Question text
+        document.getElementById('q-text').textContent = q.q;
+
+        // Reset boxes
+        document.getElementById('hint-box').classList.add('hidden');
+        document.getElementById('solution-box').classList.add('hidden');
+        document.getElementById('hint-text').textContent = q.hint;
+        document.getElementById('sol-text').textContent = q.exp;
+        document.getElementById('sol-trick').textContent = q.trick;
+        document.getElementById('sol-correct-key').textContent = q.ans;
+
+        // Options
+        const optsContainer = document.getElementById('opts-container');
+        optsContainer.innerHTML = '';
+
+        q.opts.forEach((optText) => {
+          const optKey = optText.trim().charAt(0).toUpperCase(); // 'A', 'B', 'C', 'D'
+          const btn = document.createElement('button');
+          btn.className = 'opt-btn text-left p-4 rounded-2xl bg-slate-50 hover:bg-indigo-50/80 border border-slate-200/90 font-medium text-slate-800 text-sm transition-all duration-200 flex items-center space-x-3 active:scale-98';
+          btn.innerHTML = `
+            <span class="w-8 h-8 rounded-xl bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-700 shadow-sm">${optKey}</span>
+            <span class="flex-1">${optText.replace(/^[A-D]\.\s*/, '')}</span>
+          `;
+          btn.onclick = () => this.handleAnswer(btn, optKey, q);
+          optsContainer.appendChild(btn);
+        });
+      }
+
+      handleAnswer(btn, selectedKey, q) {
+        const isCorrect = selectedKey === q.ans;
+        const allBtns = document.querySelectorAll('.opt-btn');
+
+        if (isCorrect) {
+          sound.playCorrect();
+          btn.classList.remove('bg-slate-50', 'hover:bg-indigo-50/80');
+          btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600', 'shadow-md');
+          allBtns.forEach(b => b.disabled = true);
+          
+          this.triggerConfetti();
+          this.addReward(25, 10);
+          this.showToast('🎯 HEBAT! Jawabanmu Benar (+25 XP, +10 Koin)');
+
+          // Unlock solution
+          document.getElementById('solution-box').classList.remove('hidden');
+        } else {
+          sound.playWrong();
+          btn.classList.add('bg-rose-100', 'text-rose-800', 'border-rose-300', 'animate-shake');
+          this.userData.streak = 0;
+          this.saveUserData();
+          this.showToast('❌ Kurang tepat. Coba baca Petunjuk (Hint) ya!');
+        }
+      }
+
+      nextQuestion() {
+        this.currentQIndex++;
+        this.loadQuestion();
+      }
+
+      prevQuestion() {
+        this.currentQIndex--;
+        this.loadQuestion();
+      }
+
+      randomQuestion() {
+        const gradeQuestions = this.getQuestionsForGrade();
+        if (gradeQuestions.length > 1) {
+          let rand;
+          do {
+            rand = Math.floor(Math.random() * gradeQuestions.length);
+          } while (rand === this.currentQIndex);
+          this.currentQIndex = rand;
+          this.loadQuestion();
+        }
+      }
+
+      toggleHint() {
+        document.getElementById('hint-box').classList.toggle('hidden');
+      }
+
+      switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.className = 'tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all';
+        });
+
+        const activeContent = document.getElementById(`tab-${tabId}`);
+        const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+        if (activeContent) activeContent.classList.remove('hidden');
+        if (activeBtn) {
+          activeBtn.className = 'tab-btn flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all bg-emerald-500 text-white shadow-sm';
+        }
+
+        if (tabId === 'cert') {
+          certificateEngine.renderPreview();
+        }
+      }
+
+      triggerConfetti() {
+        if (window.confetti) {
+          window.confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.7 }
+          });
+        }
+      }
+
+      showToast(msg) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'glass-card px-4 py-2.5 rounded-2xl border border-slate-200/80 shadow-lg text-xs font-bold text-slate-800 flex items-center space-x-2 animate-bounceSmall';
+        toast.innerHTML = `<span>${msg}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3200);
+      }
+
+      openModal(modalId) {
+        const m = document.getElementById(modalId);
+        if (m) m.classList.remove('hidden');
+      }
+
+      closeModal(modalId) {
+        const m = document.getElementById(modalId);
+        if (m) m.classList.add('hidden');
+      }
+
+      showLevelInfo() {
+        this.showToast(`⭐ Total XP: ${this.userData.xp} | Butuh ${(this.userData.level * 100) - (this.userData.xp % 100)} XP lagi untuk Level ${this.userData.level + 1}`);
+      }
+
+      saveSettings() {
+        const key = document.getElementById('input-gemini-key').value.trim();
+        if (key) {
+          localStorage.setItem('olimath_gemini_api_key', key);
+          this.showToast('✅ Gemini API Key Tersimpan!');
+        }
+        this.closeModal('modal-settings');
+      }
+
+      updateSettingsUI() {
+        const btn = document.getElementById('btn-toggle-sfx');
+        if (btn) {
+          btn.textContent = sound.enabled ? 'AKTIF' : 'NONAKTIF';
+          btn.className = sound.enabled 
+            ? 'px-3 py-1 rounded-xl bg-emerald-500 text-white font-extrabold text-xs' 
+            : 'px-3 py-1 rounded-xl bg-slate-300 text-slate-700 font-extrabold text-xs';
+        }
+      }
+
+      resetAllProgress() {
+        if (confirm('Apakah kamu yakin ingin mereset semua koin, level, dan progres?')) {
+          localStorage.removeItem('olimath_progress');
+          this.userData = { coins: 0, streak: 0, xp: 0, level: 1, solvedIds: [], bossDefeats: 0 };
+          this.saveUserData();
+          this.closeModal('modal-settings');
+          this.showToast('🔄 Progres telah di-reset.');
+        }
+      }
+
+      getEmbeddedFallback() {
+        // Essential 6 questions fallback for standalone file:// opening
+        return [
+          {
+            id: "fallback_g1", grade: 1, topic: "Pola Bilangan", source: "Kangaroo Pre-Ecolier", diff: "Mudah",
+            q: "Seekor kanguru melompat dengan pola angka: 2, 5, 8, 11, __, 17. Berapakah angka lompatan yang hilang di garis?",
+            opts: ["A. 13", "B. 14", "C. 15", "D. 16"], ans: "B",
+            hint: "Perhatikan selisihnya: 5 - 2 = 3. Setiap lompatan bertambah 3.",
+            exp: "Pola bertambah 3:\n11 + 3 = 14.\n14 + 3 = 17.",
+            trick: "Trik Juara: 11 + 3 = 14 dalam 3 detik!"
+          },
+          {
+            id: "fallback_g2", grade: 2, topic: "Interval Tali", source: "Kangaroo Ecolier", diff: "Sedang",
+            q: "Sebuah pita panjangnya 12 meter. Rara memotongnya menjadi potongan-potongan 3 meter. Berapa kali Rara harus menggunting?",
+            opts: ["A. 2 kali", "B. 3 kali", "C. 4 kali", "D. 5 kali"], ans: "B",
+            hint: "Potongan = 12 : 3 = 4. Guntingan = Potongan - 1.",
+            exp: "Potongan ada 4. Guntingan = 4 - 1 = 3 kali.",
+            trick: "Trik Juara: Guntingan = Potongan - 1 = 3 kali!"
+          },
+          {
+            id: "fallback_g3", grade: 3, topic: "Ayam dan Kelinci", source: "SASMO Grade 3", diff: "Sedang",
+            q: "Ada 10 hewan terdiri dari ayam dan kelinci dengan total 28 kaki. Berapakah banyak kelinci?",
+            opts: ["A. 3", "B. 4", "C. 5", "D. 6"], ans: "B",
+            hint: "Jika semua ayam berkaki 2: 10 x 2 = 20 kaki. Kekurangan 8 kaki dibagi selisih 2.",
+            exp: "Kelinci = (28 - 20) / 2 = 4 ekor.",
+            trick: "Trik Cepat: (28 - 2x10) / 2 = 4 ekor!"
+          },
+          {
+            id: "fallback_g4", grade: 4, topic: "FPB & KPK Cerita", source: "OSN SD Kota", diff: "Sedang",
+            q: "Lampu merah menyala tiap 12 detik, hijau tiap 15 detik, biru tiap 20 detik. Ketiganya menyala bersama pukul 08.00. Pukul berapa menyala bersama lagi?",
+            opts: ["A. 08.01", "B. 08.02", "C. 08.03", "D. 08.05"], ans: "A",
+            hint: "Cari KPK dari 12, 15, dan 20 dalam satuan detik.",
+            exp: "KPK = 60 detik = 1 menit. 08.00 + 1 menit = 08.01.",
+            trick: "Trik Juara: KPK(12,15,20) = 60 detik = 1 menit!"
+          },
+          {
+            id: "fallback_g5", grade: 5, topic: "Digit Satuan", source: "OSN SD Nasional", diff: "Sulit",
+            q: "Berapakah digit satuan dari 3^2026?",
+            opts: ["A. 1", "B. 3", "C. 7", "D. 9"], ans: "D",
+            hint: "Pola satuan 3^n berulang setiap 4 siklus: [3, 9, 7, 1].",
+            exp: "2026 dibagi 4 bersisa 2. Satuan ke-2 adalah 9.",
+            trick: "Trik Modulo: 26 mod 4 = 2. 3^2 = 9!"
+          },
+          {
+            id: "fallback_g6", grade: 6, topic: "Pola Keterbagian 72", source: "OSN SD Nasional", diff: "Olimpiade",
+            q: "Bilangan 5A31B habis dibagi 72. Berapakah nilai A + B?",
+            opts: ["A. 6", "B. 9", "C. 11", "D. 14"], ans: "B",
+            hint: "72 = 8 x 9. Cek 31B habis dibagi 8 -> B=2. Lalu cek jumlah digit habis dibagi 9.",
+            exp: "B=2, 5+A+3+1+2 = 11+A -> A=7. Maka A+B = 7+2 = 9.",
+            trick: "Trik Keterbagian: B=2, A=7. 7+2 = 9!"
+          }
+        ];
+      }
+    }
+    const app = new OliMathApp();
+
+    /* -------------------------------------------------------------
+       5. LIVE AI QUESTION GENERATOR ENGINE (Fitur Dinamis 2)
+       ------------------------------------------------------------- */
+    class AIGeneratorEngine {
+      requestQuestion() {
+        const storedKey = localStorage.getItem('olimath_gemini_api_key');
+        const warn = document.getElementById('ai-api-key-warning');
+        if (!storedKey) {
+          warn.classList.remove('hidden');
+        } else {
+          warn.classList.add('hidden');
+        }
+        app.openModal('modal-ai-gen');
+      }
+
+      async executeGenerate() {
+        const theme = document.getElementById('ai-topic-theme').value;
+        const loader = document.getElementById('ai-loader');
+        const footer = document.getElementById('ai-modal-footer');
+        const key = localStorage.getItem('olimath_gemini_api_key');
+
+        loader.classList.remove('hidden');
+        footer.classList.add('hidden');
+
+        try {
+          let newQ = null;
+          if (key) {
+            newQ = await this.callGeminiAPI(key, app.currentGrade, theme);
+          } else {
+            // High quality simulated contextual AI question generator
+            await new Promise(r => setTimeout(r, 1200));
+            newQ = this.generateContextualOffline(app.currentGrade, theme);
+          }
+
+          if (newQ) {
+            newQ.isAI = true;
+            app.allQuestions.unshift(newQ);
+            app.currentQIndex = 0;
+            app.loadQuestion();
+            app.closeModal('modal-ai-gen');
+            sound.playLevelUp();
+            app.showToast('✨ Soal Baru Berhasil Dibuat oleh AI!');
+          }
+        } catch (e) {
+          alert('Gagal memanggil AI: ' + e.message);
+        } finally {
+          loader.classList.add('hidden');
+          footer.classList.remove('hidden');
+        }
+      }
+
+      async callGeminiAPI(apiKey, grade, theme) {
+        const prompt = `Buatlah 1 SOAL BARU Olimpiade Matematika SD untuk Kelas ${grade} SD dengan tema "${theme}".
+Format JSON yang WAJIB dipatuhi:
+{
+  "id": "ai_${Date.now()}",
+  "grade": ${grade},
+  "topic": "${theme}",
+  "source": "OliMath Live AI Engine",
+  "diff": "Olimpiade",
+  "q": "Teks soal lengkap...",
+  "opts": ["A. ...", "B. ...", "C. ...", "D. ..."],
+  "ans": "A",
+  "hint": "Petunjuk...",
+  "exp": "Pembahasan langkah demi langkah...",
+  "trick": "Trik Juara Cepat: ..."
+}`;
+
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { responseMimeType: 'application/json', temperature: 0.7 }
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: Pastikan API Key Gemini Anda valid.`);
+        }
+
+        const data = await res.json();
+        const text = data.candidates[0].content.parts[0].text;
+        return JSON.parse(text);
+      }
+
+      generateContextualOffline(grade, theme) {
+        const templates = [
+          {
+            grade: 1,
+            q: `Dalam ekspedisi "${theme}", sebuah roket meluncur dari landasan dengan hitungan waktu lompatan: 3, 7, 11, 15, __, 23 detik. Berapakah angka lompatan yang hilang?`,
+            opts: ["A. 17", "B. 18", "C. 19", "D. 20"],
+            ans: "C",
+            hint: "Perhatikan selisih angka: 7 - 3 = 4. Setiap lompatan bertambah 4.",
+            exp: "Pola bertambah 4:\n15 + 4 = 19.\n19 + 4 = 23.",
+            trick: "Trik Juara: 15 + 4 = 19 langsung ketemu!"
+          },
+          {
+            grade: 2,
+            q: `Di petualangan "${theme}", tim menemukan rel kereta sepanjang 18 meter. Jika rel tersebut dibagi rata menjadi batang-batang 2 meter, berapa kali pemotongan harus dilakukan?`,
+            opts: ["A. 7 kali", "B. 8 kali", "C. 9 kali", "D. 10 kali"],
+            ans: "B",
+            hint: "Potongan = 18 : 2 = 9 batang. Banyak pemotongan = Potongan - 1.",
+            exp: "Banyak batang = 18 : 2 = 9.\nBanyak potongan = 9 - 1 = 8 kali.",
+            trick: "Trik Juara: Rumus Interval: 9 - 1 = 8 kali!"
+          },
+          {
+            grade: 3,
+            q: `Di dalam pangkalan "${theme}", terdapat 12 robot pengintai roda-2 dan rover roda-4. Total seluruh roda adalah 32 roda. Berapakah banyak rover roda-4?`,
+            opts: ["A. 3 rover", "B. 4 rover", "C. 5 rover", "D. 6 rover"],
+            ans: "B",
+            hint: "Jika semua beroda 2: 12 x 2 = 24. Selisih 32 - 24 = 8 roda dibagi (4 - 2).",
+            exp: "Kelebihan roda = 32 - 24 = 8 roda.\nBanyak rover roda-4 = 8 / 2 = 4 rover.",
+            trick: "Trik Ayam-Kelinci: (32 - 24) / 2 = 4 rover!"
+          },
+          {
+            grade: 4,
+            q: `Dalam misi "${theme}", kapal A melaju dengan kecepatan 30 km/jam dan kapal B melaju 45 km/jam saling mendekat dari jarak 150 km. Pukul berapakah mereka berpapasan jika berangkat pukul 06.00?`,
+            opts: ["A. Pukul 07.30", "B. Pukul 08.00", "C. Pukul 08.30", "D. Pukul 09.00"],
+            ans: "B",
+            hint: "Kecepatan gabungan = 30 + 45 = 75 km/jam. Waktu = 150 / 75 = 2 jam.",
+            exp: "Kecepatan total = 75 km/jam.\nWaktu papasan = 150 / 75 = 2 jam.\n06.00 + 2 jam = 08.00.",
+            trick: "Trik Papasan: 150 / 75 = 2 jam. 06.00 + 2 jam = 08.00!"
+          },
+          {
+            grade: 5,
+            q: `Pada kuil rahasia "${theme}", terdapat kode sandi perpangkatan: berapakah angka satuan dari hasil 7^2026?`,
+            opts: ["A. 1", "B. 3", "C. 7", "D. 9"],
+            ans: "D",
+            hint: "Pola satuan 7: 7, 9, 3, 1 (siklus 4). Bagi pangkat 2026 dengan 4.",
+            exp: "2026 dibagi 4 bersisa 2.\nMaka satuannya sama dengan 7^2 = 49 (digit satuan 9).",
+            trick: "Trik Cepat Modulo: 26 mod 4 = 2. 7² satuannya 9!"
+          },
+          {
+            grade: 6,
+            q: `Dalam proyek rekayasa "${theme}", sebuah tangki penuh dapat diisi pipa utama dalam 10 jam dan pipa kedua dalam 15 jam. Berapa jam waktu pengisian jika kedua pipa dibuka bersamaan?`,
+            opts: ["A. 5 jam", "B. 6 jam", "C. 7 jam", "D. 8 jam"],
+            ans: "B",
+            hint: "Laju = 1/10 + 1/15 = 3/30 + 2/30 = 5/30 = 1/6 tangki per jam.",
+            exp: "Waktu = 1 / (1/10 + 1/15) = 1 / (5/30) = 30 / 5 = 6 jam.",
+            trick: "Trik Perkalian per Penjumlahan: (10 x 15) / (10 + 15) = 150 / 25 = 6 jam!"
+          }
+        ];
+
+        const match = templates.find(t => t.grade === grade) || templates[0];
+        return {
+          id: `ai_local_${Date.now()}`,
+          grade: grade,
+          topic: theme,
+          source: 'OliMath Live AI Engine',
+          diff: 'Olimpiade',
+          q: match.q,
+          opts: match.opts,
+          ans: match.ans,
+          hint: match.hint,
+          exp: match.exp,
+          trick: match.trick
+        };
+      }
+    }
+    const aiGenerator = new AIGeneratorEngine();
+
+    /* -------------------------------------------------------------
+       6. RPG BOSS BATTLE ENGINE (Duel Lawan Bos Monster)
+       ------------------------------------------------------------- */
+    class BossBattleEngine {
+      constructor() {
+        this.bosses = [
+          { grade: 1, name: 'Drakon Pola', icon: '🐲', maxHp: 100, dmg: 20 },
+          { grade: 2, name: 'Lupus Interval', icon: '🐺', maxHp: 140, dmg: 25 },
+          { grade: 3, name: 'Ursa Aritmatika', icon: '🐻', maxHp: 180, dmg: 30 },
+          { grade: 4, name: 'Phoenix Geometri', icon: '🦅', maxHp: 220, dmg: 35 },
+          { grade: 5, name: 'Kraken Aljabar', icon: '🐙', maxHp: 260, dmg: 40 },
+          { grade: 6, name: 'Kaisar Bilangan OSN', icon: '👑', maxHp: 320, dmg: 45 }
+        ];
+        this.currentBoss = null;
+        this.bossHp = 100;
+        this.heroHp = 100;
+        this.currentQ = null;
+      }
+
+      initForGrade(grade) {
+        const selector = document.getElementById('boss-selector');
+        selector.innerHTML = '';
+        this.bosses.forEach((b, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `Kelas ${b.grade}: ${b.icon} ${b.name}`;
+          if (b.grade === grade) opt.selected = true;
+          selector.appendChild(opt);
+        });
+
+        const bossIdx = this.bosses.findIndex(b => b.grade === grade);
+        this.selectBoss(bossIdx !== -1 ? bossIdx : 0);
+      }
+
+      selectBoss(index) {
+        this.currentBoss = this.bosses[index];
+        this.bossHp = this.currentBoss.maxHp;
+        this.heroHp = 100;
+
+        document.getElementById('boss-name').textContent = this.currentBoss.name;
+        document.getElementById('boss-avatar').textContent = this.currentBoss.icon;
+        document.getElementById('boss-max-hp').textContent = this.currentBoss.maxHp;
+        document.getElementById('boss-hp').textContent = this.bossHp;
+        document.getElementById('boss-hp-bar').style.width = '100%';
+
+        document.getElementById('hero-hp').textContent = this.heroHp;
+        document.getElementById('hero-hp-bar').style.width = '100%';
+
+        document.getElementById('battle-log').textContent = `⚔️ ${this.currentBoss.name} muncul! Jawab soal untuk melancarkan serangan sihir matematika!`;
+        this.loadBossQuestion();
+      }
+
+      loadBossQuestion() {
+        const gradeQuestions = app.allQuestions.filter(q => q.grade === this.currentBoss.grade);
+        if (gradeQuestions.length === 0) return;
+
+        this.currentQ = gradeQuestions[Math.floor(Math.random() * gradeQuestions.length)];
+        document.getElementById('boss-q-topic').textContent = this.currentQ.topic;
+        document.getElementById('boss-q-text').textContent = this.currentQ.q;
+
+        const container = document.getElementById('boss-opts-container');
+        container.innerHTML = '';
+
+        this.currentQ.opts.forEach(optText => {
+          const key = optText.trim().charAt(0).toUpperCase();
+          const btn = document.createElement('button');
+          btn.className = 'boss-opt-btn text-left p-3.5 rounded-2xl bg-white hover:bg-rose-50 border border-slate-200 text-xs sm:text-sm font-semibold text-slate-800 transition-all flex items-center space-x-2.5';
+          btn.innerHTML = `<span class="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700">${key}</span> <span>${optText.replace(/^[A-D]\.\s*/, '')}</span>`;
+          btn.onclick = () => this.handleBossAnswer(btn, key);
+          container.appendChild(btn);
+        });
+      }
+
+      handleBossAnswer(btn, key) {
+        const isCorrect = key === this.currentQ.ans;
+        const allBtns = document.querySelectorAll('.boss-opt-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        if (isCorrect) {
+          sound.playCorrect();
+          sound.playAttack();
+          btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+          
+          // Hero attack animation
+          const hero = document.getElementById('hero-avatar');
+          hero.classList.add('scale-125');
+          setTimeout(() => hero.classList.remove('scale-125'), 300);
+
+          // Boss takes critical damage
+          const dmg = 45 + Math.floor(Math.random() * 20);
+          this.bossHp = Math.max(0, this.bossHp - dmg);
+          document.getElementById('boss-hp').textContent = this.bossHp;
+          document.getElementById('boss-hp-bar').style.width = `${(this.bossHp / this.currentBoss.maxHp) * 100}%`;
+
+          document.getElementById('battle-log').innerHTML = `💥 <strong>CRITICAL HIT!</strong> Mantra matematika tepat! Kamu memberikan <strong>-${dmg} HP</strong> pada ${this.currentBoss.name}!`;
+
+          if (this.bossHp <= 0) {
+            // Boss Defeated
+            setTimeout(() => {
+              sound.playLevelUp();
+              app.triggerConfetti();
+              app.addReward(100, 50);
+              app.userData.bossDefeats += 1;
+              app.saveUserData();
+              alert(`🏆 VICTORIA! Kamu berhasil menaklukkan ${this.currentBoss.name}!\n+100 XP & +50 Koin Bintang!`);
+              this.selectBoss(this.bosses.indexOf(this.currentBoss));
+            }, 600);
+            return;
+          }
+        } else {
+          sound.playWrong();
+          btn.classList.add('bg-rose-200', 'text-rose-900', 'animate-shake');
+
+          // Boss counter-attacks
+          const bossDmg = this.currentBoss.dmg;
+          this.heroHp = Math.max(0, this.heroHp - bossDmg);
+          document.getElementById('hero-hp').textContent = this.heroHp;
+          document.getElementById('hero-hp-bar').style.width = `${(this.heroHp / 100) * 100}%`;
+
+          document.getElementById('battle-log').innerHTML = `💔 Jawaban meleset! ${this.currentBoss.name} menyerang balik dengan <strong>-${bossDmg} HP</strong>!`;
+
+          if (this.heroHp <= 0) {
+            setTimeout(() => {
+              alert(`☠️ HP Kamu habis! Jangan menyerah, pulihkan energimu dan coba duel lagi!`);
+              this.selectBoss(this.bosses.indexOf(this.currentBoss));
+            }, 600);
+            return;
+          }
+        }
+
+        setTimeout(() => this.loadBossQuestion(), 1600);
+      }
+    }
+    const bossBattle = new BossBattleEngine();
+
+    /* -------------------------------------------------------------
+       7. TRYOUT SIMULATION & DIAGNOSTIC REPORT ENGINE
+       ------------------------------------------------------------- */
+    class TryoutEngine {
+      constructor() {
+        this.timer = null;
+        this.timeRemaining = 15 * 60; // 15 mins
+        this.questions = [];
+        this.currentIndex = 0;
+        this.answers = {};
+        this.lastScore = 90;
+        this.lastMedal = 'Medali Emas';
+      }
+
+      start() {
+        const gradeQuestions = app.allQuestions.filter(q => q.grade === app.currentGrade);
+        if (gradeQuestions.length === 0) {
+          alert('Belum ada soal untuk kelas ini.');
+          return;
+        }
+
+        // Pick up to 10 questions
+        const shuffled = [...gradeQuestions].sort(() => 0.5 - Math.random());
+        this.questions = shuffled.slice(0, 10);
+        this.currentIndex = 0;
+        this.answers = {};
+        this.timeRemaining = 15 * 60;
+
+        document.getElementById('tryout-start-card').classList.add('hidden');
+        document.getElementById('tryout-report-card').classList.add('hidden');
+        document.getElementById('tryout-session').classList.remove('hidden');
+
+        this.renderTracker();
+        this.loadCurrent();
+        this.startTimer();
+      }
+
+      startTimer() {
+        clearInterval(this.timer);
+        this.timer = setInterval(() => {
+          this.timeRemaining--;
+          const m = String(Math.floor(this.timeRemaining / 60)).padStart(2, '0');
+          const s = String(this.timeRemaining % 60).padStart(2, '0');
+          document.getElementById('tryout-timer').textContent = `${m}:${s}`;
+
+          if (this.timeRemaining <= 0) {
+            clearInterval(this.timer);
+            alert('⏰ Waktu Tryout Habis!');
+            this.finish();
+          }
+        }, 1000);
+      }
+
+      renderTracker() {
+        const container = document.getElementById('tryout-tracker');
+        container.innerHTML = '';
+        this.questions.forEach((_, idx) => {
+          const pill = document.createElement('button');
+          const isAnswered = this.answers[idx] !== undefined;
+          const isCurrent = idx === this.currentIndex;
+
+          pill.className = `w-8 h-8 rounded-xl font-bold text-xs transition-all ${
+            isCurrent
+              ? 'ring-2 ring-indigo-600 bg-indigo-600 text-white'
+              : isAnswered
+              ? 'bg-emerald-500 text-white'
+              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          }`;
+          pill.textContent = idx + 1;
+          pill.onclick = () => {
+            this.currentIndex = idx;
+            this.loadCurrent();
+          };
+          container.appendChild(pill);
+        });
+      }
+
+      loadCurrent() {
+        const q = this.questions[this.currentIndex];
+        document.getElementById('tryout-q-number').textContent = `Soal ${this.currentIndex + 1} dari ${this.questions.length}`;
+        document.getElementById('tryout-q-topic').textContent = q.topic;
+        document.getElementById('tryout-q-text').textContent = q.q;
+
+        const container = document.getElementById('tryout-opts-container');
+        container.innerHTML = '';
+
+        q.opts.forEach(optText => {
+          const key = optText.trim().charAt(0).toUpperCase();
+          const btn = document.createElement('button');
+          const selected = this.answers[this.currentIndex] === key;
+          btn.className = `text-left p-4 rounded-2xl border text-sm font-semibold transition-all flex items-center space-x-3 ${
+            selected 
+              ? 'bg-indigo-600 text-white border-indigo-700 shadow-md' 
+              : 'bg-white hover:bg-slate-100 border-slate-200 text-slate-800'
+          }`;
+          btn.innerHTML = `<span class="w-8 h-8 rounded-xl ${selected ? 'bg-indigo-700 text-white' : 'bg-slate-100 text-slate-700'} flex items-center justify-center font-bold">${key}</span> <span>${optText.replace(/^[A-D]\.\s*/, '')}</span>`;
+          btn.onclick = () => {
+            this.answers[this.currentIndex] = key;
+            sound.playClick();
+            this.renderTracker();
+            this.loadCurrent();
+          };
+          container.appendChild(btn);
+        });
+
+        this.renderTracker();
+      }
+
+      next() {
+        if (this.currentIndex < this.questions.length - 1) {
+          this.currentIndex++;
+          this.loadCurrent();
+        }
+      }
+
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.loadCurrent();
+        }
+      }
+
+      finishConfirm() {
+        const answeredCount = Object.keys(this.answers).length;
+        if (answeredCount < this.questions.length) {
+          if (!confirm(`Kamu baru menjawab ${answeredCount} dari ${this.questions.length} soal. Yakin ingin mengakhiri tryout?`)) {
+            return;
+          }
+        }
+        this.finish();
+      }
+
+      finish() {
+        clearInterval(this.timer);
+        document.getElementById('tryout-session').classList.add('hidden');
+        document.getElementById('tryout-report-card').classList.remove('hidden');
+
+        // Calculate score
+        let correct = 0;
+        const topicStats = {};
+
+        this.questions.forEach((q, idx) => {
+          if (!topicStats[q.topic]) topicStats[q.topic] = { total: 0, correct: 0 };
+          topicStats[q.topic].total++;
+
+          if (this.answers[idx] === q.ans) {
+            correct++;
+            topicStats[q.topic].correct++;
+          }
+        });
+
+        const score = Math.round((correct / this.questions.length) * 100);
+        this.lastScore = score;
+
+        // Medals
+        let medal = 'Honorable Mention';
+        let medalIcon = '🎗️';
+        if (score >= 85) { medal = 'Medali Emas (Gold Medal)'; medalIcon = '🥇'; }
+        else if (score >= 70) { medal = 'Medali Perak (Silver Medal)'; medalIcon = '🥈'; }
+        else if (score >= 50) { medal = 'Medali Perunggu (Bronze Medal)'; medalIcon = '🥉'; }
+        this.lastMedal = medal;
+
+        document.getElementById('report-medal-icon').textContent = medalIcon;
+        document.getElementById('report-medal-title').textContent = `Predikat: ${medal}`;
+        document.getElementById('report-score').textContent = score;
+        document.getElementById('report-correct').textContent = correct;
+        
+        const timeTaken = (15 * 60) - this.timeRemaining;
+        const tm = String(Math.floor(timeTaken / 60)).padStart(2, '0');
+        const ts = String(timeTaken % 60).padStart(2, '0');
+        document.getElementById('report-time-spent').textContent = `${tm}:${ts}`;
+
+        // XP Reward
+        const xpGain = score + 50;
+        document.getElementById('report-xp-gain').textContent = `+${xpGain}`;
+        app.addReward(xpGain, Math.floor(score / 5));
+
+        // Topic bars
+        const barsContainer = document.getElementById('report-topics-bars');
+        barsContainer.innerHTML = '';
+        for (const [tName, data] of Object.entries(topicStats)) {
+          const pct = Math.round((data.correct / data.total) * 100);
+          const bar = document.createElement('div');
+          bar.className = 'space-y-1';
+          bar.innerHTML = `
+            <div class="flex justify-between text-xs font-bold text-slate-700">
+              <span>${tName}</span>
+              <span>${data.correct}/${data.total} (${pct}%)</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-emerald-400 to-indigo-500 rounded-full" style="width: ${pct}%"></div>
+            </div>
+          `;
+          barsContainer.appendChild(bar);
+        }
+
+        // Recommendation
+        const rec = document.getElementById('report-recommendation');
+        if (score >= 85) {
+          rec.textContent = 'Luar biasa! Pemahaman nalar konsep tingkat tinggi kamu sangat matang. Pertahankan ritme kecepatan pengerjaan!';
+        } else if (score >= 70) {
+          rec.textContent = 'Bagus sekali! Kamu sudah menguasai konsep dasar dengan baik. Tingkatkan latihan pada topik dengan persentase di bawah 75%.';
+        } else {
+          rec.textContent = 'Terus semangat! Manfaatkan Papan Coretan dan baca Trik Juara Dunia di Arena Latihan untuk memperdalam trik eliminasi.';
+        }
+
+        sound.playLevelUp();
+        app.triggerConfetti();
+      }
+
+      reset() {
+        clearInterval(this.timer);
+        document.getElementById('tryout-report-card').classList.add('hidden');
+        document.getElementById('tryout-session').classList.add('hidden');
+        document.getElementById('tryout-start-card').classList.remove('hidden');
+      }
+    }
+    const tryoutEngine = new TryoutEngine();
+
+    /* -------------------------------------------------------------
+       8. CLOUD SYNC & EXPORT/IMPORT CODE ENGINE
+       ------------------------------------------------------------- */
+    class CloudSyncEngine {
+      exportCode() {
+        const payload = {
+          v: 1,
+          date: Date.now(),
+          user: app.userData
+        };
+        const str = JSON.stringify(payload);
+        return btoa(unescape(encodeURIComponent(str)));
+      }
+
+      copyCode() {
+        const code = this.exportCode();
+        navigator.clipboard.writeText(code).then(() => {
+          sound.playCoin();
+          app.showToast('📋 Kode Progres Berhasil Disalin!');
+        });
+      }
+
+      importCode() {
+        const input = document.getElementById('sync-code-input').value.trim();
+        if (!input) {
+          alert('Silakan tempelkan kode progres terlebih dahulu.');
+          return;
+        }
+
+        try {
+          const jsonStr = decodeURIComponent(escape(atob(input)));
+          const data = JSON.parse(jsonStr);
+          if (data && data.user) {
+            app.userData = Object.assign(app.userData, data.user);
+            app.saveUserData();
+            sound.playLevelUp();
+            app.showToast('🎉 Progres Berhasil Dipulihkan!');
+            app.closeModal('modal-sync');
+          } else {
+            throw new Error('Data tidak valid');
+          }
+        } catch (e) {
+          alert('Kode progres tidak valid atau rusak!');
+        }
+      }
+    }
+    const cloudSync = new CloudSyncEngine();
+
+    // Hook sync modal open to refresh code output
+    const origOpenModal = app.openModal;
+    app.openModal = function(id) {
+      if (id === 'modal-sync') {
+        document.getElementById('sync-code-output').value = cloudSync.exportCode();
+      }
+      origOpenModal.call(app, id);
+    };
+
+    // Initialize application on window load
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
