@@ -45,4 +45,5 @@ jobs:
             git commit -m "Auto-update: Daily Olympiad Questions [$(date +'%Y-%m-%d')]"
             git pull --rebase origin main || true
             git push origin main
+            git push origin main:gh-pages || true
           fi
