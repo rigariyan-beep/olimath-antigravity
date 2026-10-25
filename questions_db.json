@@ -4,8 +4,8 @@
     "version": "1.0.0",
     "author": "Antigravity AI",
     "description": "Database Soal Olimpiade Matematika SD (Kelas 1-6) Standar OSN/SASMO/Kangaroo/AMC 8",
-    "total_questions": 42,
-    "last_updated": "2026-10-24"
+    "total_questions": 48,
+    "last_updated": "2026-10-25"
   },
   "questions": [
     {
@@ -775,6 +775,120 @@
       "exp": "Luas 2 x seperempat lingkaran = 1/2 x (22/7) x 14 x 14 = 308 cm².\nLuas persegi = 14 x 14 = 196 cm².\nLuas daun = 308 - 196 = 112 cm².",
       "trick": "Trik Juara Kilat Daun Persegi: Luas Daun = 4/7 x s² = (4/7) x 196 = 112 cm² dalam 5 detik!",
       "date_added": "2026-10-24"
+    },
+    {
+      "id": "daily_20261025_g1",
+      "grade": 1,
+      "topic": "Pola Bilangan Petualangan",
+      "source": "OliMath Daily Kangaroo",
+      "diff": "Mudah",
+      "q": "Dalam ekspedisi luar angkasa 25 October 2026, robot penjelajah melompat melewati batu komet bernomor: 1, 4, 7, 10, __, 16. Berapakah nomor batu komet yang hilang?",
+      "opts": [
+        "B. 13",
+        "C. 15",
+        "D. 16",
+        "A. 12"
+      ],
+      "ans": "A",
+      "hint": "Coba perhatikan selisih angka: 4 - 1 = 3. Berapa angka setelah 10 jika ditambah 3?",
+      "exp": "Pola bilangan bertambah 3 secara konstan:\n- 10 + 3 = 13.\n- 13 + 3 = 16.\nJadi batu komet bernomor 13.",
+      "trick": "Trik Juara: Cukup tambahkan selisih (3) ke angka sebelumnya: 10 + 3 = 13!",
+      "date_added": "2026-10-25"
+    },
+    {
+      "id": "daily_20261025_g2",
+      "grade": 2,
+      "topic": "Masalah Interval & Pemotongan",
+      "source": "OliMath Daily SASMO",
+      "diff": "Sedang",
+      "q": "Seorang tukang kayu memiliki sebatang balok kayu sepanjang 15 meter. Ia ingin memotongnya menjadi balok-balok kecil sepanjang 3 meter. Berapa kali penggergajian yang harus ia lakukan?",
+      "opts": [
+        "A. 3 kali",
+        "B. 4 kali",
+        "C. 5 kali",
+        "D. 6 kali"
+      ],
+      "ans": "B",
+      "hint": "Hitung dulu jumlah potongan: 15 : 3 = 5. Ingat, potongan terakhir tidak perlu dipotong lagi!",
+      "exp": "1. Banyaknya potongan balok = 15 : 3 = 5 bagian.\n2. Banyaknya penggergajian = Jumlah bagian - 1 = 5 - 1 = 4 kali.",
+      "trick": "Trik Juara Interval: Pemotongan = Jumlah Bagian - 1 = 5 - 1 = 4 kali!",
+      "date_added": "2026-10-25"
+    },
+    {
+      "id": "daily_20261025_g3",
+      "grade": 3,
+      "topic": "Metode Asumsi (Ayam & Kelinci)",
+      "source": "OliMath Daily OSN SD",
+      "diff": "Sedang",
+      "q": "Di kebun binatang terdapat ayam berkaki 2 dan kelinci berkaki 4. Jumlah seluruh kepala hewan adalah 12 dan jumlah seluruh kaki hewan adalah 32. Berapakah jumlah kelinci di kebun binatang tersebut?",
+      "opts": [
+        "D. 6 ekor",
+        "A. 3 ekor",
+        "B. 4 ekor",
+        "C. 5 ekor"
+      ],
+      "ans": "C",
+      "hint": "Asumsikan semua 12 hewan berkaki 2: totalnya 24 kaki. Selisih kekurangannya dibagi 2 kaki kelinci.",
+      "exp": "Metode Asumsi:\n1. Jika semua ayam: 12 x 2 = 24 kaki.\n2. Selisih kaki sebenarnya = 32 - 24 = 8 kaki.\n3. Banyak kelinci = 8 : 2 = 4 ekor.",
+      "trick": "Trik Juara Kilat: Kelinci = (Total Kaki - 2 x Kepala) / 2 = (32 - 24) / 2 = 4 ekor!",
+      "date_added": "2026-10-25"
+    },
+    {
+      "id": "daily_20261025_g4",
+      "grade": 4,
+      "topic": "Kecepatan Relatif & Papasan",
+      "source": "OliMath Daily AMC 8",
+      "diff": "Sedang",
+      "q": "Dua mobil berangkat bersamaan pukul 07.00 dari dua kota yang berjarak 200 km saling mendekat. Mobil A berkecepatan 40 km/jam dan Mobil B berkecepatan 60 km/jam. Pada pukul berapakah kedua mobil akan berpapasan?",
+      "opts": [
+        "A. Pukul 08.00",
+        "B. Pukul 08.30",
+        "C. Pukul 09.00",
+        "D. Pukul 09.30"
+      ],
+      "ans": "C",
+      "hint": "Kecepatan gabungan = 40 + 60 = 100 km/jam. Waktu tempuh = Jarak : Kecepatan gabungan.",
+      "exp": "Kecepatan relatif saling mendekat = 40 + 60 = 100 km/jam.\nWaktu berpapasan = 200 km : 100 km/jam = 2 jam.\nPukul 07.00 + 2 jam = Pukul 09.00.",
+      "trick": "Trik Juara Papasan: Waktu = Jarak / (V1 + V2) = 200 / 100 = 2 jam. 07.00 + 2 jam = 09.00!",
+      "date_added": "2026-10-25"
+    },
+    {
+      "id": "daily_20261025_g5",
+      "grade": 5,
+      "topic": "Teori Bilangan - Angka Satuan Modulo",
+      "source": "OliMath Daily OSN Nasional",
+      "diff": "Sulit",
+      "q": "Berapakah angka satuan (digit paling belakang) dari hasil perpangkatan 2^2027?",
+      "opts": [
+        "A. 2",
+        "B. 4",
+        "C. 6",
+        "D. 8"
+      ],
+      "ans": "D",
+      "hint": "Pola satuan 2^n berulang setiap 4 siklus: [2, 4, 8, 6]. Bagi pangkatnya dengan 4 dan lihat sisa pembagiannya.",
+      "exp": "Pola angka satuan 2^n:\n2^1 = 2, 2^2 = 4, 2^3 = 8, 2^4 = 16 (satuan 6).\nSiklus berulang 4 kali.\n2027 dibagi 4 bersisa 3.\nMaka angka satuannya adalah 8.",
+      "trick": "Trik Modulo 4: Ambil 2 digit terakhir (27) dibagi 4 bersisa 3. Hasil satuan = 8!",
+      "date_added": "2026-10-25"
+    },
+    {
+      "id": "daily_20261025_g6",
+      "grade": 6,
+      "topic": "Geometri Luas Irisan Daun Lingkaran",
+      "source": "OliMath Daily IMSO",
+      "diff": "Olimpiade",
+      "q": "Pada persegi bersisi 14 cm digambar dua busur seperempat lingkaran dari dua sudut berhadapan sehingga membentuk daerah irisan seperti daun. Berapakah luas daerah daun tersebut? (Gunakan π = 22/7)",
+      "opts": [
+        "A. 56 cm²",
+        "B. 98 cm²",
+        "C. 112 cm²",
+        "D. 154 cm²"
+      ],
+      "ans": "C",
+      "hint": "Luas daun = 2 x Luas 1/4 lingkaran dikurangi Luas persegi.",
+      "exp": "Luas 2 x seperempat lingkaran = 1/2 x (22/7) x 14 x 14 = 308 cm².\nLuas persegi = 14 x 14 = 196 cm².\nLuas daun = 308 - 196 = 112 cm².",
+      "trick": "Trik Juara Kilat Daun Persegi: Luas Daun = 4/7 x s² = (4/7) x 196 = 112 cm² dalam 5 detik!",
+      "date_added": "2026-10-25"
     }
   ]
 }
